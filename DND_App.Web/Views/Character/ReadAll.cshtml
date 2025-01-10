@@ -1,0 +1,75 @@
+﻿@model List<DND_App.Web.Models.Domain.Character>
+
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>All Characters</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Character Name</th>
+                    <th>Player Name</th>
+                    <th>Race</th>
+                    <th>Class</th>
+                    <th>Strength</th>
+                    <th>Dexterity</th>
+                    <th>Constitution</th>
+                    <th>Intellegence</th>
+                    <th>Wisdom</th>
+                    <th>Charisma</th>
+                    <th>Level</th>
+                    <th>Experience Points</th>
+                    <th>Passive Wisdom</th>
+                    <th>Inspiration</th>
+                    <th>Proficiency Bonus</th>
+                    <th>Armor Class</th>
+                    <th>Speed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var character in Model)
+                {
+                    <tr>
+                        <td>@character.CharacterName</td>
+                        <td>@character.PlayerName</td>
+                        <td>@character.CharacterRace.Name</td>
+                        <td>@character.CharacterClass.Name</td>
+                        <td>@character.Strength</td>
+                        <td>@character.Dexterity</td>
+                        <td>@character.Constitution</td>
+                        <td>@character.Intelligence</td>
+                        <td>@character.Wisdom</td>
+                        <td>@character.Charisma</td>
+                        <td>@character.Level</td>
+                        <td>@character.ExperiencePoints</td>
+                        <td>@character.PassiveWisdom</td>
+                        <td>@character.Inspiration</td>
+                        <td>@character.ProficiencyBonus</td>
+                        <td>@character.ArmorClass</td>
+                        <td>@character.Speed</td>
+                        <td>
+                            <a asp-area=""
+                               asp-controller="Character"
+                               asp-action="Edit"
+                               asp-route-id="@character.Id">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                 }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No characters found!</p>
+        }
+</div>

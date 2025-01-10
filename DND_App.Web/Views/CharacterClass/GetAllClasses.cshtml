@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DND_App.Web.Models.Domain.CharacterClass>
+
+@{
+}
+
+<div class="bg-primary bg-opacity-10 my-5">
+    <div class="container">
+        <h1>Character Classes</h1>
+    </div>
+</div>
+<div class="container">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Hit Die</th>
+                    <th>Abilities</th>
+                    <th>Saving Throws</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var characterClass in Model)
+                {
+                    <tr>
+                        <td>@characterClass.Id</td>
+                        <td>@characterClass.Name</td>
+                        <td>@characterClass.HitDie</td>
+                        <td>
+                            @if (characterClass.Abilities != null && characterClass.Abilities.Any())
+                            {
+                                <ul>
+                                    @foreach (var ability in characterClass.Abilities)
+                                    {
+                                        <li>@ability.Name</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p class="text-muted">No class abilities</p>
+                            }
+                        </td>
+                        <td>
+                            @if (characterClass.SavingThrows != null && characterClass.SavingThrows.Any())
+                            {
+                                <ul>
+                                    @foreach (var savingThrow in characterClass.SavingThrows)
+                                    {
+                                        <li>@savingThrow.Name</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p class="text-muted">No class saving throws</p>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted">No character classes available.</p>
+    }
+</div>
