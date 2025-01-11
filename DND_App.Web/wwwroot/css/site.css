@@ -1,89 +1,132 @@
-html {
-  font-size: 14px;
+/* Variables for consistent colors and spacing */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #343a40;
+    --title-color: red;
+    --light-color: #ffffff;
+    --dark-color: #000000;
+    --btn-hover-opacity: 0.5;
+    --font-family: Arial, sans-serif;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-header {
-    background: transparent;
-}
-
+/* General Styling */
 body {
-    display: flex;
-    flex-direction: column;
+    font-family: var(--font-family);
+    line-height: 1.6;
+    margin: 0;
+    
 }
 
-main {
-    flex: 1; /* Allow main content to expand and push footer to the bottom */
-}
-
-footer {
-    text-align: center;
-    margin-top: auto;
-}
-
-.navbar-nav .dropdown-menu {
-    background: transparent !important;
-    border: none;
-    list-style: none; /* Removes the dot */
-    padding: 0; /* Ensures proper padding */
-    margin: 0; /* Resets any unexpected margin */
-}
-
-body.home-index {
-    display: flex;
-    background-image: url('https://wallpapersmug.com/download/1680x1050/16a437/dragon-and-warrior-fantasy-art.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.navbar {
-    background-color: transparent !important;
-    border: none;
-}
-
-.navbar-nav .nav-link {
-    color: red !important; /* Change text color for visibility */
-}
-
-.navbar-brand {
-    color: red !important; /* Ensure brand name is visible */
-}
-
-.btn {
-    background-color: rgba(255, 255, 255, 0.2) !important; /* Transparent button background */
-    color: red !important; /* Button text color */
-    border: 1px solid white; /* Optional: Add border for visibility */
-}
-
-    .btn:hover {
-        background-color: rgba(255, 255, 255, 0.5) !important; /* Slightly less transparent on hover */
-        color: black !important; /* Optional: Change hover text color */
+    body.home-index {
+        background-image: url('https://wallpapersmug.com/download/1680x1050/16a437/dragon-and-warrior-fantasy-art.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
-
-
 .home-heading {
-    color: red;
-    White color font-size: 3rem;
-    Adjust size text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    Optional text shadow
+    color: var(--title-color); /* Use the custom variable for consistency */
+    font-size: 3rem; /* Adjust size if needed */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for better visibility */
 }
 
 
+/* Header Styling */
+header {
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+.navbar {
+    background-color: var(--secondary-color);
+    border-bottom: 1px solid #444;
+}
+
+.navbar-brand, .nav-link {
+    color: var(--light-color) !important;
+}
+
+    .navbar-brand:hover, .nav-link:hover {
+        color: var(--primary-color) !important;
+    }
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-sm {
+    font-size: 0.875rem;
+    padding: 0.3rem 0.6rem;
+}
+
+.btn-success:hover, .btn-primary:hover, .btn-danger:hover {
+    opacity: var(--btn-hover-opacity);
+}
+
+/* Main Content */
+main {
+    flex: 1; /* Push footer to the bottom */
+    padding: 1rem;
+}
+
+/* Footer Styling */
+footer {
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+th, td {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #fff;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+    a:hover {
+        color: var(--dark-color);
+        text-decoration: underline;
+    }
+
+.table thead th {
+    position: sticky;
+    top: 0; /* Sticks to the top of the container */
+    z-index: 1; /* Ensures it stays above the table rows */
+    background-color: var(--secondary-color); /* Matches your header color */
+    color: var(--light-color); /* Text color for the header */
+}
 

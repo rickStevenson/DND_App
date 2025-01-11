@@ -1,0 +1,24 @@
+{
+  "equipment": [
+    {
+      "name": "Longsword",
+      "description": "A finely balanced blade, perfect for a skilled warrior.",
+      "weight": 3.0
+    },
+    {
+      "name": "Shield",
+      "description": "A round shield emblazoned with the crest of a noble house.",
+      "weight": 6.0
+    },
+    {
+      "name": "Backpack",
+      "description": "A sturdy pack containing adventuring essentials.",
+      "weight": 5.0
+    },
+    {
+      "name": "Rope",
+      "description": "50 feet of hempen rope.",
+      "weight": 10.0
+    }
+  ]
+}

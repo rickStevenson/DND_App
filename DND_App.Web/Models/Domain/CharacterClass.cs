@@ -6,8 +6,9 @@
         public string Name { get; set; }
         public int HitDie { get; set; }
 
-        public ICollection<ClassAbility> Abilities { get; set; } = new List<ClassAbility>();
-        public ICollection<ClassSavingThrow> SavingThrows { get; set; } = new List<ClassSavingThrow>();
+        public ICollection<ClassAbility> ClassAbilities { get; set; } = new List<ClassAbility>();
+        public ICollection<ClassSavingThrow> ClassSavingThrows { get; set; } = new List<ClassSavingThrow>();
 
+        public string FeaturesAndTraitsJson { get; set; }
     }
 }

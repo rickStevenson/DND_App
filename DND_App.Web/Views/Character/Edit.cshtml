@@ -1,40 +1,32 @@
-﻿@model DND_App.Web.Models.ViewModels.CharacterRequest
-@{
-}
-<div class="bg-primary bg-opacity-10 py-3">
+﻿@model DND_App.Web.Models.ViewModels.EditCharacterRequest
+
+<h2>Edit Character</h2>
+
+<form method="post">
     <div class="container">
-        <h1>Create your character</h1>
-    </div>
-</div>
-
-<div class="container py-3">
-    <form asp-action="Create" method="post">
-        <div>
-            <label asp-for="CharacterName"></label>
-            <input asp-for="CharacterName" />
-            <span asp-validation-for="CharacterName"></span>
+        <div class="form-group">
+            <label for="CharacterName">Character Name</label>
+            <input asp-for="CharacterName" class="form-control" id="CharacterName" />
+            <span asp-validation-for="CharacterName" class="text-danger"></span>
         </div>
-
-        <div>
-            <label>Class</label>
-            <select asp-for="CharacterClassId">
-                @foreach (var c in ViewBag.Classes)
+        <div class="form-group">
+            <label for="CharacterClassId">Character Class</label>
+            <select asp-for="CharacterClassId" class="form-control" id="CharacterClassId">
+                @foreach (var characterClass in ViewBag.Classes)
                 {
-                    <option value="@c.Id">@c.Name</option>
+                    <option value="@characterClass.Id">@characterClass.Name</option>
                 }
             </select>
         </div>
-
-        <div>
-            <label>Race</label>
-            <select asp-for="CharacterRaceId">
-                @foreach (var r in ViewBag.Races)
+        <div class="form-group">
+            <label for="CharacterRaceId">Character Race</label>
+            <select asp-for="CharacterRaceId" class="form-control" id="CharacterRaceId">
+                @foreach (var characterRace in ViewBag.Races)
                 {
-                    <option value="@r.Id">@r.Name</option>
+                    <option value="@characterRace.Id">@characterRace.Name</option>
                 }
             </select>
         </div>
-
         <div>
             <label asp-for="Strength"></label>
             <input asp-for="Strength" />
@@ -101,6 +93,20 @@
             <span asp-validation-for="Speed"></span>
         </div>
 
-        <button type="submit">Create</button>
-    </form>
-</div>
+        <div class="mb-3 d-flex">
+            <form method="post" asp-action="Edit">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+
+            <button type="submit" class="btn btn-danger ms-2"
+                    asp-area=""
+                    asp-controller="Character"
+                    asp-action="Delete"
+                    asp-route-id="@Model.Id">
+                    Delete
+            </button>
+        </div>
+    </div>
+</form>
+

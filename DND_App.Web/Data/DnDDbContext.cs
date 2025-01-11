@@ -15,10 +15,9 @@ namespace DND_App.Web.Data
     {
         public DbSet<Character> Characters { get; set; }
         public DbSet<CharacterClass> CharacterClasses { get; set; }
-        public DbSet<ClassAbility> Abilities { get; set; }
-        public DbSet<ClassSavingThrow> SavingThrows { get; set; }
+        public DbSet<ClassAbility> ClassAbilities { get; set; }
+        public DbSet<ClassSavingThrow> ClassSavingThrows { get; set; }
         public DbSet<CharacterRace> CharacterRaces { get; set; }
-        //public DbSet<IdentityUser<Guid>> IdentityUsers { get; set; }
 
         public DnDDbContext(DbContextOptions<DnDDbContext> options) : base(options)
         {
@@ -41,12 +40,12 @@ namespace DND_App.Web.Data
 
             modelBuilder.Entity<ClassAbility>()
                .HasOne(ca => ca.CharacterClass)
-               .WithMany(cc => cc.Abilities)
+               .WithMany(cc => cc.ClassAbilities)
                .HasForeignKey(ca => ca.CharacterClassId);
 
             modelBuilder.Entity<ClassSavingThrow>()
                 .HasOne(cst => cst.CharacterClass)
-                .WithMany(cc => cc.SavingThrows)
+                .WithMany(cc => cc.ClassSavingThrows)
                 .HasForeignKey(cst => cst.CharacterClassId);
 
             modelBuilder.Entity<RaceAbility>()
@@ -76,73 +75,85 @@ namespace DND_App.Web.Data
                 {
                     Id = 1,
                     Name = "Barbarian",
-                    HitDie = 12
+                    HitDie = 12,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 2,
                     Name = "Bard",
-                    HitDie = 8
+                    HitDie = 8,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 3,
                     Name = "Cleric",
-                    HitDie = 8
+                    HitDie = 8,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 4,
                     Name = "Druid",
-                    HitDie = 8
+                    HitDie = 8,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 5,
                     Name = "Fighter",
-                    HitDie = 10
+                    HitDie = 10,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 6,
                     Name = "Monk",
-                    HitDie = 8
+                    HitDie = 8,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 7,
                     Name = "Paladin",
-                    HitDie = 10
+                    HitDie = 10,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 8,
                     Name = "Ranger",
-                    HitDie = 10
+                    HitDie = 10,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 9,
                     Name = "Rogue",
-                    HitDie = 8
+                    HitDie = 8,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 10,
                     Name = "Sorcerer",
-                    HitDie = 6
+                    HitDie = 6,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 11,
                     Name = "Warlock",
-                    HitDie = 8
+                    HitDie = 8,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterClass
                 {
                     Id = 12,
                     Name = "Wizard",
-                    HitDie = 6
+                    HitDie = 6,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 }
             );
             modelBuilder.Entity<ClassAbility>().HasData(
@@ -208,7 +219,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 2,
                     WisdomBonus = 0,
-                    CharismaBonus = 1
+                    CharismaBonus = 1,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -219,7 +231,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 1
+                    CharismaBonus = 1,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -230,7 +243,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 2,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -241,7 +255,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -252,7 +267,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 2,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -263,7 +279,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -274,7 +291,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -285,7 +303,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -296,7 +315,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 1,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -307,7 +327,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 2,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -318,7 +339,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 1,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -329,7 +351,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 2
+                    CharismaBonus = 2,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -340,7 +363,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -351,7 +375,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 1,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -362,7 +387,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 1,
                     IntelligenceBonus = 1,
                     WisdomBonus = 1,
-                    CharismaBonus = 1
+                    CharismaBonus = 1,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -373,7 +399,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -384,7 +411,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -395,7 +423,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 1,
                     WisdomBonus = 0,
-                    CharismaBonus = 2
+                    CharismaBonus = 2,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -406,7 +435,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 1,
                     IntelligenceBonus = 0,
                     WisdomBonus = 0,
-                    CharismaBonus = 0
+                    CharismaBonus = 0,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 },
                 new CharacterRace
                 {
@@ -417,7 +447,8 @@ namespace DND_App.Web.Data
                     ConstitutionBonus = 0,
                     IntelligenceBonus = 1,
                     WisdomBonus = 0,
-                    CharismaBonus = 2
+                    CharismaBonus = 2,
+                    FeaturesAndTraitsJson = LoadJsonFile("featuresAndTraits.json")
                 }
             );
             modelBuilder.Entity<RaceAbility>().HasData(
@@ -593,6 +624,13 @@ namespace DND_App.Web.Data
                 new RaceToolProficiency { Id = 98, Name = Constants.ForgeryKit, CharacterRaceId = 20 },
                 new RaceToolProficiency { Id = 99, Name = Constants.CalligraphersSupplies, CharacterRaceId = 20 }
             );
+        }
+
+
+        private static string LoadJsonFile(string fileName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "SeedData", fileName);
+            return File.Exists(filePath) ? File.ReadAllText(filePath) : string.Empty;
         }
 
     }

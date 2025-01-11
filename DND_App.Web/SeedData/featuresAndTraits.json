@@ -1,0 +1,16 @@
+{
+  "featuresAndTraits": [
+    {
+      "name": "Darkvision",
+      "description": "Can see in darkness up to 60 feet as if it were dim light."
+    },
+    {
+      "name": "Fey Ancestry",
+      "description": "Advantage on saving throws against being charmed, and magic can’t put you to sleep."
+    },
+    {
+      "name": "Lay on Hands",
+      "description": "Can heal wounds up to a total amount equal to five times your paladin level."
+    }
+  ]
+}

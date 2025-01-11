@@ -3,9 +3,9 @@
 @{
 }
 
-<div class="bg-primary bg-opacity-10 my-5">
+<div class="bg-secondary bg-opacity-10 py-5">
     <div class="container">
-        <h1>Character Classes</h1>
+        <h1>Classes</h1>
     </div>
 </div>
 <div class="container">
@@ -29,10 +29,10 @@
                         <td>@characterClass.Name</td>
                         <td>@characterClass.HitDie</td>
                         <td>
-                            @if (characterClass.Abilities != null && characterClass.Abilities.Any())
+                            @if (characterClass.ClassAbilities != null && characterClass.ClassAbilities.Any())
                             {
                                 <ul>
-                                    @foreach (var ability in characterClass.Abilities)
+                                    @foreach (var ability in characterClass.ClassAbilities)
                                     {
                                         <li>@ability.Name</li>
                                     }
@@ -44,10 +44,10 @@
                             }
                         </td>
                         <td>
-                            @if (characterClass.SavingThrows != null && characterClass.SavingThrows.Any())
+                            @if (characterClass.ClassSavingThrows != null && characterClass.ClassSavingThrows.Any())
                             {
                                 <ul>
-                                    @foreach (var savingThrow in characterClass.SavingThrows)
+                                    @foreach (var savingThrow in characterClass.ClassSavingThrows)
                                     {
                                         <li>@savingThrow.Name</li>
                                     }

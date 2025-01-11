@@ -1,0 +1,19 @@
+{
+  "treasure": [
+    {
+      "name": "Bag of Holding",
+      "description": "A magical bag that can hold far more than its exterior dimensions suggest.",
+      "value": 500
+    },
+    {
+      "name": "Gold Coins",
+      "description": "A collection of shiny gold coins.",
+      "value": 120
+    },
+    {
+      "name": "Ruby Necklace",
+      "description": "An ornate necklace adorned with a large ruby.",
+      "value": 2000
+    }
+  ]
+}

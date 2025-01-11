@@ -16,8 +16,8 @@ namespace DND_App.Web.Repository
         public async Task<IEnumerable<CharacterClass>> GetAllClassesAsync()
         {
             var classes = await dnDDbContext.CharacterClasses
-                .Include(a => a.Abilities)
-                .Include(st => st.SavingThrows)
+                .Include(a => a.ClassAbilities)
+                .Include(st => st.ClassSavingThrows)
                 .ToListAsync();
 
             return classes;

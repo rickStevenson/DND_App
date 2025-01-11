@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    [Migration("20250110145059_Initial DnDDbContext")]
-    partial class InitialDnDDbContext
+    [Migration("20250111225937_RenameAbilitiesToClassAbilities")]
+    partial class RenameAbilitiesToClassAbilities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,6 +108,10 @@ namespace DND_App.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("FeaturesAndTraitsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("HitDie")
                         .HasColumnType("int");
 
@@ -123,72 +127,84 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 1,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 12,
                             Name = "Barbarian"
                         },
                         new
                         {
                             Id = 2,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Bard"
                         },
                         new
                         {
                             Id = 3,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Cleric"
                         },
                         new
                         {
                             Id = 4,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Druid"
                         },
                         new
                         {
                             Id = 5,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 10,
                             Name = "Fighter"
                         },
                         new
                         {
                             Id = 6,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Monk"
                         },
                         new
                         {
                             Id = 7,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 10,
                             Name = "Paladin"
                         },
                         new
                         {
                             Id = 8,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 10,
                             Name = "Ranger"
                         },
                         new
                         {
                             Id = 9,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Rogue"
                         },
                         new
                         {
                             Id = 10,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 6,
                             Name = "Sorcerer"
                         },
                         new
                         {
                             Id = 11,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Warlock"
                         },
                         new
                         {
                             Id = 12,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 6,
                             Name = "Wizard"
                         });
@@ -210,6 +226,10 @@ namespace DND_App.Web.Migrations
 
                     b.Property<int>("DexterityBonus")
                         .HasColumnType("int");
+
+                    b.Property<string>("FeaturesAndTraitsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IntelligenceBonus")
                         .HasColumnType("int");
@@ -235,6 +255,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 1,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 2,
                             Name = "Aasimar",
                             StrengthBonus = 0,
@@ -246,6 +267,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 1,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Dragonborn",
                             StrengthBonus = 2,
@@ -257,6 +279,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 2,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Dwarf",
                             StrengthBonus = 0,
@@ -268,6 +291,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 2,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Elf",
                             StrengthBonus = 0,
@@ -279,6 +303,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Firbolg",
                             StrengthBonus = 1,
@@ -290,6 +315,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 1,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Air Genasi",
                             StrengthBonus = 0,
@@ -301,6 +327,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Earth Genasi",
                             StrengthBonus = 1,
@@ -312,6 +339,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 1,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Fire Genasi",
                             StrengthBonus = 0,
@@ -323,6 +351,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Water Genasi",
                             StrengthBonus = 0,
@@ -334,6 +363,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 2,
                             Name = "Gnome",
                             StrengthBonus = 0,
@@ -345,6 +375,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Goliath",
                             StrengthBonus = 2,
@@ -356,6 +387,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Half-Elf",
                             StrengthBonus = 0,
@@ -367,6 +399,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 2,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Halfling",
                             StrengthBonus = 0,
@@ -378,6 +411,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Half-Orc",
                             StrengthBonus = 2,
@@ -389,6 +423,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 1,
                             ConstitutionBonus = 1,
                             DexterityBonus = 1,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 1,
                             Name = "Human",
                             StrengthBonus = 1,
@@ -400,6 +435,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 2,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Kenku",
                             StrengthBonus = 0,
@@ -411,6 +447,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 2,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Tabaxi",
                             StrengthBonus = 0,
@@ -422,6 +459,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 1,
                             Name = "Tiefling",
                             StrengthBonus = 0,
@@ -433,6 +471,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Tortle",
                             StrengthBonus = 2,
@@ -444,6 +483,7 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
+                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 1,
                             Name = "Yuan-Ti Pureblood",
                             StrengthBonus = 0,

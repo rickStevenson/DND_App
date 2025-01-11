@@ -29,18 +29,58 @@ namespace DND_App.Web.Repository
                 .ToListAsync();
         }
 
-        public Task<Character?> ReadByIdAsync(int id)
+        public async Task<Character?> ReadByIdAsync(int id)
         {
-            throw new NotImplementedException();
+           return await dndDbContext.Characters
+                .Include(c => c.CharacterClass)
+                .Include(c => c.CharacterRace)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public Task<Character?> UpdateAsync(Character character)
+        public async Task<Character?> UpdateAsync(Character character)
         {
-            throw new NotImplementedException();
+            var existingCharacter = await dndDbContext.Characters
+                .Include(c => c.CharacterClass)
+                .Include(c => c.CharacterRace)
+                .FirstOrDefaultAsync(post => post.Id == character.Id);
+
+            if (existingCharacter != null)
+            {
+                existingCharacter.Id = character.Id;
+                existingCharacter.CharacterName = character.CharacterName;
+                existingCharacter.CharacterRace.Name = character.CharacterRace.Name;
+                existingCharacter.CharacterClass.Name = character.CharacterClass.Name;
+                existingCharacter.Strength = character.Strength;
+                existingCharacter.Dexterity = character.Dexterity;
+                existingCharacter.Constitution = character.Constitution;
+                existingCharacter.Intelligence = character.Intelligence;
+                existingCharacter.Wisdom = character.Wisdom;
+                existingCharacter.Charisma = character.Charisma;
+                existingCharacter.Level = character.Level;
+                existingCharacter.ExperiencePoints = character.ExperiencePoints;
+                existingCharacter.PassiveWisdom = character.PassiveWisdom;
+                existingCharacter.Inspiration = character.Inspiration;
+                existingCharacter.ProficiencyBonus = character.ProficiencyBonus;
+                existingCharacter.ArmorClass = character.ArmorClass;
+                existingCharacter.Speed = character.Speed;
+            }
+
+            await dndDbContext.SaveChangesAsync();
+            return existingCharacter;
         }
-        public Task<Character?> DeleteAsync(int id)
+        public async Task<Character?> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var existingCharacter = await dndDbContext.Characters.FindAsync(id);
+
+            if (existingCharacter != null)
+            {
+                dndDbContext.Characters.Remove(existingCharacter);
+                await dndDbContext.SaveChangesAsync();
+
+                return existingCharacter;
+            }
+
+            return null;
         }
     }
 }

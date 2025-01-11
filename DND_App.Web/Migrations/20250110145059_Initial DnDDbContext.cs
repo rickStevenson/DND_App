@@ -72,7 +72,7 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Abilities",
+                name: "ClassAbilities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -92,7 +92,7 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SavingThrows",
+                name: "ClassSavingThrows",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -266,7 +266,7 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Abilities",
+                table: "ClassAbilities",
                 columns: new[] { "Id", "CharacterClassId", "Name" },
                 values: new object[,]
                 {
@@ -485,7 +485,7 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "SavingThrows",
+                table: "ClassSavingThrows",
                 columns: new[] { "Id", "CharacterClassId", "Name" },
                 values: new object[,]
                 {
@@ -517,7 +517,7 @@ namespace DND_App.Web.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Abilities_CharacterClassId",
-                table: "Abilities",
+                table: "ClassAbilities",
                 column: "CharacterClassId");
 
             migrationBuilder.CreateIndex(
@@ -552,7 +552,7 @@ namespace DND_App.Web.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_SavingThrows_CharacterClassId",
-                table: "SavingThrows",
+                table: "ClassSavingThrows",
                 column: "CharacterClassId");
         }
 
@@ -560,7 +560,7 @@ namespace DND_App.Web.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Abilities");
+                name: "ClassAbilities");
 
             migrationBuilder.DropTable(
                 name: "Characters");
@@ -575,7 +575,7 @@ namespace DND_App.Web.Migrations
                 name: "RaceWeaponProficiency");
 
             migrationBuilder.DropTable(
-                name: "SavingThrows");
+                name: "ClassSavingThrows");
 
             migrationBuilder.DropTable(
                 name: "IdentityUser<Guid>");

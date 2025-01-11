@@ -1,0 +1,22 @@
+{
+  "attacks": [
+    {
+      "name": "Greatsword",
+      "damage": "2d6 + 3",
+      "damageType": "Slashing",
+      "attackBonus": 5
+    },
+    {
+      "name": "Fireball",
+      "damage": "8d6",
+      "damageType": "Fire",
+      "attackBonus": 7
+    },
+    {
+      "name": "Unarmed Strike",
+      "damage": "1d4 + 2",
+      "damageType": "Bludgeoning",
+      "attackBonus": 4
+    }
+  ]
+}
