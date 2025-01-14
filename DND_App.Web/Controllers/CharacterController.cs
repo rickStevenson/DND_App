@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using DND_App.Web.Models.ViewModels;
+using Ganss.Xss;
 
 namespace DND_App.Web.Controllers
 {
@@ -41,6 +42,9 @@ namespace DND_App.Web.Controllers
 
             var user = await userManager.GetUserAsync(User);
 
+            var sanitizer = new HtmlSanitizer();
+            characterRequest.CharacterBackstory = sanitizer.Sanitize(characterRequest.CharacterBackstory);
+
             var character = new Character
             {
                 CharacterName = characterRequest.CharacterName,
@@ -62,27 +66,25 @@ namespace DND_App.Web.Controllers
 
                 // User-related properties
                 UserId = Guid.Parse(user.Id),
-                PlayerName = user.UserName
+                PlayerName = user.UserName,
+
+                // Nullable properties - optional mapping
+                Age = characterRequest.Age,
+                Height = characterRequest.Height,
+                Weight = characterRequest.Weight,
+                Eyes = characterRequest.Eyes,
+                Skin = characterRequest.Skin,
+                Hair = characterRequest.Hair,
+                PersonalityTraits = characterRequest.PersonalityTraits,
+                Ideals = characterRequest.Ideals,
+                Bonds = characterRequest.Bonds,
+                Flaws = characterRequest.Flaws,
+                CharacterBackstory = characterRequest.CharacterBackstory,
+                Alignment = characterRequest.Alignment,
+                EncumbranceStatus = characterRequest.EncumbranceStatus,
+                CharacterImage = characterRequest.CharacterImage
 
                 //TotalWeight = characterRequest.TotalWeight,
-
-                //// Nullable properties - optional mapping
-                //Age = characterRequest.Age,
-                //Height = characterRequest.Height,
-                //Weight = characterRequest.Weight,
-                //Eyes = characterRequest.Eyes,
-                //Skin = characterRequest.Skin,
-                //Hair = characterRequest.Hair,
-                //PersonalityTraits = characterRequest.PersonalityTraits,
-                //Ideals = characterRequest.Ideals,
-                //Bonds = characterRequest.Bonds,
-                //Flaws = characterRequest.Flaws,
-                //CharacterBackstory = characterRequest.CharacterBackstory,
-                //Alignment = characterRequest.Alignment,
-                //EncumbranceStatus = characterRequest.EncumbranceStatus,
-                //CharacterImage = characterRequest.CharacterImage,
-
-
             };
 
             await characterRepository.CreateAsync(character);
@@ -120,8 +122,10 @@ namespace DND_App.Web.Controllers
 
             if (character == null)
             {
-                return NotFound(); // Return 404 if character doesn't exist
+                return NotFound();
             }
+
+            var sanitizer = new HtmlSanitizer();
 
             // Prepare the view model with the character's current data
             var editCharacterRequest = new EditCharacterRequest
@@ -142,7 +146,21 @@ namespace DND_App.Web.Controllers
                 Inspiration = character.Inspiration,
                 ProficiencyBonus = character.ProficiencyBonus,
                 ArmorClass = character.ArmorClass,
-                Speed = character.Speed
+                Speed = character.Speed,
+                Age = character.Age,
+                Height = character.Height,
+                Weight = character.Weight,
+                Eyes = character.Eyes,
+                Skin = character.Skin,
+                Hair = character.Hair,
+                PersonalityTraits = character.PersonalityTraits,
+                Ideals = character.Ideals,
+                Bonds = character.Bonds,
+                Flaws = character.Flaws,
+                CharacterBackstory = character.CharacterBackstory,
+                Alignment = character.Alignment,
+                EncumbranceStatus = character.EncumbranceStatus,
+                CharacterImage = character.CharacterImage
             };
 
             // Populate the ViewBag for dropdowns (Character Classes and Races)
@@ -172,6 +190,9 @@ namespace DND_App.Web.Controllers
                 return NotFound(); // Return 404 if character doesn't exist
             }
 
+            var sanitizer = new HtmlSanitizer();
+            editCharacterRequest.CharacterBackstory = sanitizer.Sanitize(editCharacterRequest.CharacterBackstory);
+
             // Update the character properties with the new data
             character.Id = editCharacterRequest.Id;
             character.CharacterName = editCharacterRequest.CharacterName;
@@ -190,6 +211,19 @@ namespace DND_App.Web.Controllers
             character.ProficiencyBonus = editCharacterRequest.ProficiencyBonus;
             character.ArmorClass = editCharacterRequest.ArmorClass;
             character.Speed = editCharacterRequest.Speed;
+            character.Age = editCharacterRequest.Age;
+            character.Height = editCharacterRequest.Height;
+            character.Weight = editCharacterRequest.Weight;
+            character.Eyes = editCharacterRequest.Eyes;
+            character.Skin = editCharacterRequest.Skin;
+            character.Hair = editCharacterRequest.Hair;
+            character.PersonalityTraits = editCharacterRequest.PersonalityTraits;
+            character.Ideals = editCharacterRequest.Ideals;
+            character.Bonds = editCharacterRequest.Bonds;
+            character.Flaws = editCharacterRequest.Flaws;
+            character.CharacterBackstory = editCharacterRequest.CharacterBackstory;
+            character.Alignment = editCharacterRequest.Alignment;
+            character.CharacterImage = editCharacterRequest.CharacterImage;
 
             // Save changes via the repository
             await characterRepository.UpdateAsync(character);
@@ -211,5 +245,27 @@ namespace DND_App.Web.Controllers
 
             return RedirectToAction("Edit", new {id = editCharacterRequest?.Id});
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UserCharacters()
+        {
+            // Get the currently logged-in user
+            var user = await userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
+
+            // Fetch characters created by the logged-in user
+            var userCharacters = await dndDbContext.Characters
+                .Include(c => c.CharacterClass)
+                .Include(c => c.CharacterRace)
+                .Where(c => c.UserId == Guid.Parse(user.Id))
+                .ToListAsync();
+
+            return View(userCharacters);
+        }
+
     }
 }

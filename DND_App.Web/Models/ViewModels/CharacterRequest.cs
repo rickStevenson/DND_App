@@ -33,25 +33,19 @@ namespace DND_App.Web.Models.ViewModels
         public int Charisma { get; set; } = 21;
 
         // Character Mechanics
-        [Required]
+        
         public int Level { get; set; } = 1;
 
-        [Required]
         public int ExperiencePoints { get; set; } = 0;
 
-        [Required]
         public int PassiveWisdom { get; set; } = 10;
 
-        [Required]
         public bool Inspiration { get; set; } = false;
 
-        [Required]
         public int ProficiencyBonus { get; set; } = 2;
 
-        [Required]
         public int ArmorClass { get; set; } = 10;
 
-        [Required]
         public int Speed { get; set; } = 30;
 
         //Character Traits

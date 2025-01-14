@@ -1,0 +1,56 @@
+﻿@model List<DND_App.Web.Models.Domain.Character>
+
+<div class="container py-5">
+    <h1>Your Characters</h1>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Character Name</th>
+                    <th>Race</th>
+                    <th>Class</th>
+                    <th>Level</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var character in Model)
+                {
+                    <tr>
+                        <td>@character.CharacterName</td>
+                        <td>@character.CharacterRace.Name</td>
+                        <td>@character.CharacterClass.Name</td>
+                        <td>@character.Level</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" 
+                               asp-controller="Character" 
+                               asp-action="Details" 
+                               asp-route-id="@character.Id">
+                                Details
+                            </a>
+                            <a class="btn btn-warning btn-sm" 
+                               asp-controller="Character" 
+                               asp-action="Edit" 
+                               asp-route-id="@character.Id">
+                                Edit
+                            </a>
+                            <form asp-controller="Character" 
+                                  asp-action="Delete" 
+                                  asp-route-id="@character.Id" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>You haven't created any characters yet. <a asp-controller="Character" asp-action="Create">Create one now!</a></p>
+    }
+</div>

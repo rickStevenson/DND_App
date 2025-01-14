@@ -10,11 +10,10 @@
 <div class="container py-3">
     <form asp-action="Create" method="post">
         <div>
-            <label asp-for="CharacterName"></label>
-            <input asp-for="CharacterName" />
+            <label class="form-label">Character Name</label>
+            <input type="text" class="form-control" id="characterName" asp-for="CharacterName" />
             <span asp-validation-for="CharacterName"></span>
         </div>
-
         <div>
             <label>Class</label>
             <select asp-for="CharacterClassId">
@@ -24,7 +23,6 @@
                 }
             </select>
         </div>
-
         <div>
             <label>Race</label>
             <select asp-for="CharacterRaceId">
@@ -34,138 +32,177 @@
                 }
             </select>
         </div>
-
         <div>
-            <label asp-for="Strength"></label>
-            <input asp-for="Strength" />
+            <label class="form-label">Strength</label>
+            <input type="text" class="form-control" id="strength" asp-for="Strength" />
             <span asp-validation-for="Strength"></span>
         </div>
         <div>
-            <label asp-for="Dexterity"></label>
-            <input asp-for="Dexterity" />
+            <label class="form-label">Dexterity</label>
+            <input type="text" class="form-control" id="dexterity" asp-for="Dexterity" />
             <span asp-validation-for="Dexterity"></span>
         </div>
         <div>
-            <label asp-for="Constitution"></label>
-            <input asp-for="Constitution" />
+            <label class="form-label">Constitution</label>
+            <input type="text" class="form-control" id="constitution" asp-for="Constitution" />
             <span asp-validation-for="Constitution"></span>
         </div>
         <div>
-            <label asp-for="Intelligence"></label>
-            <input asp-for="Intelligence" />
+            <label class="form-label">Intelligence</label>
+            <input type="text" class="form-control" id="intelligence" asp-for="Intelligence" />
             <span asp-validation-for="Intelligence"></span>
         </div>
         <div>
-            <label asp-for="Wisdom"></label>
-            <input asp-for="Wisdom" />
+            <label class="form-label">Wisdom</label>
+            <input type="text" class="form-control" id="wisdom" asp-for="Wisdom" />
             <span asp-validation-for="Wisdom"></span>
         </div>
         <div>
-            <label asp-for="Charisma"></label>
-            <input asp-for="Charisma" />
+            <label class="form-label">Charisma</label>
+            <input type="text" class="form-control" id="charisma" asp-for="Charisma" />
             <span asp-validation-for="Charisma"></span>
         </div>
         <div>
-            <label asp-for="Level"></label>
-            <input asp-for="Level" />
+            <label class="form-label">Level</label>
+            <input type="text" class="form-control" id="level" asp-for="Level" />
             <span asp-validation-for="Level"></span>
         </div>
         <div>
-            <label asp-for="ExperiencePoints"></label>
-            <input asp-for="ExperiencePoints" />
+            <label class="form-label">Experience Points</label>
+            <input type="text" class="form-control" id="experiencePoints" asp-for="ExperiencePoints" />
             <span asp-validation-for="ExperiencePoints"></span>
         </div>
         <div>
-            <label asp-for="PassiveWisdom"></label>
-            <input asp-for="PassiveWisdom" />
+            <label class="form-label">Passive Wisdom</label>
+            <input type="text" class="form-control" id="passiveWisdom" asp-for="PassiveWisdom" />
             <span asp-validation-for="PassiveWisdom"></span>
         </div>
         <div>
-            <label asp-for="Inspiration"></label>
-            <input asp-for="Inspiration" type="checkbox" />
+            <label class="form-label">Inspiration</label>
+            <input type="text" class="form-control" id="inspiration" asp-for="Inspiration" type="checkbox" />
             <span asp-validation-for="Inspiration"></span>
         </div>
         <div>
-            <label asp-for="ProficiencyBonus"></label>
-            <input asp-for="ProficiencyBonus" />
+            <label class="form-label">Proficiency Bonus</label>
+            <input type="text" class="form-control" id="proficiencyBonus" asp-for="ProficiencyBonus" />
             <span asp-validation-for="ProficiencyBonus"></span>
         </div>
         <div>
-            <label asp-for="ArmorClass"></label>
-            <input asp-for="ArmorClass" />
+            <label class="form-label">Armor Class</label>
+            <input type="text" class="form-control" id="armorClass" asp-for="ArmorClass" />
             <span asp-validation-for="ArmorClass"></span>
         </div>
         <div>
-            <label asp-for="Age"></label>
-            <input asp-for="Age" />
+            <label class="form-label">Age</label>
+            <input type="text" class="form-control" id="age" asp-for="Age" />
             <span asp-validation-for="Age"></span>
         </div>
         <div>
-            <label asp-for="Height"></label>
-            <input asp-for="Height" />
+            <label class="form-label">Height</label>
+            <input type="text" class="form-control" id="height" asp-for="Height" />
             <span asp-validation-for="Height"></span>
         </div>
         <div>
-            <label asp-for="Weight"></label>
-            <input asp-for="Weight" />
+            <label class="form-label">Weight</label>
+            <input type="text" class="form-control" id="weight" asp-for="Weight" />
             <span asp-validation-for="Weight"></span>
         </div>
         <div>
-            <label asp-for="Eyes"></label>
-            <input asp-for="Eyes" />
+            <label class="form-label">Eyes</label>
+            <input type="text" class="form-control" id="eyes" asp-for="Eyes" />
             <span asp-validation-for="Eyes"></span>
         </div>
         <div>
-            <label asp-for="Skin"></label>
-            <input asp-for="Skin" />
+            <label class="form-label">Skin</label>
+            <input type="text" class="form-control" id="skin" asp-for="Skin" />
             <span asp-validation-for="Skin"></span>
         </div>
         <div>
-            <label asp-for="Hair"></label>
-            <input asp-for="Hair" />
+            <label class="form-label">Hair</label>
+            <input type="text" class="form-control" id="hair" asp-for="Hair" />
             <span asp-validation-for="Hair"></span>
         </div>
+
+
+
         <div>
-            <label asp-for="PersonalityTraits"></label>
-            <input asp-for="PersonalityTraits" />
+            <label class="form-label">Personality Traits</label>
+            <input class="form-control" id="personalityTraits" asp-for="PersonalityTraits" />
             <span asp-validation-for="PersonalityTraits"></span>
         </div>
         <div>
-            <label asp-for="Ideals"></label>
-            <input asp-for="Ideals" />
+            <label class="form-label">Ideals</label>
+            <input class="form-control" id="ideals" asp-for="Ideals" />
             <span asp-validation-for="Ideals"></span>
         </div>
         <div>
-            <label asp-for="Bonds"></label>
-            <input asp-for="Bonds" />
+            <label class="form-label">Bonds</label>
+            <input class="form-control" id="bonds" asp-for="Bonds" />
             <span asp-validation-for="Bonds"></span>
         </div>
         <div>
-            <label asp-for="Flaws"></label>
-            <input asp-for="Flaws" />
+            <label class="form-label">Flaws</label>
+            <input class="form-control" id="flaws" asp-for="Flaws" />
             <span asp-validation-for="Flaws"></span>
         </div>
         <div>
-            <label asp-for="CharacterBackstory"></label>
-            <input asp-for="CharacterBackstory" />
+            <label class="form-label">Character Backstory</label>
+            <textarea class="form-control" id="characterBackstory" asp-for="CharacterBackstory"></textarea>
             <span asp-validation-for="CharacterBackstory"></span>
         </div>
+
+
+
         <div>
-            <label asp-for="Alignment"></label>
-            <input asp-for="Alignment" />
+            <label class="form-label">Alignment</label>
+            <input type="text" class="form-control" id="alignment" asp-for="Alignment" />
             <span asp-validation-for="Alignment"></span>
         </div>
         <div>
-            <label asp-for="EncumbranceStatus"></label>
-            <input asp-for="EncumbranceStatus" />
+            <label class="form-label">Encumbrance Status</label>
+            <input type="text" class="form-control" id="encumbranceStatus" asp-for="EncumbranceStatus" />
             <span asp-validation-for="EncumbranceStatus"></span>
         </div>
         <div>
-            <label asp-for="CharacterImage"></label>
-            <input asp-for="CharacterImage" />
+            <label class="form-label">Character Image</label>
+            <input type="text" class="form-control" id="characterImage" asp-for="CharacterImage" />
             <span asp-validation-for="CharacterImage"></span>
         </div>
 
         <button type="submit">Create</button>
     </form>
 </div>
+
+@section Scripts{
+    <script>
+        var editor = new FroalaEditor('#characterBackstory', {
+            imageUploadURL: '/api/images'
+        });
+
+        const featuredUploadElement = document.getElementById('featuredImageUpload');
+        const featuredImageUrlElement = document.getElementById('featuredImageUrl');
+        const featuredImageDisplayElement = document.getElementById('featuredImageDisplay');
+
+        async function uploadFeaturedImage(e) {
+            console.log(e.target.files[0]);
+
+            let data = new FormData();
+            data.append('file', e.target.files[0]);
+
+            await fetch('/api/images', {
+                method: 'POST',
+                headers: {
+                    'Accept': '*/*',
+                },
+                body: data
+            }).then(response => response.json())
+                .then(result => {
+                    featuredImageUrlElement.value = result.link;
+                    featuredImageDisplayElement.src = result.link;
+                    featuredImageDisplayElement.style.display = 'block';
+                });
+        }
+
+        featuredUploadElement.addEventListener('change', uploadFeaturedImage);
+    </script>
+}

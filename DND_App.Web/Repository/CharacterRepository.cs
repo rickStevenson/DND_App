@@ -20,7 +20,6 @@ namespace DND_App.Web.Repository
             await dndDbContext.SaveChangesAsync();
             return character;
         }
-
         public async Task<IEnumerable<Character>> ReadAllAsync()
         {
             return await dndDbContext.Characters
@@ -28,7 +27,6 @@ namespace DND_App.Web.Repository
                 .Include(c => c.CharacterRace)
                 .ToListAsync();
         }
-
         public async Task<Character?> ReadByIdAsync(int id)
         {
            return await dndDbContext.Characters
@@ -36,7 +34,6 @@ namespace DND_App.Web.Repository
                 .Include(c => c.CharacterRace)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
-
         public async Task<Character?> UpdateAsync(Character character)
         {
             var existingCharacter = await dndDbContext.Characters
@@ -63,6 +60,20 @@ namespace DND_App.Web.Repository
                 existingCharacter.ProficiencyBonus = character.ProficiencyBonus;
                 existingCharacter.ArmorClass = character.ArmorClass;
                 existingCharacter.Speed = character.Speed;
+                existingCharacter.Age = character.Age;
+                existingCharacter.Height = character.Height;
+                existingCharacter.Weight = character.Weight;
+                existingCharacter.Eyes = character.Eyes;
+                existingCharacter.Skin = character.Skin;
+                existingCharacter.Hair = character.Hair;
+                existingCharacter.PersonalityTraits = character.PersonalityTraits;
+                existingCharacter.Ideals = character.Ideals;
+                existingCharacter.Bonds = character.Bonds;
+                existingCharacter.Flaws = character.Flaws;
+                existingCharacter.CharacterBackstory = character.CharacterBackstory;
+                existingCharacter.Alignment = character.Alignment;
+                existingCharacter.EncumbranceStatus = character.EncumbranceStatus;
+                existingCharacter.CharacterImage = character.CharacterImage;
             }
 
             await dndDbContext.SaveChangesAsync();

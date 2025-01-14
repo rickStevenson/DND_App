@@ -39,7 +39,19 @@
                         @if (signInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Character" asp-action="Create">Create Character</a>
+                                <a class="nav-link text-white"
+                                   asp-area=""
+                                   asp-controller="Character"
+                                   asp-action="Create">
+                                    Create Character
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" 
+                                   asp-controller="Character" 
+                                   asp-action="UserCharacters">
+                                    Your Characters
+                                </a>
                             </li>
                             @if (User.IsInRole("Admin"))
                             {
@@ -49,10 +61,16 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="dropdown-item" asp-area="" asp-controller="AdminUser" asp-action="List">Users</a>
+                                            <a class="dropdown-item"
+                                               asp-area=""
+                                               asp-controller="AdminUser"
+                                               asp-action="List">Users</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" asp-area="" asp-controller="Character" asp-action="ReadAll">Characters</a>
+                                            <a class="dropdown-item"
+                                               asp-area=""
+                                               asp-controller="Character"
+                                               asp-action="ReadAll">Characters</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -63,12 +81,20 @@
                         @if (signInManager.IsSignedIn(User))
                         {
                             <span class="me-3 text-light">@User.Identity.Name</span>
-                            <a class="btn btn-danger btn-sm" asp-area="" asp-controller="Accounts" asp-action="Logout">Logout</a>
+                            <a class="btn btn-danger btn-sm" 
+                               asp-area="" 
+                               asp-controller="Accounts" 
+                               asp-action="Logout">Logout</a>
                         }
                         else
                         {
-                            <a class="btn btn-success btn-sm me-2" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
-                            <a class="btn btn-primary btn-sm" asp-area="" asp-controller="Accounts" asp-action="Register">Register</a>
+                            <a class="btn btn-success btn-sm me-2" 
+                               asp-area="" 
+                               asp-controller="Accounts" 
+                               asp-action="Login">Login</a>
+                            <a class="btn btn-primary btn-sm" 
+                               asp-area="" asp-controller="Accounts" 
+                               asp-action="Register">Register</a>
                         }
                     </div>
                 </div>
