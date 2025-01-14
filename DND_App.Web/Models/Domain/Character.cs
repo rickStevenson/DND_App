@@ -42,22 +42,22 @@ namespace DND_App.Web.Models.Domain
         public int ArmorClass { get; set; }
         public int Speed { get; set; }
 
-        ////Character Traits
-        //public string? Age { get; set; }
-        //public string? Height { get; set; }
-        //public string? Weight { get; set; }
-        //public string? Eyes { get; set; }
-        //public string? Skin { get; set; }
-        //public string? Hair { get; set; }
-        //public string? PersonalityTraits { get; set; }
-        //public string? Ideals { get; set; }
-        //public string? Bonds { get; set; }
-        //public string? Flaws { get; set; }
-        //public string? CharacterBackstory { get; set; }
-        //public string? Alignment { get; set; }
-        //public float TotalWeight { get; set; }
-        //public string? EncumbranceStatus { get; set; }
-        //public string? CharacterImage { get; set; }
+        //Character Traits
+        public string? Age { get; set; }
+        public string? Height { get; set; }
+        public string? Weight { get; set; }
+        public string? Eyes { get; set; }
+        public string? Skin { get; set; }
+        public string? Hair { get; set; }
+        public string? PersonalityTraits { get; set; }
+        public string? Ideals { get; set; }
+        public string? Bonds { get; set; }
+        public string? Flaws { get; set; }
+        public string? CharacterBackstory { get; set; }
+        public string? Alignment { get; set; }
+        public float TotalWeight { get; set; }
+        public string? EncumbranceStatus { get; set; }
+        public string? CharacterImage { get; set; }
 
         ////Skills
         //public int Athletics { get; set; }

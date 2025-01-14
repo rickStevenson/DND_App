@@ -26,7 +26,12 @@ namespace DND_App.Web.Repository
 
         public async Task<CharacterRace> GetRaceByIdAsync(int id)
         {
-            var race = await dndDbContext.CharacterRaces.FindAsync(id);
+            var race = await dndDbContext.CharacterRaces
+                .Include(cr => cr.RaceAbilities)
+                .Include(cr => cr.RaceWeaponProficiencies)
+                .Include(cr => cr.RaceToolProficiencies)
+                .FirstOrDefaultAsync(cr => cr.Id == id);
+
             if (race == null)
             {
                 throw new ArgumentException("Invalid race ID");

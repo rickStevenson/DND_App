@@ -14,6 +14,5 @@
         public ICollection<RaceWeaponProficiency> RaceWeaponProficiencies { get; set; } = new List<RaceWeaponProficiency>();
         public ICollection<RaceToolProficiency> RaceToolProficiencies { get; set; } = new List<RaceToolProficiency>();
 
-        public string FeaturesAndTraitsJson { get; set; }
     }
 }

@@ -519,7 +519,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 8,
                             CharacterClassId = 4,
-                            Name = "Druidic"
+                            Name = "DruidicCircle"
                         },
                         new
                         {
@@ -813,7 +813,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 1,
                             CharacterRaceId = 1,
-                            Name = "Darkvision"
+                            Name = "DwarvenVision"
                         },
                         new
                         {
@@ -837,7 +837,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 5,
                             CharacterRaceId = 3,
-                            Name = "Darkvision"
+                            Name = "DwarvenVision"
                         },
                         new
                         {
@@ -897,7 +897,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 15,
                             CharacterRaceId = 8,
-                            Name = "Darkvision"
+                            Name = "DwarvenVision"
                         },
                         new
                         {
@@ -915,7 +915,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 18,
                             CharacterRaceId = 9,
-                            Name = "Amphibious"
+                            Name = "ShellDefense"
                         },
                         new
                         {
@@ -927,7 +927,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 20,
                             CharacterRaceId = 10,
-                            Name = "Darkvision"
+                            Name = "DwarvenVision"
                         },
                         new
                         {
@@ -945,7 +945,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 23,
                             CharacterRaceId = 12,
-                            Name = "Darkvision"
+                            Name = "DwarvenVision"
                         },
                         new
                         {

@@ -13,7 +13,7 @@ namespace DND_App.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRaceById(int id)
+        public async Task<IActionResult> RaceDetails(int id)
         {
             var race = await characterRaceRepository.GetRaceByIdAsync(id);
             return View(race);

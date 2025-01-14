@@ -1,0 +1,25 @@
+﻿@model DND_App.Web.Models.Domain.CharacterRace
+
+<div class="bg-secondary bg-opacity-10 py-5">
+    <div class="container">
+        <h1>@Model.Name</h1>
+    </div>
+</div>
+<div class="container py-3">
+    <h2>Race Abilities Description</h2>
+    @if (Model.RaceAbilities != null && Model.RaceAbilities.Any())
+    {
+        <ul>
+            @foreach (var ability in Model.RaceAbilities)
+            {
+                <li>
+                    <strong>@ability.Name:</strong> @ability.Description
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p class="text-muted">No abilities available.</p>
+    }
+</div>

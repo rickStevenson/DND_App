@@ -30,11 +30,26 @@ namespace DND_App.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Age")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Alignment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ArmorClass")
                         .HasColumnType("int");
 
+                    b.Property<string>("Bonds")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CharacterBackstory")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CharacterClassId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CharacterImage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CharacterName")
                         .IsRequired()
@@ -52,8 +67,26 @@ namespace DND_App.Web.Migrations
                     b.Property<int>("Dexterity")
                         .HasColumnType("int");
 
+                    b.Property<string>("EncumbranceStatus")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ExperiencePoints")
                         .HasColumnType("int");
+
+                    b.Property<string>("Eyes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Flaws")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hair")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Height")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ideals")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Inspiration")
                         .HasColumnType("bit");
@@ -67,6 +100,9 @@ namespace DND_App.Web.Migrations
                     b.Property<int>("PassiveWisdom")
                         .HasColumnType("int");
 
+                    b.Property<string>("PersonalityTraits")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PlayerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,14 +110,23 @@ namespace DND_App.Web.Migrations
                     b.Property<int>("ProficiencyBonus")
                         .HasColumnType("int");
 
+                    b.Property<string>("Skin")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Speed")
                         .HasColumnType("int");
 
                     b.Property<int>("Strength")
                         .HasColumnType("int");
 
+                    b.Property<float>("TotalWeight")
+                        .HasColumnType("real");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Weight")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Wisdom")
                         .HasColumnType("int");
@@ -105,10 +150,6 @@ namespace DND_App.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("FeaturesAndTraitsJson")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("HitDie")
                         .HasColumnType("int");
 
@@ -124,84 +165,72 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 1,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 12,
                             Name = "Barbarian"
                         },
                         new
                         {
                             Id = 2,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Bard"
                         },
                         new
                         {
                             Id = 3,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Cleric"
                         },
                         new
                         {
                             Id = 4,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Druid"
                         },
                         new
                         {
                             Id = 5,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 10,
                             Name = "Fighter"
                         },
                         new
                         {
                             Id = 6,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Monk"
                         },
                         new
                         {
                             Id = 7,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 10,
                             Name = "Paladin"
                         },
                         new
                         {
                             Id = 8,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 10,
                             Name = "Ranger"
                         },
                         new
                         {
                             Id = 9,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Rogue"
                         },
                         new
                         {
                             Id = 10,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 6,
                             Name = "Sorcerer"
                         },
                         new
                         {
                             Id = 11,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 8,
                             Name = "Warlock"
                         },
                         new
                         {
                             Id = 12,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             HitDie = 6,
                             Name = "Wizard"
                         });
@@ -223,10 +252,6 @@ namespace DND_App.Web.Migrations
 
                     b.Property<int>("DexterityBonus")
                         .HasColumnType("int");
-
-                    b.Property<string>("FeaturesAndTraitsJson")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IntelligenceBonus")
                         .HasColumnType("int");
@@ -252,7 +277,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 1,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 2,
                             Name = "Aasimar",
                             StrengthBonus = 0,
@@ -264,7 +288,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 1,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Dragonborn",
                             StrengthBonus = 2,
@@ -276,7 +299,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 2,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Dwarf",
                             StrengthBonus = 0,
@@ -288,7 +310,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 2,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Elf",
                             StrengthBonus = 0,
@@ -300,7 +321,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Firbolg",
                             StrengthBonus = 1,
@@ -312,7 +332,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 1,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Air Genasi",
                             StrengthBonus = 0,
@@ -324,7 +343,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Earth Genasi",
                             StrengthBonus = 1,
@@ -336,7 +354,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 1,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Fire Genasi",
                             StrengthBonus = 0,
@@ -348,7 +365,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Water Genasi",
                             StrengthBonus = 0,
@@ -360,7 +376,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 2,
                             Name = "Gnome",
                             StrengthBonus = 0,
@@ -372,7 +387,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Goliath",
                             StrengthBonus = 2,
@@ -384,7 +398,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Half-Elf",
                             StrengthBonus = 0,
@@ -396,7 +409,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 2,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Halfling",
                             StrengthBonus = 0,
@@ -408,7 +420,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Half-Orc",
                             StrengthBonus = 2,
@@ -420,7 +431,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 1,
                             ConstitutionBonus = 1,
                             DexterityBonus = 1,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 1,
                             Name = "Human",
                             StrengthBonus = 1,
@@ -432,7 +442,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 2,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Kenku",
                             StrengthBonus = 0,
@@ -444,7 +453,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
                             DexterityBonus = 2,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Tabaxi",
                             StrengthBonus = 0,
@@ -456,7 +464,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 1,
                             Name = "Tiefling",
                             StrengthBonus = 0,
@@ -468,7 +475,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 0,
                             Name = "Tortle",
                             StrengthBonus = 2,
@@ -480,7 +486,6 @@ namespace DND_App.Web.Migrations
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
                             DexterityBonus = 0,
-                            FeaturesAndTraitsJson = "{\r\n  \"featuresAndTraits\": [\r\n    {\r\n      \"name\": \"Darkvision\",\r\n      \"description\": \"Can see in darkness up to 60 feet as if it were dim light.\"\r\n    },\r\n    {\r\n      \"name\": \"Fey Ancestry\",\r\n      \"description\": \"Advantage on saving throws against being charmed, and magic can�t put you to sleep.\"\r\n    },\r\n    {\r\n      \"name\": \"Lay on Hands\",\r\n      \"description\": \"Can heal wounds up to a total amount equal to five times your paladin level.\"\r\n    }\r\n  ]\r\n}\r\n",
                             IntelligenceBonus = 1,
                             Name = "Yuan-Ti Pureblood",
                             StrengthBonus = 0,
@@ -499,6 +504,10 @@ namespace DND_App.Web.Migrations
                     b.Property<int>("CharacterClassId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -514,145 +523,323 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 1,
                             CharacterClassId = 1,
+                            Description = "Enter a frenzied state to gain bonus damage, resist physical damage, and advantage on Strength checks/saving throws.",
                             Name = "Rage"
                         },
                         new
                         {
                             Id = 2,
                             CharacterClassId = 1,
+                            Description = "Add Constitution modifier to AC when not wearing armor.",
                             Name = "Unarmored Defense"
                         },
                         new
                         {
                             Id = 3,
-                            CharacterClassId = 2,
-                            Name = "Bardic Inspiration"
+                            CharacterClassId = 1,
+                            Description = "Gain advantage on melee attack rolls, but attacks against you also have advantage.",
+                            Name = "Reckless Attack"
                         },
                         new
                         {
                             Id = 4,
-                            CharacterClassId = 2,
-                            Name = "Song of Rest"
+                            CharacterClassId = 1,
+                            Description = "Gain advantage on Dexterity saving throws against effects you can see.",
+                            Name = "Danger Sense"
                         },
                         new
                         {
                             Id = 5,
-                            CharacterClassId = 3,
-                            Name = "Turn Undead"
+                            CharacterClassId = 2,
+                            Description = "Inspire allies with a bonus to ability checks, attack rolls, or saving throws.",
+                            Name = "Bardic Inspiration"
                         },
                         new
                         {
                             Id = 6,
-                            CharacterClassId = 3,
-                            Name = "Divine Intervention"
+                            CharacterClassId = 2,
+                            Description = "Help allies recover additional hit points during short rests.",
+                            Name = "Song of Rest"
                         },
                         new
                         {
                             Id = 7,
-                            CharacterClassId = 4,
-                            Name = "Wild Shape"
+                            CharacterClassId = 2,
+                            Description = "Use a wide variety of spells to charm, inspire, and deal damage.",
+                            Name = "Bardic Magic"
                         },
                         new
                         {
                             Id = 8,
-                            CharacterClassId = 4,
-                            Name = "Druidic"
+                            CharacterClassId = 2,
+                            Description = "Add half proficiency bonus to all ability checks you’re not proficient in.",
+                            Name = "Jack Of All Trades"
                         },
                         new
                         {
                             Id = 9,
-                            CharacterClassId = 5,
-                            Name = "Second Wind"
+                            CharacterClassId = 3,
+                            Description = "Turn undead or perform a special ability depending on your domain.",
+                            Name = "Turn Undead"
                         },
                         new
                         {
                             Id = 10,
-                            CharacterClassId = 5,
-                            Name = "Action Surge"
+                            CharacterClassId = 3,
+                            Description = "Divine spells drawn from your deity’s domain.",
+                            Name = "Divine Intervention"
                         },
                         new
                         {
                             Id = 11,
-                            CharacterClassId = 6,
-                            Name = "Martial Arts"
+                            CharacterClassId = 3,
+                            Description = "Gain unique abilities based on the chosen divine domain, such as Life, Light, or War.",
+                            Name = "DivineDomain"
                         },
                         new
                         {
                             Id = 12,
-                            CharacterClassId = 6,
-                            Name = "Ki Points"
+                            CharacterClassId = 4,
+                            Description = "Transform into beasts you’ve seen, gaining their physical traits.",
+                            Name = "Wild Shape"
                         },
                         new
                         {
                             Id = 13,
-                            CharacterClassId = 7,
-                            Name = "Lay on Hands"
+                            CharacterClassId = 4,
+                            Description = "Choose a focus for your abilities, such as the Circle of the Land (nature magic) or the Circle of the Moon (enhanced Wild Shape).",
+                            Name = "Druidic Circle"
                         },
                         new
                         {
                             Id = 14,
-                            CharacterClassId = 7,
-                            Name = "Divine Smite"
+                            CharacterClassId = 4,
+                            Description = "Use nature-themed spells to control the environment and heal.",
+                            Name = "Spells Of Nature"
                         },
                         new
                         {
                             Id = 15,
-                            CharacterClassId = 8,
-                            Name = "Favored Enemy"
+                            CharacterClassId = 5,
+                            Description = "Recover some hit points as a bonus action.",
+                            Name = "Second Wind"
                         },
                         new
                         {
                             Id = 16,
-                            CharacterClassId = 8,
-                            Name = "Natural Explorer"
+                            CharacterClassId = 5,
+                            Description = "Take an additional action on your turn.",
+                            Name = "Action Surge"
                         },
                         new
                         {
                             Id = 17,
-                            CharacterClassId = 9,
-                            Name = "Sneak Attack"
+                            CharacterClassId = 5,
+                            Description = "Choose a specialization like Archery or Defense.",
+                            Name = "Fighting Style"
                         },
                         new
                         {
                             Id = 18,
-                            CharacterClassId = 9,
-                            Name = "Cunning Action"
+                            CharacterClassId = 5,
+                            Description = "Gain unique features such as magic use (Eldritch Knight) or commanding allies (Battle Master).",
+                            Name = "Martial Archtype"
                         },
                         new
                         {
                             Id = 19,
-                            CharacterClassId = 10,
-                            Name = "Metamagic"
+                            CharacterClassId = 6,
+                            Description = "Use Dexterity instead of Strength for unarmed strikes and monk weapons.",
+                            Name = "Martial Arts"
                         },
                         new
                         {
                             Id = 20,
-                            CharacterClassId = 10,
-                            Name = "Font of Magic"
+                            CharacterClassId = 6,
+                            Description = "Perform extraordinary abilities like flurries of blows, increased speed, or stunning strikes.",
+                            Name = "Ki Points"
                         },
                         new
                         {
                             Id = 21,
-                            CharacterClassId = 11,
-                            Name = "Eldritch Invocations"
+                            CharacterClassId = 6,
+                            Description = "Add Wisdom modifier to AC when not wearing armor.",
+                            Name = "Unarmored Defense"
                         },
                         new
                         {
                             Id = 22,
-                            CharacterClassId = 11,
-                            Name = "Pact Magic"
+                            CharacterClassId = 6,
+                            Description = "Reduce damage from ranged weapon attacks.",
+                            Name = "DeflectMissles"
                         },
                         new
                         {
                             Id = 23,
-                            CharacterClassId = 12,
-                            Name = "Arcane Recovery"
+                            CharacterClassId = 7,
+                            Description = "Heal yourself or others by expending points from a healing pool.",
+                            Name = "Lay on Hands"
                         },
                         new
                         {
                             Id = 24,
+                            CharacterClassId = 7,
+                            Description = " Use spell slots to deal radiant damage on weapon attacks.",
+                            Name = "Divine Smite"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CharacterClassId = 7,
+                            Description = "Add Charisma modifier to saving throws for you and nearby allies.",
+                            Name = "Aura Of Protection"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CharacterClassId = 7,
+                            Description = "Swear an oath like Devotion, Vengeance, or Ancients for unique abilities.",
+                            Name = "Sacred Oath"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CharacterClassId = 8,
+                            Description = "Gain bonuses to tracking and dealing with a specific type of creature.",
+                            Name = "Favored Enemy"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CharacterClassId = 8,
+                            Description = "Gain benefits while traveling through chosen types of terrain.",
+                            Name = "Natural Explorer"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CharacterClassId = 8,
+                            Description = "Use nature magic to aid exploration and combat.",
+                            Name = "Ranger Magic"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CharacterClassId = 8,
+                            Description = "Mark a target to deal extra damage and track it.",
+                            Name = "Hunter's Mark"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CharacterClassId = 9,
+                            Description = "Deal extra damage when you hit with an attack and have advantage or an ally nearby.",
+                            Name = "Sneak Attack"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CharacterClassId = 9,
+                            Description = "Use a bonus action to Dash, Disengage, or Hide.",
+                            Name = "Cunning Action"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CharacterClassId = 9,
+                            Description = "Halve damage from one attack per round.",
+                            Name = "UncannyDodge"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CharacterClassId = 9,
+                            Description = "Avoid all damage on successful Dexterity saves against area effects.",
+                            Name = "Evasion"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CharacterClassId = 10,
+                            Description = "Enhance spells by extending their range, duration, or allowing multiple targets.",
+                            Name = "Metamagic"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CharacterClassId = 10,
+                            Description = " Gain features based on your origin, such as elemental resistance or chaotic magical effects.",
+                            Name = "Wild Magic"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CharacterClassId = 10,
+                            Description = "Use innate magical power to cast spells.",
+                            Name = "Sorcery"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CharacterClassId = 10,
+                            Description = "Fuel unique abilities, such as Metamagic (modifying spells in unique ways).",
+                            Name = "SorceryPoints"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CharacterClassId = 11,
+                            Description = "Use limited spell slots that recharge on short rests.",
+                            Name = "Pact Magic"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CharacterClassId = 11,
+                            Description = "Gain specialized magical abilities, such as improved Eldritch Blast.",
+                            Name = "Eldritch Invocations"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CharacterClassId = 11,
+                            Description = " Choose a boon like a familiar (Pact of the Chain), a weapon (Pact of the Blade), or a magical book (Pact of the Tome).",
+                            Name = "Pact Boon"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CharacterClassId = 11,
+                            Description = "Gain abilities from a pact with an otherworldly entity like the Archfey, Fiend, or Great Old One.",
+                            Name = "Patron Features"
+                        },
+                        new
+                        {
+                            Id = 43,
                             CharacterClassId = 12,
+                            Description = "Regain spell slots during a short rest.",
+                            Name = "Arcane Recovery"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CharacterClassId = 12,
+                            Description = "Access the largest variety of spells in the game.",
                             Name = "Spell Mastery"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CharacterClassId = 12,
+                            Description = "Choose a school of magic specialization, such as Evocation (damage spells) or Divination (seeing the future).",
+                            Name = "Arcane Tradition"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CharacterClassId = 12,
+                            Description = "Cast certain spells without expending a spell slot.",
+                            Name = "Ritual Casting"
                         });
                 });
 
@@ -835,6 +1022,10 @@ namespace DND_App.Web.Migrations
                     b.Property<int>("CharacterRaceId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -850,234 +1041,406 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 1,
                             CharacterRaceId = 1,
-                            Name = "Darkvision"
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Dark Vision"
                         },
                         new
                         {
                             Id = 2,
                             CharacterRaceId = 1,
-                            Name = "Healing Hands"
+                            Description = "Resistance to radiant and necrotic damage.",
+                            Name = "Celestial Resitance"
                         },
                         new
                         {
                             Id = 3,
-                            CharacterRaceId = 2,
-                            Name = "Breath Weapon"
+                            CharacterRaceId = 1,
+                            Description = "As an action, touch a creature to restore hit points equal to your level.",
+                            Name = "Healing Hands"
                         },
                         new
                         {
                             Id = 4,
-                            CharacterRaceId = 2,
-                            Name = "Draconic Ancestry"
+                            CharacterRaceId = 1,
+                            Description = "Gain the light cantrip.",
+                            Name = "Light Bearer"
                         },
                         new
                         {
                             Id = 5,
-                            CharacterRaceId = 3,
-                            Name = "Darkvision"
+                            CharacterRaceId = 2,
+                            Description = "Exhale destructive energy in a 15 ft. cone or 30 ft. line (Dex or Con save, depending on ancestry).",
+                            Name = "Breath Weapon"
                         },
                         new
                         {
                             Id = 6,
-                            CharacterRaceId = 3,
-                            Name = "Dwarven Resilience"
+                            CharacterRaceId = 2,
+                            Description = "Gain resistance to the damage type associated with your draconic ancestry (fire, cold, lightning, etc.).",
+                            Name = "Draconic Resistance"
                         },
                         new
                         {
                             Id = 7,
-                            CharacterRaceId = 4,
-                            Name = "Keen Senses"
+                            CharacterRaceId = 3,
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Dark Vision"
                         },
                         new
                         {
                             Id = 8,
-                            CharacterRaceId = 4,
-                            Name = "Fey Ancestry"
+                            CharacterRaceId = 3,
+                            Description = " Advantage on saving throws against poison, and resistance to poison damage.",
+                            Name = "Dwarven Resilience"
                         },
                         new
                         {
                             Id = 9,
-                            CharacterRaceId = 5,
-                            Name = "Firbolg Magic"
+                            CharacterRaceId = 3,
+                            Description = "Add double proficiency to Intelligence (History) checks related to stonework.",
+                            Name = "Stonecunning"
                         },
                         new
                         {
                             Id = 10,
-                            CharacterRaceId = 5,
-                            Name = "Hidden Step"
+                            CharacterRaceId = 4,
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Dark Vision"
                         },
                         new
                         {
                             Id = 11,
-                            CharacterRaceId = 6,
-                            Name = "Unending Breath"
+                            CharacterRaceId = 4,
+                            Description = "Proficiency in Perception.",
+                            Name = "Keen Senses"
                         },
                         new
                         {
                             Id = 12,
-                            CharacterRaceId = 6,
-                            Name = "Mingle with the Wind"
+                            CharacterRaceId = 4,
+                            Description = "Advantage on saving throws against being charmed, and immunity to magical sleep.",
+                            Name = "Fey Ancestry"
                         },
                         new
                         {
                             Id = 13,
-                            CharacterRaceId = 7,
-                            Name = "Earth Walk"
+                            CharacterRaceId = 4,
+                            Description = "Elves don’t need sleep. They can finish a long rest in 4 hours while meditating.",
+                            Name = "Trance"
                         },
                         new
                         {
                             Id = 14,
-                            CharacterRaceId = 7,
-                            Name = "Merge with Stone"
+                            CharacterRaceId = 5,
+                            Description = "Cast detect magic and disguise self without expending a spell slot.",
+                            Name = "Firbolg Magic"
                         },
                         new
                         {
                             Id = 15,
-                            CharacterRaceId = 8,
-                            Name = "Darkvision"
+                            CharacterRaceId = 5,
+                            Description = "Turn invisible as a bonus action until the start of your next turn.",
+                            Name = "Hidden Step"
                         },
                         new
                         {
                             Id = 16,
-                            CharacterRaceId = 8,
-                            Name = "Fire Resistance"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CharacterRaceId = 9,
-                            Name = "Acid Resistance"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CharacterRaceId = 9,
-                            Name = "Amphibious"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CharacterRaceId = 10,
-                            Name = "Gnome Cunning"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CharacterRaceId = 10,
-                            Name = "Darkvision"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CharacterRaceId = 11,
-                            Name = "Mountain Born"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CharacterRaceId = 11,
+                            CharacterRaceId = 5,
+                            Description = "Count as one size larger for carrying capacity.",
                             Name = "Powerful Build"
                         },
                         new
                         {
+                            Id = 17,
+                            CharacterRaceId = 5,
+                            Description = "Communicate with animals and plants (they understand you but cannot speak back).",
+                            Name = "Speach Of Beast And Leaf"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CharacterRaceId = 6,
+                            Description = "You can hold your breath indefinitely while not incapacitated.",
+                            Name = "Unending Breath"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CharacterRaceId = 6,
+                            Description = "You can cast the Levitate spell once with this trait, requiring no material components. You regain the ability to cast it this way after a long rest. Constitution is your spellcasting ability for this spell.",
+                            Name = "Mingle with the Wind"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CharacterRaceId = 7,
+                            Description = "You can move across difficult terrain made of earth or stone without expending extra movement.",
+                            Name = "Earth Walk"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CharacterRaceId = 7,
+                            Description = "You can cast the Pass Without Trace spell once with this trait, requiring no material components. You regain the ability to cast it this way after a long rest. Constitution is your spellcasting ability for this spell.",
+                            Name = "Merge with Stone"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CharacterRaceId = 8,
+                            Description = "You can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light. Your vision in darkness is in shades of red.",
+                            Name = "Dark Vision"
+                        },
+                        new
+                        {
                             Id = 23,
-                            CharacterRaceId = 12,
-                            Name = "Darkvision"
+                            CharacterRaceId = 8,
+                            Description = "You have resistance to fire damage.",
+                            Name = "Fire Resistance"
                         },
                         new
                         {
                             Id = 24,
-                            CharacterRaceId = 12,
-                            Name = "Skill Versatility"
+                            CharacterRaceId = 8,
+                            Description = "You know the Produce Flame cantrip. Once you reach 3rd level, you can cast the Burning Hands spell once with this trait as a 1st-level spell. You regain the ability to cast it this way after a long rest. Constitution is your spellcasting ability for these spells.",
+                            Name = "Reach to the Blaze"
                         },
                         new
                         {
                             Id = 25,
-                            CharacterRaceId = 13,
-                            Name = "Lucky"
+                            CharacterRaceId = 9,
+                            Description = "You have resistance to acid damage.",
+                            Name = "Acid Resistance"
                         },
                         new
                         {
                             Id = 26,
-                            CharacterRaceId = 13,
-                            Name = "Brave"
+                            CharacterRaceId = 9,
+                            Description = "You can breathe air and water.",
+                            Name = "Amphibious"
                         },
                         new
                         {
                             Id = 27,
-                            CharacterRaceId = 14,
-                            Name = "Relentless Endurance"
+                            CharacterRaceId = 9,
+                            Description = "You know the Shape Water cantrip. Once you reach 3rd level, you can cast the Create or Destroy Water spell once with this trait. You regain the ability to cast it this way after a long rest. Constitution is your spellcasting ability for these spells.",
+                            Name = "Call to the Wave"
                         },
                         new
                         {
                             Id = 28,
-                            CharacterRaceId = 14,
-                            Name = "Savage Attack"
+                            CharacterRaceId = 10,
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Dark Vision"
                         },
                         new
                         {
                             Id = 29,
-                            CharacterRaceId = 15,
-                            Name = "Versatile Ability"
+                            CharacterRaceId = 10,
+                            Description = "Advantage on all Intelligence, Wisdom, and Charisma saving throws against magic.",
+                            Name = "Gnome Cunning"
                         },
                         new
                         {
                             Id = 30,
-                            CharacterRaceId = 16,
-                            Name = "Mimicry"
+                            CharacterRaceId = 11,
+                            Description = "Proficiency in Athletics.",
+                            Name = "Natual Athlete"
                         },
                         new
                         {
                             Id = 31,
-                            CharacterRaceId = 16,
-                            Name = "Expert Forgery"
+                            CharacterRaceId = 11,
+                            Description = "Resistance to cold damage and acclimated to high altitudes.",
+                            Name = "Mountain Born"
                         },
                         new
                         {
                             Id = 32,
-                            CharacterRaceId = 17,
-                            Name = "Cat’s Claws"
+                            CharacterRaceId = 11,
+                            Description = "Count as one size larger for carrying capacity.",
+                            Name = "Powerful Build"
                         },
                         new
                         {
                             Id = 33,
-                            CharacterRaceId = 17,
-                            Name = "Feline Agility"
+                            CharacterRaceId = 11,
+                            Description = "Reduce damage taken by 1d12 + Constitution modifier once per short or long rest.",
+                            Name = "Stone's Endurance"
                         },
                         new
                         {
                             Id = 34,
-                            CharacterRaceId = 18,
-                            Name = "Infernal Legacy"
+                            CharacterRaceId = 12,
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Dark Vision"
                         },
                         new
                         {
                             Id = 35,
-                            CharacterRaceId = 18,
-                            Name = "Hellish Resistance"
+                            CharacterRaceId = 12,
+                            Description = "Advantage on saving throws against being charmed, and immunity to magical sleep.",
+                            Name = "Fey Ancestry"
                         },
                         new
                         {
                             Id = 36,
-                            CharacterRaceId = 19,
-                            Name = "Natural Armor"
+                            CharacterRaceId = 12,
+                            Description = "Gain proficiency in two skills of your choice.",
+                            Name = "Skill Versatility"
                         },
                         new
                         {
                             Id = 37,
-                            CharacterRaceId = 19,
-                            Name = "Hold Breath"
+                            CharacterRaceId = 13,
+                            Description = " When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll and must use the new roll.",
+                            Name = "Lucky"
                         },
                         new
                         {
                             Id = 38,
-                            CharacterRaceId = 20,
-                            Name = "Magic Resistance"
+                            CharacterRaceId = 13,
+                            Description = "Advantage on saving throws against being frightened.",
+                            Name = "Brave"
                         },
                         new
                         {
                             Id = 39,
+                            CharacterRaceId = 13,
+                            Description = "Move through the space of any creature larger than you.",
+                            Name = "Halfling Nimbleness"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CharacterRaceId = 14,
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Relentless Endurance"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CharacterRaceId = 14,
+                            Description = "When reduced to 0 HP but not killed outright, you drop to 1 HP instead (once per long rest).",
+                            Name = "Relentless Endurance"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CharacterRaceId = 14,
+                            Description = " When you score a critical hit with a melee weapon, roll one additional damage die.",
+                            Name = "Savage Attack"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CharacterRaceId = 15,
+                            Description = "Gain a feat and proficiency in one skill of your choice.\r\n",
+                            Name = "Versatile Ability"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CharacterRaceId = 16,
+                            Description = "Mimic sounds you’ve heard, such as voices.",
+                            Name = "Mimicry"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CharacterRaceId = 16,
+                            Description = "Duplicate writing and craftwork perfectly.",
+                            Name = "Expert Forgery"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CharacterRaceId = 16,
+                            Description = "Proficiency in Deception and Stealth.",
+                            Name = "Skill Proficiencies"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CharacterRaceId = 17,
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Dark Vision"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CharacterRaceId = 17,
+                            Description = "Climb speed of 20 ft. and can deal slashing damage with unarmed strikes.",
+                            Name = "Cat’s Claws"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CharacterRaceId = 17,
+                            Description = "Double your movement speed until the end of your turn (requires no movement next turn to reset).",
+                            Name = "Feline Agility"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CharacterRaceId = 18,
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Dark Vision"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CharacterRaceId = 18,
+                            Description = " Resistance to fire damage.",
+                            Name = "Infernal Legacy"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CharacterRaceId = 18,
+                            Description = "Gain the thaumaturgy cantrip and spells like hellish rebuke and darkness as you level up.",
+                            Name = "Hellish Resistance"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CharacterRaceId = 19,
+                            Description = "As an action, you can withdraw into your shell. While in your shell: Your AC increases by 4.You have advantage on Strength and Constitution saving throws.You are prone, your speed is 0, and you can't take reactions.The only actions you can take are a bonus action to emerge or actions that only affect yourself.",
+                            Name = "Shell Defense"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            CharacterRaceId = 19,
+                            Description = "You can hold your breath for up to 1 hour, making Tortles excellent at surviving underwater or in environments without air.",
+                            Name = "Hold Breath"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            CharacterRaceId = 19,
+                            Description = "Your unarmed strikes deal 1d4 slashing damage, thanks to your sharp claws.",
+                            Name = "Claws"
+                        },
+                        new
+                        {
+                            Id = 56,
                             CharacterRaceId = 20,
+                            Description = "See in dim light within 60 ft. as if it were bright light, and in darkness as if it were dim light.",
+                            Name = "Dark Vision"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            CharacterRaceId = 20,
+                            Description = "Advantage on saving throws against spells and magical effects.",
+                            Name = "Magic Resistance"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            CharacterRaceId = 20,
+                            Description = "Immune to poison damage and the poisoned condition.",
                             Name = "Poison Immunity"
                         });
                 });

@@ -3,72 +3,176 @@
     public class Constants
     {
         public const string None = "None";
-
+        #region ClassAbilities
+        //Barbarian
         public const string Rage = "Rage";
         public const string UnarmoredDefence = "Unarmored Defense";
+        public const string RecklessAttack = "Reckless Attack";
+        public const string DangerSense = "Danger Sense";
+
+        //Bard
         public const string BardicInspiration = "Bardic Inspiration";
         public const string SongOfRest = "Song of Rest";
+        public const string BardicMagic = "Bardic Magic";
+        public const string JackOfAllTrades = "Jack Of All Trades";
+
+        //Cleric
         public const string TurnUndead = "Turn Undead";
         public const string DivineIntervention = "Divine Intervention";
+        public const string DivineDomain = "DivineDomain";
+
+        //Druid
         public const string WildShape = "Wild Shape";
-        public const string Druidic = "Druidic";
+        public const string DruidicCircle = "Druidic Circle";
+        public const string SpellsOfNature = "Spells Of Nature";
+
+        //Fighter
         public const string SecondWind = "Second Wind";
         public const string ActionSurge = "Action Surge";
+        public const string FightingStyle = "Fighting Style";
+        public const string MartialArchetype = "Martial Archtype";
+
+        //Monk
         public const string MartialArts = "Martial Arts";
         public const string KiPoints = "Ki Points";
+        public const string UnarmoredDefense = "Unarmored Defense";
+        public const string DeflectMissles = "DeflectMissles";
+
+        //Paladin
         public const string LayOnHands = "Lay on Hands";
         public const string DivineSmite = "Divine Smite";
+        public const string AuraOfProtection = "Aura Of Protection";
+        public const string SacredOath = "Sacred Oath";
+
+        //Ranger
         public const string FavoredEnemy = "Favored Enemy";
         public const string NaturalExplorer = "Natural Explorer";
+        public const string RangerMagic = "Ranger Magic";
+        public const string HuntersMark = "Hunter's Mark";
+
+        //Rogue
         public const string SneakAttack = "Sneak Attack";
         public const string CunningAction = "Cunning Action";
+        public const string UncannyDodge = "UncannyDodge";
+        public const string Evasion = "Evasion";
+
+        //Sorcerer
         public const string Metamagic = "Metamagic";
-        public const string FontOfMagic = "Font of Magic";
-        public const string EldritchInvocations = "Eldritch Invocations";
+        public const string WildMagic = "Wild Magic";
+        public const string Sorcery = "Sorcery";
+        public const string SorceryPoints = "SorceryPoints";
+        
+
+        //Warlock
         public const string PactMagic = "Pact Magic";
+        public const string EldritchInvocations = "Eldritch Invocations";
+        public const string PactBoon = "Pact Boon";
+        public const string PatronFeatures = "Patron Features";
+
+        //Wizard 
         public const string ArcaneRecovery = "Arcane Recovery";
         public const string SpellMastery = "Spell Mastery";
+        public const string ArcaneTradition = "Arcane Tradition";
+        public const string RitualCasting = "Ritual Casting";
+        #endregion
+
+        #region Character Abilities
         public const string Strength = "Strength";
         public const string Dexterity = "Dexterity";
         public const string Constitution = "Constitution";
         public const string Intelligence = "Intelligence";
         public const string Wisdom = "Wisdom";
         public const string Charisma = "Charisma";
+        #endregion
+
+        #region Race Abilities
+        //Aasimar 1
+        public const string CelestialResitance = "Celestial Resitance";
         public const string HealingHands = "Healing Hands";
+        public const string LightBearer = "Light Bearer";
+
+        //Dragonborn 2
         public const string BreathWeapon = "Breath Weapon";
-        public const string DraconicAncestry = "Draconic Ancestry";
-        public const string Darkvision = "Darkvision";
+        public const string DraconicResistance = "Draconic Resistance";
+
+        //Dwarf 3
+        public const string DarkVision = "Dark Vision";
         public const string DwarvenResilience = "Dwarven Resilience";
+        public const string Stonecunning = "Stonecunning";
+
+        //Elf 4
         public const string KeenSenses = "Keen Senses";
         public const string FeyAncestry = "Fey Ancestry";
+        public const string Trance = "Trance";
+
+        //Firbolg 5
         public const string FirbolgMagic = "Firbolg Magic";
         public const string HiddenStep = "Hidden Step";
+        public const string PowerfulBuild = "Powerful Build";
+        public const string SpeachOfBeastAndLeaf = "Speach Of Beast And Leaf";
+
+        //Genasi
+        //Air 6
         public const string UnendingBreath = "Unending Breath";
         public const string MingleWithTheWind = "Mingle with the Wind";
+        //Earth 7
         public const string EarthWalk = "Earth Walk";
         public const string MergeWithStone = "Merge with Stone";
+        //Fire 8
         public const string FireResistance = "Fire Resistance";
+        public const string ReachToTheBlaze = "Reach to the Blaze";
+        //Water 9
         public const string AcidResistance = "Acid Resistance";
         public const string Amphibious = "Amphibious";
+        public const string CallToTheWave = "Call to the Wave";
+
+        //Gnome 10
         public const string GnomeCunning = "Gnome Cunning";
+
+        //Goliath 11
         public const string MountainBorn = "Mountain Born";
-        public const string PowerfulBuild = "Powerful Build";
+        public const string NaturalAthlete = "Natual Athlete";
+        public const string StonesEndurance = "Stone's Endurance";
+
+        //Half Elf 12
         public const string SkillVersatility = "Skill Versatility";
+
+        //Halfling 13
         public const string Lucky = "Lucky";
         public const string Brave = "Brave";
+        public const string HalflingNimbleness = "Halfling Nimbleness";
+
+        //Half Orc 14
         public const string RelentlessEndurance = "Relentless Endurance";
         public const string SavageAttack = "Savage Attack";
+
+        //Human 15
         public const string VersatileAbility = "Versatile Ability";
+
+        //Kenku 16
         public const string Mimicry = "Mimicry";
         public const string ExpertForgery = "Expert Forgery";
+        public const string SkillProficiencies = "Skill Proficiencies";
+
+        //Tabaxi 17
         public const string CatsClaws = "Cat’s Claws";
         public const string FelineAgility = "Feline Agility";
+
+        //Tiefling 18
         public const string InfernalLegacy = "Infernal Legacy";
         public const string HellishResistance = "Hellish Resistance";
-        public const string NaturalArmor = "Natural Armor";
+
+        //Tortle 19
         public const string HoldBreath = "Hold Breath";
+        public const string ShellDefense = "Shell Defense";
+        public const string Claws = "Claws";
+
+        //Yuan-ti Pureblood 20
         public const string MagicResistance = "Magic Resistance";
         public const string PoisonImmunity = "Poison Immunity";
+        #endregion
+
+
 
         public const string Battleaxe = "Battleaxe";
         public const string Handaxe = "Handaxe";

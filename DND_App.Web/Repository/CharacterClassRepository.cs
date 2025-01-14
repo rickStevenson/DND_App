@@ -1,6 +1,7 @@
 ﻿using DND_App.Web.Data;
 using DND_App.Web.Models.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace DND_App.Web.Repository
 {
@@ -25,13 +26,19 @@ namespace DND_App.Web.Repository
 
         public async Task<CharacterClass> GetClassByIdAsync(int id)
         {
-            var characterClass = await dnDDbContext.CharacterClasses.FindAsync(id);
+            var characterClass = await dnDDbContext.CharacterClasses
+                .Include(a => a.ClassAbilities) 
+                .Include(st => st.ClassSavingThrows)
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (characterClass == null)
             {
                 throw new ArgumentException("Invalid class ID");
             }
+
+            
             return characterClass;
         }
+
     }
 }

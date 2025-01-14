@@ -58,6 +58,12 @@
                                 <p class="text-muted">No class saving throws</p>
                             }
                         </td>
+                        <td>
+                            <a class="btn btn-primary" 
+                               href="@Url.Action("ClassDetails", "CharacterClass", new { id = characterClass.Id })">
+                                View Details
+                            </a>
+                        </td>
                     </tr>
                 }
             </tbody>

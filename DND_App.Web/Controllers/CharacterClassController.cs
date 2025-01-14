@@ -13,11 +13,20 @@ namespace DND_App.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetClassById(int id)
+        public async Task<IActionResult> ClassDetails(int id)
         {
-            var characterClass = await characterClassRepository.GetClassByIdAsync(id);
-            return View(characterClass);
+            try
+            {
+                var characterClass = await characterClassRepository.GetClassByIdAsync(id);
+                return View(characterClass);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound(); // Handle invalid ID
+            }
         }
+
+
         [HttpGet]
         public async Task<IActionResult> GetAllClasses()
         {

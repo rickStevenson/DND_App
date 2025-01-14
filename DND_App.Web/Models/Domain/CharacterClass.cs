@@ -1,4 +1,6 @@
-﻿namespace DND_App.Web.Models.Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DND_App.Web.Models.Domain
 {
     public class CharacterClass
     {
@@ -9,6 +11,6 @@
         public ICollection<ClassAbility> ClassAbilities { get; set; } = new List<ClassAbility>();
         public ICollection<ClassSavingThrow> ClassSavingThrows { get; set; } = new List<ClassSavingThrow>();
 
-        public string FeaturesAndTraitsJson { get; set; }
+        
     }
 }
