@@ -14,6 +14,8 @@ namespace DND_App.Web.Data
     public class DnDDbContext : DbContext
     {
         public DbSet<Character> Characters { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<CharacterSkill> CharacterSkills { get; set; }
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<ClassAbility> ClassAbilities { get; set; }
         public DbSet<ClassSavingThrow> ClassSavingThrows { get; set; }
@@ -70,82 +72,225 @@ namespace DND_App.Web.Data
                 .HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            
+            // Configure the many-to-many skill relationship
+            modelBuilder.Entity<CharacterSkill>()
+                .HasKey(cs => new { cs.CharacterId, cs.SkillId }); // Composite Primary Key
 
-            modelBuilder.Entity<CharacterClass>().HasData(
-                new CharacterClass
-                {
-                    Id = 1,
-                    Name = "Barbarian",
-                    HitDie = 12
-                },
-                new CharacterClass
-                {
-                    Id = 2,
-                    Name = "Bard",
-                    HitDie = 8
-                },
-                new CharacterClass
-                {
-                    Id = 3,
-                    Name = "Cleric",
-                    HitDie = 8
-                },
-                new CharacterClass
-                {
-                    Id = 4,
-                    Name = "Druid",
-                    HitDie = 8
-                },
-                new CharacterClass
+            modelBuilder.Entity<CharacterSkill>()
+                .HasOne(cs => cs.Character)
+                .WithMany(c => c.CharacterSkills)
+                .HasForeignKey(cs => cs.CharacterId);
+
+            modelBuilder.Entity<CharacterSkill>()
+                .HasOne(cs => cs.Skill)
+                .WithMany()
+                .HasForeignKey(cs => cs.SkillId);
+
+
+            modelBuilder.Entity<Skill>().HasData(
+               new Skill
+               {
+                   Id = 1,
+                   Name = Constants.Athletics,
+                   Description = "Covers climbing, jumping, and swimming.",
+                   AlignedAttribute = Constants.Strength
+               },
+               new Skill
+               {
+                   Id = 2,
+                   Name = Constants.Acrobatics,
+                   Description = "Covers balancing, tumbling, and avoiding falls.",
+                   AlignedAttribute = Constants.Dexterity
+               },
+               new Skill
+               {
+                   Id = 3,
+                   Name = Constants.SleightOfHand,
+                   Description = "Covers manual trickery like pickpocketing.",
+                   AlignedAttribute = Constants.Dexterity
+               },
+               new Skill
+               {
+                   Id = 4,
+                   Name = Constants.Stealth,
+                   Description = "Covers hiding and moving silently.",
+                   AlignedAttribute = Constants.Dexterity
+               },
+                new Skill
                 {
                     Id = 5,
-                    Name = "Fighter",
-                    HitDie = 10
+                    Name = Constants.Arcana,
+                    Description = "Covers knowledge of magic, spells, and artifacts.",
+                    AlignedAttribute = Constants.Intelligence
                 },
-                new CharacterClass
+                new Skill
                 {
                     Id = 6,
-                    Name = "Monk",
-                    HitDie = 8
+                    Name = Constants.History,
+                    Description = "Covers knowledge of historical events and lore.",
+                    AlignedAttribute = Constants.Intelligence
                 },
-                new CharacterClass
+                new Skill
                 {
                     Id = 7,
-                    Name = "Paladin",
-                    HitDie = 10
+                    Name = Constants.Investigation,
+                    Description = "Covers finding clues and solving mysteries.",
+                    AlignedAttribute = Constants.Intelligence
                 },
-                new CharacterClass
+                new Skill
                 {
                     Id = 8,
-                    Name = "Ranger",
-                    HitDie = 10
+                    Name = Constants.Nature,
+                    Description = "Covers knowledge of plants, animals, and natural phenomena.",
+                    AlignedAttribute = Constants.Intelligence
                 },
-                new CharacterClass
+                new Skill
                 {
                     Id = 9,
-                    Name = "Rogue",
-                    HitDie = 8
+                    Name = Constants.Religion,
+                    Description = "Covers knowledge of deities, rites, and holy symbols.",
+                    AlignedAttribute = Constants.Intelligence
                 },
-                new CharacterClass
+                new Skill
                 {
                     Id = 10,
-                    Name = "Sorcerer",
-                    HitDie = 6
+                    Name = Constants.AnimalHandling,
+                    Description = "Covers calming, controlling, and training animals.",
+                    AlignedAttribute = Constants.Wisdom
                 },
-                new CharacterClass
+                new Skill
                 {
                     Id = 11,
-                    Name = "Warlock",
-                    HitDie = 8
+                    Name = Constants.Insight,
+                    Description = "Covers reading body language and intentions.",
+                    AlignedAttribute = Constants.Wisdom
                 },
-                new CharacterClass
+                new Skill
                 {
                     Id = 12,
-                    Name = "Wizard",
-                    HitDie = 6
+                    Name = Constants.Medicine,
+                    Description = "Covers stabilizing creatures and diagnosing ailments.",
+                    AlignedAttribute = Constants.Wisdom
+                },
+                new Skill
+                {
+                    Id = 13,
+                    Name = Constants.Perception,
+                    Description = "Covers noticing details and detecting hidden creatures or objects.",
+                    AlignedAttribute = Constants.Wisdom
+                },
+                new Skill
+                {
+                    Id = 14,
+                    Name = Constants.Survival,
+                    Description = "Covers tracking, foraging, and surviving in the wild.",
+                    AlignedAttribute = Constants.Wisdom 
+                },
+                new Skill
+                {
+                    Id = 15,
+                    Name = Constants.Deception,
+                    Description = "Covers convincing others of falsehoods.",
+                    AlignedAttribute = Constants.Charisma
+                },
+                new Skill
+                {
+                    Id = 16,
+                    Name = Constants.Intimidation,
+                    Description = "Covers coercing others through threats or force.",
+                    AlignedAttribute = Constants.Charisma
+                },
+                new Skill
+                {
+                    Id = 17,
+                    Name = Constants.Perception,
+                    Description = "Covers entertaining others through music, dance, or acting.",
+                    AlignedAttribute = Constants.Charisma
+                },
+                new Skill
+                {
+                    Id = 18,
+                    Name = Constants.Persuasion,
+                    Description = "Covers influencing others with tact and social grace.",
+                    AlignedAttribute = Constants.Charisma
                 }
             );
+
+
+            modelBuilder.Entity<CharacterClass>().HasData(
+                 new CharacterClass
+                 {
+                     Id = 1,
+                     Name = "Barbarian",
+                     HitDie = 12
+                 },
+                 new CharacterClass
+                 {
+                     Id = 2,
+                     Name = "Bard",
+                     HitDie = 8
+                 },
+                 new CharacterClass
+                 {
+                     Id = 3,
+                     Name = "Cleric",
+                     HitDie = 8
+                 },
+                 new CharacterClass
+                 {
+                     Id = 4,
+                     Name = "Druid",
+                     HitDie = 8
+                 },
+                 new CharacterClass
+                 {
+                     Id = 5,
+                     Name = "Fighter",
+                     HitDie = 10
+                 },
+                 new CharacterClass
+                 {
+                     Id = 6,
+                     Name = "Monk",
+                     HitDie = 8
+                 },
+                 new CharacterClass
+                 {
+                     Id = 7,
+                     Name = "Paladin",
+                     HitDie = 10
+                 },
+                 new CharacterClass
+                 {
+                     Id = 8,
+                     Name = "Ranger",
+                     HitDie = 10
+                 },
+                 new CharacterClass
+                 {
+                     Id = 9,
+                     Name = "Rogue",
+                     HitDie = 8
+                 },
+                 new CharacterClass
+                 {
+                     Id = 10,
+                     Name = "Sorcerer",
+                     HitDie = 6
+                 },
+                 new CharacterClass
+                 {
+                     Id = 11,
+                     Name = "Warlock",
+                     HitDie = 8
+                 },
+                 new CharacterClass
+                 {
+                     Id = 12,
+                     Name = "Wizard",
+                     HitDie = 6
+                 }
+             );
             modelBuilder.Entity<ClassAbility>().HasData(
                 //Barbarian
                 new ClassAbility { Id = 1, Name = Constants.Rage, Description = "Enter a frenzied state to gain bonus damage, resist physical damage, and advantage on Strength checks/saving throws.", CharacterClassId = 1 },
@@ -154,12 +299,17 @@ namespace DND_App.Web.Data
                 new ClassAbility { Id = 4, Name = Constants.DangerSense, Description = "Gain advantage on Dexterity saving throws against effects you can see.", CharacterClassId = 1 },
 
                 //Bard
-                new ClassAbility { Id = 5, Name = Constants.BardicInspiration,Description = "Inspire allies with a bonus to ability checks, attack rolls, or saving throws.",
-                    CharacterClassId = 2 },
+                new ClassAbility
+                {
+                    Id = 5,
+                    Name = Constants.BardicInspiration,
+                    Description = "Inspire allies with a bonus to ability checks, attack rolls, or saving throws.",
+                    CharacterClassId = 2
+                },
                 new ClassAbility { Id = 6, Name = Constants.SongOfRest, Description = "Help allies recover additional hit points during short rests.", CharacterClassId = 2 },
-                new ClassAbility{ Id = 7, Name = Constants.BardicMagic, Description = "Use a wide variety of spells to charm, inspire, and deal damage.", CharacterClassId = 2},
-                new ClassAbility{ Id = 8, Name = Constants.JackOfAllTrades, Description = "Add half proficiency bonus to all ability checks you’re not proficient in.", CharacterClassId = 2 },
-               
+                new ClassAbility { Id = 7, Name = Constants.BardicMagic, Description = "Use a wide variety of spells to charm, inspire, and deal damage.", CharacterClassId = 2 },
+                new ClassAbility { Id = 8, Name = Constants.JackOfAllTrades, Description = "Add half proficiency bonus to all ability checks you’re not proficient in.", CharacterClassId = 2 },
+
                 //Cleric
                 new ClassAbility { Id = 9, Name = Constants.TurnUndead, Description = "Turn undead or perform a special ability depending on your domain.", CharacterClassId = 3 },
                 new ClassAbility { Id = 10, Name = Constants.DivineIntervention, Description = "Divine spells drawn from your deity’s domain.", CharacterClassId = 3 },

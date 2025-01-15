@@ -122,6 +122,48 @@
         </div>
     </div>
 
+    <div>
+        <label class="form-label">Gender</label>
+        <input type="text" class="form-control" id="gender" asp-for="Gender" />
+        <span asp-validation-for="Gender"></span>
+    </div>
+    <div>
+        <label class="form-label">Current Hit Points</label>
+        <input type="text" class="form-control" id="hitPoints_Current" asp-for="HitPoints_Current" />
+        <span asp-validation-for="HitPoints_Current"></span>
+    </div>
+    <div>
+        <label class="form-label">Total Hit Points</label>
+        <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
+        <span asp-validation-for="HitPoints_Total"></span>
+    </div>
+    <div>
+        <label class="form-label">Initiative</label>
+        <input type="text" class="form-control" id="initiative" asp-for="Initiative" />
+        <span asp-validation-for="Initiative"></span>
+    </div>
+    <div>
+        <label class="form-label">TotalWeight</label>
+        <input type="text" class="form-control" id="totalWeight" asp-for="TotalWeight" />
+        <span asp-validation-for="TotalWeight"></span>
+    </div>
+
+    <div>
+        <h3>Skills</h3>
+        @foreach (var skill in ViewBag.Skills)
+        {
+            <div class="mb-3">
+                <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="skill-@skill.Id-Proficient" name="CharacterSkills[@skill.Id].IsProficient" />
+                    <label class="form-check-label" for="skill-@skill.Id-Proficient">Proficient</label>
+                </div>
+                <label class="form-label" for="skill-@skill.Id-Bonus">Bonus</label>
+                <input type="number" class="form-control" id="skill-@skill.Id-Bonus" name="CharacterSkills[@skill.Id].Bonus" />
+            </div>
+        }
+    </div>
+
 </div>
 
 

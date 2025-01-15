@@ -35,17 +35,11 @@ namespace DND_App.Web.Models.ViewModels
         // Character Mechanics
         
         public int Level { get; set; } = 1;
-
         public int ExperiencePoints { get; set; } = 0;
-
         public int PassiveWisdom { get; set; } = 10;
-
         public bool Inspiration { get; set; } = false;
-
         public int ProficiencyBonus { get; set; } = 2;
-
         public int ArmorClass { get; set; } = 10;
-
         public int Speed { get; set; } = 30;
 
         //Character Traits
@@ -64,7 +58,12 @@ namespace DND_App.Web.Models.ViewModels
         public string? EncumbranceStatus { get; set; }
         public string? CharacterImage { get; set; }
 
+        public string Gender { get; set; }
+        public int HitPoints_Current { get; set; }
+        public int HitPoints_Total { get; set; }
+        public int Initiative { get; set; }
+        public float TotalWeight { get; set; } = 0;
 
-        //public float TotalWeight { get; set; } = 0;
+        public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
     }
 }

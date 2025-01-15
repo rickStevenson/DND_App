@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using DND_App.Web.Models.ViewModels;
 using Ganss.Xss;
+using System.Reflection;
 
 namespace DND_App.Web.Controllers
 {
@@ -22,11 +23,13 @@ namespace DND_App.Web.Controllers
             this.userManager = userManager;
             this.dndDbContext = dndDbContext;
         }
+
         [HttpGet]
         public IActionResult Create()
         {
             ViewBag.Classes = dndDbContext.CharacterClasses.ToList();
             ViewBag.Races = dndDbContext.CharacterRaces.ToList();
+            ViewBag.Skills = dndDbContext.Skills.ToList();
             return View(new CharacterRequest());
         }
 
@@ -37,6 +40,7 @@ namespace DND_App.Web.Controllers
             {
                 ViewBag.Classes = dndDbContext.CharacterClasses.ToList();
                 ViewBag.Races = dndDbContext.CharacterRaces.ToList();
+                ViewBag.Skills = dndDbContext.Skills.ToList();
                 return View(characterRequest);
             }
 
@@ -82,9 +86,20 @@ namespace DND_App.Web.Controllers
                 CharacterBackstory = characterRequest.CharacterBackstory,
                 Alignment = characterRequest.Alignment,
                 EncumbranceStatus = characterRequest.EncumbranceStatus,
-                CharacterImage = characterRequest.CharacterImage
+                CharacterImage = characterRequest.CharacterImage,
+                Gender = characterRequest.Gender,
+                HitPoints_Current = characterRequest.HitPoints_Current,
+                HitPoints_Total = characterRequest.HitPoints_Total,
+                Initiative = characterRequest.Initiative,
+                TotalWeight = characterRequest.TotalWeight,
 
-                //TotalWeight = characterRequest.TotalWeight,
+                CharacterSkills = characterRequest.CharacterSkills.Select(cs => new CharacterSkill
+                {
+                    SkillId = cs.SkillId,
+                    IsProficient = cs.IsProficient,
+                    Bonus = cs.Bonus
+                }).ToList()
+
             };
 
             await characterRepository.CreateAsync(character);
@@ -98,6 +113,8 @@ namespace DND_App.Web.Controllers
             var character = dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
+                .Include(c => c.CharacterSkills)
+                    .ThenInclude(cs => cs.Skill)
                 .FirstOrDefault(c => c.Id == id);
 
             if (character == null)
@@ -160,12 +177,25 @@ namespace DND_App.Web.Controllers
                 CharacterBackstory = character.CharacterBackstory,
                 Alignment = character.Alignment,
                 EncumbranceStatus = character.EncumbranceStatus,
-                CharacterImage = character.CharacterImage
+                CharacterImage = character.CharacterImage,
+                Gender = character.Gender,
+                HitPoints_Current = character.HitPoints_Current,
+                HitPoints_Total = character.HitPoints_Total,
+                Initiative = character.Initiative,
+                TotalWeight = character.TotalWeight,
+
+                CharacterSkills = character.CharacterSkills.Select(cs => new CharacterSkillRequest
+                {
+                    SkillId = cs.SkillId,
+                    IsProficient = cs.IsProficient,
+                    Bonus = cs.Bonus
+                }).ToList()
             };
 
             // Populate the ViewBag for dropdowns (Character Classes and Races)
             ViewBag.Classes = dndDbContext.CharacterClasses.ToList();
             ViewBag.Races = dndDbContext.CharacterRaces.ToList();
+            ViewBag.Skills = dndDbContext.Skills.ToList();
 
             return View(editCharacterRequest); // Return the edit view
         }
@@ -178,6 +208,7 @@ namespace DND_App.Web.Controllers
                 // Repopulate the ViewBag if validation fails
                 ViewBag.Classes = dndDbContext.CharacterClasses.ToList();
                 ViewBag.Races = dndDbContext.CharacterRaces.ToList();
+                ViewBag.Skills = dndDbContext.Skills.ToList();
 
                 return View(editCharacterRequest); // Return the view with errors
             }
@@ -224,6 +255,18 @@ namespace DND_App.Web.Controllers
             character.CharacterBackstory = editCharacterRequest.CharacterBackstory;
             character.Alignment = editCharacterRequest.Alignment;
             character.CharacterImage = editCharacterRequest.CharacterImage;
+            character.Gender = editCharacterRequest.Gender;
+            character.HitPoints_Current = editCharacterRequest.HitPoints_Current;
+            character.HitPoints_Total = editCharacterRequest.HitPoints_Total;
+            character.Initiative = editCharacterRequest.Initiative;
+            character.TotalWeight = editCharacterRequest.TotalWeight;
+
+            character.CharacterSkills = editCharacterRequest.CharacterSkills.Select(cs => new CharacterSkill
+            {
+                SkillId = cs.SkillId,
+                IsProficient = cs.IsProficient,
+                Bonus = cs.Bonus
+            }).ToList();
 
             // Save changes via the repository
             await characterRepository.UpdateAsync(character);
@@ -261,6 +304,8 @@ namespace DND_App.Web.Controllers
             var userCharacters = await dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
+                .Include(c => c.CharacterSkills)
+                    .ThenInclude(cs => cs.Skill)
                 .Where(c => c.UserId == Guid.Parse(user.Id))
                 .ToListAsync();
 

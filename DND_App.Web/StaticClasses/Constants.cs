@@ -1,9 +1,39 @@
-﻿namespace DND_App.Web.StaticClasses
+﻿using System;
+
+namespace DND_App.Web.StaticClasses
 {
     public class Constants
     {
         public const string None = "None";
-        #region ClassAbilities
+        #region Character Attributes    
+        public const string Strength = "Strength";
+        public const string Dexterity = "Dexterity";
+        public const string Constitution = "Constitution";
+        public const string Intelligence = "Intelligence";
+        public const string Wisdom = "Wisdom";
+        public const string Charisma = "Charisma";
+        #endregion
+        #region Character Skills
+        public const string Athletics = "Athletics";
+        public const string Acrobatics = "Acrobatics";
+        public const string SleightOfHand = "SleightOfHand";
+        public const string Stealth = "Stealth";
+        public const string Arcana = "Arcana";
+        public const string History = "History";
+        public const string Investigation = "Investigation";
+        public const string Nature = "Nature";
+        public const string Religion = "Religion";
+        public const string AnimalHandling = "AnimalHandling";
+        public const string Insight = "Insight";
+        public const string Medicine = "Medicine";
+        public const string Perception = "Perception";
+        public const string Survival = "Survival";
+        public const string Deception = "Deception";
+        public const string Intimidation = "Intimidation";
+        public const string Performance = "Performance";
+        public const string Persuasion = "Persuasion";
+        #endregion
+        #region Class Abilities
         //Barbarian
         public const string Rage = "Rage";
         public const string UnarmoredDefence = "Unarmored Defense";
@@ -61,7 +91,7 @@
         public const string WildMagic = "Wild Magic";
         public const string Sorcery = "Sorcery";
         public const string SorceryPoints = "SorceryPoints";
-        
+
 
         //Warlock
         public const string PactMagic = "Pact Magic";
@@ -75,16 +105,6 @@
         public const string ArcaneTradition = "Arcane Tradition";
         public const string RitualCasting = "Ritual Casting";
         #endregion
-
-        #region Character Abilities
-        public const string Strength = "Strength";
-        public const string Dexterity = "Dexterity";
-        public const string Constitution = "Constitution";
-        public const string Intelligence = "Intelligence";
-        public const string Wisdom = "Wisdom";
-        public const string Charisma = "Charisma";
-        #endregion
-
         #region Race Abilities
         //Aasimar 1
         public const string CelestialResitance = "Celestial Resitance";
@@ -171,19 +191,7 @@
         public const string MagicResistance = "Magic Resistance";
         public const string PoisonImmunity = "Poison Immunity";
         #endregion
-
-
-
-        public const string Battleaxe = "Battleaxe";
-        public const string Handaxe = "Handaxe";
-        public const string ThrowingHammer = "Throwing Hammer";
-        public const string Warhammer = "Warhammer";
-        public const string Longsword = "Longsword";
-        public const string Shortsword = "Shortsword";
-        public const string Shortbow = "Shortbow";
-        public const string Longbow = "Longbow";
-
-
+        #region Race Tool Proficiencies
         public const string AlchemistsSupplies = "Alchemist's Supplies";
         public const string CalligraphersSupplies = "Calligrapher's Supplies";
         public const string HerbalismKit = "Herbalism Kit";
@@ -216,6 +224,19 @@
         public const string ArtisansTools = "Artisan's Tools";
         public const string FarmersTools = "Farmer's Tools";
         public const string Drums = "Drums";
+        #endregion
+
+
+        public const string Battleaxe = "Battleaxe";
+        public const string Handaxe = "Handaxe";
+        public const string ThrowingHammer = "Throwing Hammer";
+        public const string Warhammer = "Warhammer";
+        public const string Longsword = "Longsword";
+        public const string Shortsword = "Shortsword";
+        public const string Shortbow = "Shortbow";
+        public const string Longbow = "Longbow";
+
+        
     }
 }
 

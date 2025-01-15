@@ -37,6 +37,13 @@ namespace DND_App.Web.Models.ViewModels
         public string? CharacterBackstory { get; set; }
         public string? Alignment { get; set; }
         public string? EncumbranceStatus { get; set; }
+        public float TotalWeight { get; set; } = 0;
         public string? CharacterImage { get; set; }
+        public string Gender { get; set; }
+        public int HitPoints_Current { get; set; }
+        public int HitPoints_Total { get; set; }
+        public int Initiative { get; set; }
+
+        public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
     }
 }

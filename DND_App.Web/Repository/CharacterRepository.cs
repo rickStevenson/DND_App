@@ -25,6 +25,8 @@ namespace DND_App.Web.Repository
             return await dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
+                .Include(c => c.CharacterSkills)
+                    .ThenInclude(cs => cs.Skill)
                 .ToListAsync();
         }
         public async Task<Character?> ReadByIdAsync(int id)
@@ -32,6 +34,8 @@ namespace DND_App.Web.Repository
            return await dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
+                .Include(c => c.CharacterSkills)
+                    .ThenInclude(cs => cs.Skill)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
         public async Task<Character?> UpdateAsync(Character character)
@@ -39,6 +43,8 @@ namespace DND_App.Web.Repository
             var existingCharacter = await dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
+                .Include(c => c.CharacterSkills)
+                    .ThenInclude(cs => cs.Skill)
                 .FirstOrDefaultAsync(post => post.Id == character.Id);
 
             if (existingCharacter != null)
@@ -74,8 +80,51 @@ namespace DND_App.Web.Repository
                 existingCharacter.Alignment = character.Alignment;
                 existingCharacter.EncumbranceStatus = character.EncumbranceStatus;
                 existingCharacter.CharacterImage = character.CharacterImage;
-            }
+                existingCharacter.Gender = character.Gender;
+                existingCharacter.HitPoints_Current = character.HitPoints_Current;
+                existingCharacter.HitPoints_Total = character.HitPoints_Total;
+                existingCharacter.Initiative = character.Initiative;
 
+                // Update relationships
+                existingCharacter.CharacterRaceId = character.CharacterRaceId;
+                existingCharacter.CharacterClassId = character.CharacterClassId;
+
+                // Update CharacterSkills
+                var existingSkills = existingCharacter.CharacterSkills.ToList();
+                var updatedSkills = character.CharacterSkills.ToList();
+
+                // Remove skills that are no longer associated
+                foreach (var skill in existingSkills)
+                {
+                    if (!updatedSkills.Any(cs => cs.SkillId == skill.SkillId))
+                    {
+                        dndDbContext.CharacterSkills.Remove(skill);
+                    }
+                }
+
+                // Add or update skills
+                foreach (var skill in updatedSkills)
+                {
+                    var existingSkill = existingSkills.FirstOrDefault(cs => cs.SkillId == skill.SkillId);
+                    if (existingSkill == null)
+                    {
+                        // Add new skill
+                        existingCharacter.CharacterSkills.Add(new CharacterSkill
+                        {
+                            SkillId = skill.SkillId,
+                            CharacterId = existingCharacter.Id,
+                            IsProficient = skill.IsProficient,
+                            Bonus = skill.Bonus
+                        });
+                    }
+                    else
+                    {
+                        // Update existing skill
+                        existingSkill.IsProficient = skill.IsProficient;
+                        existingSkill.Bonus = skill.Bonus;
+                    }
+                }
+            }
             await dndDbContext.SaveChangesAsync();
             return existingCharacter;
         }

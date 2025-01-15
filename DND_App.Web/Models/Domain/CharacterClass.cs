@@ -10,6 +10,7 @@ namespace DND_App.Web.Models.Domain
 
         public ICollection<ClassAbility> ClassAbilities { get; set; } = new List<ClassAbility>();
         public ICollection<ClassSavingThrow> ClassSavingThrows { get; set; } = new List<ClassSavingThrow>();
+        
 
         
     }
