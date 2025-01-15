@@ -1,118 +1,131 @@
 ﻿@model DND_App.Web.Models.Domain.Character
 
-<h2>Character Details</h2>
+<h2>Character: @Model.CharacterName</h2>
+<h4>Player: @Model.PlayerName</h4>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <!-- Character Image -->
+        @if (!string.IsNullOrEmpty(Model.CharacterImage))
+        {
+            <img src="@Model.CharacterImage" alt="Character Image" class="img-fluid rounded" />
+        }
+        else
+        {
+            <p>No image available</p>
+        }
+    </div>
+</div>
 
 <div class="container">
-    <div class="row">
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <!-- Character Image -->
-                @if (!string.IsNullOrEmpty(Model.CharacterImage))
-                {
-                    <img src="@Model.CharacterImage" alt="Character Image" class="img-fluid rounded" />
-                }
-                else
-                {
-                    <p>No image available</p>
-                }
-            </div>
-            <div class="col-md-8">
-                <!-- Character Backstory -->
-                <h4>Character Backstory</h4>
-                <p>@Html.Raw(Model.CharacterBackstory)</p>
-            </div>
-        </div>
-
-        <!-- Character Information Section -->
-        <div class="col-md-8">
-            <h4>General Information</h4>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <strong>Name:</strong> @Model.CharacterName
+    <div class="sticky-top bg-white shadow-sm">
+        <div class="nav nav-tabs-container overflow-auto">
+            <ul class="nav nav-tabs" id="characterTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark font-weight-bold" id="general-tab" data-bs-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General Info</a>
                 </li>
-                <li class="list-group-item">
-                    <strong>Class:</strong> @Model.CharacterClass.Name
+                <li class="nav-item">
+                    <a class="nav-link text-dark font-weight-bold" id="attributes-tab" data-bs-toggle="tab" href="#attributes" role="tab" aria-controls="attributes" aria-selected="false">Attributes</a>
                 </li>
-                <li class="list-group-item">
-                    <strong>Race:</strong> @Model.CharacterRace.Name
+                <li class="nav-item">
+                    <a class="nav-link text-dark font-weight-bold" id="backstory-tab" data-bs-toggle="tab" href="#backstory" role="tab" aria-controls="backstory" aria-selected="false">Backstory</a>
                 </li>
-                <li class="list-group-item">
-                    <strong>Strength:</strong> @Model.Strength
+                <li class="nav-item">
+                    <a class="nav-link text-dark font-weight-bold" id="appearance-tab" data-bs-toggle="tab" href="#appearance" role="tab" aria-controls="appearance" aria-selected="false">Appearance</a>
                 </li>
-                <li class="list-group-item">
-                    <strong>Dexterity:</strong> @Model.Dexterity
+                <li class="nav-item">
+                    <a class="nav-link text-dark font-weight-bold" id="combat-tab" data-bs-toggle="tab" href="#combat" role="tab" aria-controls="combat" aria-selected="false">Combat</a>
                 </li>
-                <li class="list-group-item">
-                    <strong>Constitution:</strong> @Model.Constitution
-                </li>
-                <li class="list-group-item">
-                    <strong>Intelligence:</strong> @Model.Intelligence
-                </li>
-                <li class="list-group-item">
-                    <strong>Wisdom:</strong> @Model.Wisdom
-                </li>
-                <li class="list-group-item">
-                    <strong>Charisma:</strong> @Model.Charisma
-                </li>
-                <li class="list-group-item">
-                    <strong>Level:</strong> @Model.Level
-                </li>
-                <li class="list-group-item">
-                    <strong>Experience Points:</strong> @Model.ExperiencePoints
-                </li>
-                <li class="list-group-item">
-                    <strong>Passive Wisdom:</strong> @Model.PassiveWisdom
-                </li>
-                <li class="list-group-item">
-                    <strong>Proficiency Bonus:</strong> @Model.ProficiencyBonus
-                </li>
-                <li class="list-group-item">
-                    <strong>Armor Class:</strong> @Model.ArmorClass
-                </li>
-                <li class="list-group-item">
-                    <strong>Speed:</strong> @Model.Speed
-                </li>
-                <li class="list-group-item">
-                    <strong>Age:</strong> @Model.Age
-                </li>
-                <li class="list-group-item">
-                    <strong>Height:</strong> @Model.Height
-                </li>
-                <li class="list-group-item">
-                    <strong>Weight:</strong> @Model.Weight
-                </li>
-                <li class="list-group-item">
-                    <strong>Eyes:</strong> @Model.Eyes
-                </li>
-                <li class="list-group-item">
-                    <strong>Skin:</strong> @Model.Skin
-                </li>
-                <li class="list-group-item">
-                    <strong>Hair:</strong> @Model.Hair
-                </li>
-                <li class="list-group-item">
-                    <strong>Personality Traits:</strong> @Model.PersonalityTraits
-                </li>
-                <li class="list-group-item">
-                    <strong>Ideals:</strong> @Model.Ideals
-                </li>
-                <li class="list-group-item">
-                    <strong>Bonds:</strong> @Model.Bonds
-                </li>
-                <li class="list-group-item">
-                    <strong>Flaws:</strong> @Model.Flaws
-                </li>
-                <li class="list-group-item">
-                    <strong>Alignment:</strong> @Model.Alignment
-                </li>
-                <li class="list-group-item">
-                    <strong>Encumbrance Status:</strong> @Model.EncumbranceStatus
+                <li class="nav-item">
+                    <a class="nav-link text-dark font-weight-bold" id="featuresAndTraits-tab" data-bs-toggle="tab" href="#featuresAndTraits" role="tab" aria-controls="featuresAndTraits" aria-selected="false">FeaturesAndTraits</a>
                 </li>
             </ul>
         </div>
     </div>
-    
 
+
+
+    <div class="tab-content" id="characterTabsContent">
+        <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+            <h4>General Information</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Player Name:</strong> @Model.PlayerName</li>
+                <li class="list-group-item"><strong>Class:</strong> @Model.CharacterClass.Name</li>
+                <li class="list-group-item"><strong>Race:</strong> @Model.CharacterRace.Name</li>
+                <li class="list-group-item"><strong>Level:</strong> @Model.Level</li>
+                <li class="list-group-item"><strong>Experience Points:</strong> @Model.ExperiencePoints</li>
+                <li class="list-group-item"><strong>Alignment:</strong> @Model.Alignment</li>
+                <li class="list-group-item"><strong>Age:</strong> @Model.Age</li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="attributes" role="tabpanel" aria-labelledby="attributes-tab">
+            <h4>Attributes</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Strength:</strong> @Model.Strength</li>
+                <li class="list-group-item">
+                    <i class="fas fa-dumbbell"></i>
+                    <strong>Strength:</strong>
+                    @Model.Strength
+                </li>
+
+                <li class="list-group-item">
+                    <strong>Strength:</strong>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @(Model.Strength * 100 / 25)%;" aria-valuenow="@(Model.Strength)" aria-valuemin="0" aria-valuemax="25">
+                            @Model.Strength
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item"><strong>Dexterity:</strong> @Model.Dexterity</li>
+
+                <li class="list-group-item">
+                    <strong>Dexterity:</strong>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @(Model.Dexterity * 100 / 25)%;" aria-valuenow="@(Model.Dexterity)" aria-valuemin="0" aria-valuemax="25">
+                            @Model.Dexterity
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item"><strong>Constitution:</strong> @Model.Constitution</li>
+                <li class="list-group-item"><strong>Intelligence:</strong> @Model.Intelligence</li>
+                <li class="list-group-item"><strong>Wisdom:</strong> @Model.Wisdom</li>
+                <li class="list-group-item"><strong>Charisma:</strong> @Model.Charisma</li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="backstory" role="tabpanel" aria-labelledby="backstory-tab">
+            <h4>Character Backstory</h4>
+            <p>@Html.Raw(Model.CharacterBackstory)</p>
+        </div>
+        <div class="tab-pane fade" id="appearance" role="tabpanel" aria-labelledby="appearance-tab">
+            <h4>Appearance</h4>
+            <li class="list-group-item"><strong>Height:</strong> @Model.Height</li>
+            <li class="list-group-item"><strong>Weight:</strong> @Model.Weight</li>
+            <li class="list-group-item"><strong>Eyes:</strong> @Model.Eyes</li>
+            <li class="list-group-item"><strong>Skin:</strong> @Model.Skin</li>
+            <li class="list-group-item"><strong>Hair:</strong> @Model.Hair</li>
+        </div>
+        <div class="tab-pane fade" id="combat" role="tabpanel" aria-labelledby="combat-tab">
+            <h4>Combat</h4>
+            <li class="list-group-item"><strong>Passive Wisdom:</strong> @Model.PassiveWisdom</li>
+            <li class="list-group-item"><strong>Proficiency Bonus:</strong> @Model.ProficiencyBonus</li>
+            <li class="list-group-item"><strong>Armor Class:</strong> @Model.ArmorClass</li>
+            <li class="list-group-item"><strong>Speed:</strong> @Model.Speed</li>
+            <li class="list-group-item"><strong>Encumbrance Status:</strong> @Model.EncumbranceStatus</li>
+        </div>
+        <div class="tab-pane fade" id="featuresAndTraits" role="tabpanel" aria-labelledby="featuresAndTraits-tab">
+            <h4>FeaturesAndTraits</h4>
+            <li class="list-group-item"><strong>Personality Traits:</strong> @Model.PersonalityTraits</li>
+            <li class="list-group-item"><strong>Ideals:</strong> @Model.Ideals</li>
+            <li class="list-group-item"><strong>Bonds:</strong> @Model.Bonds</li>
+            <li class="list-group-item"><strong>Flaws:</strong> @Model.Flaws</li>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container">
     <!-- Actions Section -->
     <div class="row mt-4">
         <div class="col-12">

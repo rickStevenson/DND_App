@@ -129,4 +129,35 @@ a {
     background-color: var(--secondary-color); /* Matches your header color */
     color: var(--light-color); /* Text color for the header */
 }
+img {
+    border: 3px solid #ccc;
+    margin: 20px auto;
+    display: block;
+    border-radius: 15px;
+}
+
+.list-group-item {
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.tab-pane h4 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.sticky-top {
+    top: 56px; /* Adjust based on your fixed navbar height */
+    z-index: 1020; /* Ensure it stacks above other elements */
+}
+
+.fixed-tabs {
+    position: fixed;
+    top: 56px; /* Adjust for your header height */
+    width: 100%;
+    background-color: black;
+    z-index: 1020; /* Stacking context */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
 
