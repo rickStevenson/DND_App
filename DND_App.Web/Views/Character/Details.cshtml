@@ -1,35 +1,123 @@
 ﻿@model DND_App.Web.Models.Domain.Character
 
-<h1>@Model.CharacterName</h1>
-<p>Played by: @Model.PlayerName</p>
-<p>Race: @Model.CharacterRace.Name</p>
-<p>Class: @Model.CharacterClass.Name</p>
-<p>Strength: @Model.Strength</p>
-<p>Dexterity: @Model.Dexterity</p>
-<p>Constitution: @Model.Constitution</p>
-<p>Intelligence: @Model.Intelligence</p>
-<p>Wisdom: @Model.Wisdom</p>
-<p>Charisma: @Model.Charisma</p>
-<p>Level: @Model.Level</p>
-<p>Experience Points: @Model.ExperiencePoints</p>
-<p>Passive Wisdom: @Model.PassiveWisdom</p>
-<p>Inspiration: @Model.Inspiration</p>
-<p>Proficiency Bonus: @Model.ProficiencyBonus</p>
-<p>Armor Class: @Model.ArmorClass</p>
-<p>Speed: @Model.Speed</p>
-<p>Age: @Model.Age</p>
-<p>Height: @Model.Height</p>
-<p>Weight: @Model.Weight</p>
-<p>Eyes: @Model.Eyes</p>
-<p>Skin: @Model.Skin</p>
-<p>Hair: @Model.Hair</p>
-<p>PersonalityTraits: @Model.PersonalityTraits</p>
-<p>Ideals: @Model.Ideals</p>
-<p>Bonds: @Model.Bonds</p>
-<p>Flaws: @Model.Flaws</p>
-<p>CharacterBackstory: </p>
-<div>@Html.Raw(Model.CharacterBackstory)</div>
-<p>Alignment: @Model.Alignment</p>
-<p>EncumbranceStatus: @Model.EncumbranceStatus</p>
-<p>CharacterImage: @Model.CharacterImage</p>
+<h2>Character Details</h2>
 
+<div class="container">
+    <div class="row">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <!-- Character Image -->
+                @if (!string.IsNullOrEmpty(Model.CharacterImage))
+                {
+                    <img src="@Model.CharacterImage" alt="Character Image" class="img-fluid rounded" />
+                }
+                else
+                {
+                    <p>No image available</p>
+                }
+            </div>
+            <div class="col-md-8">
+                <!-- Character Backstory -->
+                <h4>Character Backstory</h4>
+                <p>@Html.Raw(Model.CharacterBackstory)</p>
+            </div>
+        </div>
+
+        <!-- Character Information Section -->
+        <div class="col-md-8">
+            <h4>General Information</h4>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>Name:</strong> @Model.CharacterName
+                </li>
+                <li class="list-group-item">
+                    <strong>Class:</strong> @Model.CharacterClass.Name
+                </li>
+                <li class="list-group-item">
+                    <strong>Race:</strong> @Model.CharacterRace.Name
+                </li>
+                <li class="list-group-item">
+                    <strong>Strength:</strong> @Model.Strength
+                </li>
+                <li class="list-group-item">
+                    <strong>Dexterity:</strong> @Model.Dexterity
+                </li>
+                <li class="list-group-item">
+                    <strong>Constitution:</strong> @Model.Constitution
+                </li>
+                <li class="list-group-item">
+                    <strong>Intelligence:</strong> @Model.Intelligence
+                </li>
+                <li class="list-group-item">
+                    <strong>Wisdom:</strong> @Model.Wisdom
+                </li>
+                <li class="list-group-item">
+                    <strong>Charisma:</strong> @Model.Charisma
+                </li>
+                <li class="list-group-item">
+                    <strong>Level:</strong> @Model.Level
+                </li>
+                <li class="list-group-item">
+                    <strong>Experience Points:</strong> @Model.ExperiencePoints
+                </li>
+                <li class="list-group-item">
+                    <strong>Passive Wisdom:</strong> @Model.PassiveWisdom
+                </li>
+                <li class="list-group-item">
+                    <strong>Proficiency Bonus:</strong> @Model.ProficiencyBonus
+                </li>
+                <li class="list-group-item">
+                    <strong>Armor Class:</strong> @Model.ArmorClass
+                </li>
+                <li class="list-group-item">
+                    <strong>Speed:</strong> @Model.Speed
+                </li>
+                <li class="list-group-item">
+                    <strong>Age:</strong> @Model.Age
+                </li>
+                <li class="list-group-item">
+                    <strong>Height:</strong> @Model.Height
+                </li>
+                <li class="list-group-item">
+                    <strong>Weight:</strong> @Model.Weight
+                </li>
+                <li class="list-group-item">
+                    <strong>Eyes:</strong> @Model.Eyes
+                </li>
+                <li class="list-group-item">
+                    <strong>Skin:</strong> @Model.Skin
+                </li>
+                <li class="list-group-item">
+                    <strong>Hair:</strong> @Model.Hair
+                </li>
+                <li class="list-group-item">
+                    <strong>Personality Traits:</strong> @Model.PersonalityTraits
+                </li>
+                <li class="list-group-item">
+                    <strong>Ideals:</strong> @Model.Ideals
+                </li>
+                <li class="list-group-item">
+                    <strong>Bonds:</strong> @Model.Bonds
+                </li>
+                <li class="list-group-item">
+                    <strong>Flaws:</strong> @Model.Flaws
+                </li>
+                <li class="list-group-item">
+                    <strong>Alignment:</strong> @Model.Alignment
+                </li>
+                <li class="list-group-item">
+                    <strong>Encumbrance Status:</strong> @Model.EncumbranceStatus
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- Actions Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
