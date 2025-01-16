@@ -1,4 +1,7 @@
 ﻿@model DND_App.Web.Models.Domain.Character
+@*@{
+    var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
+}*@
 
 <h2>Character: @Model.CharacterName</h2>
 <h4>Player: @Model.PlayerName</h4>
@@ -148,21 +151,21 @@
         <span asp-validation-for="TotalWeight"></span>
     </div>
 
-    <div>
-        <h3>Skills</h3>
-        @foreach (var skill in ViewBag.Skills)
-        {
-            <div class="mb-3">
-                <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="skill-@skill.Id-Proficient" name="CharacterSkills[@skill.Id].IsProficient" />
-                    <label class="form-check-label" for="skill-@skill.Id-Proficient">Proficient</label>
-                </div>
-                <label class="form-label" for="skill-@skill.Id-Bonus">Bonus</label>
-                <input type="number" class="form-control" id="skill-@skill.Id-Bonus" name="CharacterSkills[@skill.Id].Bonus" />
-            </div>
-        }
-    </div>
+    @foreach (var skill in Model.CharacterSkills.Where(cs => cs.IsProficient))
+    {
+        // Map the SkillId from CharacterSkillRequest to the Skill's Id
+        var skillName = ((List<DND_App.Web.Models.Domain.Skill>)ViewBag.Skills)
+            .FirstOrDefault(s => s.Id == skill.SkillId)?.Name ?? "Unknown Skill";
+
+        <div class="mb-3">
+            <label class="form-label">
+                Skill Name: @skillName <br />
+                Bonus: @skill.Bonus
+            </label>
+        </div>
+    }
+
+
 
 </div>
 

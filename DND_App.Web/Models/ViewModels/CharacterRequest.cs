@@ -5,7 +5,7 @@ namespace DND_App.Web.Models.ViewModels
     public class CharacterRequest
     {
         [Required]
-        public string CharacterName { get; set; }
+        public string CharacterName { get; set; } = "Dong";
 
         [Required]
         public int CharacterClassId { get; set; }
@@ -54,16 +54,17 @@ namespace DND_App.Web.Models.ViewModels
         public string? Bonds { get; set; }
         public string? Flaws { get; set; }
         public string? CharacterBackstory { get; set; }
-        public string? Alignment { get; set; }
+        public string? Alignment { get; set; } = "Good";
         public string? EncumbranceStatus { get; set; }
         public string? CharacterImage { get; set; }
 
-        public string Gender { get; set; }
-        public int HitPoints_Current { get; set; }
-        public int HitPoints_Total { get; set; }
-        public int Initiative { get; set; }
+        public string Gender { get; set; } = "Male";
+        public int HitPoints_Current { get; set; } = 100;
+        public int HitPoints_Total { get; set; } = 100;
+        public int Initiative { get; set; } = 0;
         public float TotalWeight { get; set; } = 0;
 
+        
         public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
     }
 }

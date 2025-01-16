@@ -1,4 +1,9 @@
 ﻿@model DND_App.Web.Models.ViewModels.CharacterRequest
+
+@{
+    var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
+}
+
 @{
 }
 <div class="bg-primary bg-opacity-10 py-3">
@@ -195,21 +200,45 @@
             <span asp-validation-for="TotalWeight"></span>
         </div>
 
-        <div>
-            <h3>Skills</h3>
-            @foreach (var skill in ViewBag.Skills)
+
+
+        @if (skills != null && skills.Count > 0)
+        {
+            for (var i = 0; i < skills.Count; i++)
             {
+                var skill = skills[i];
+                var characterSkill = Model.CharacterSkills.FirstOrDefault(cs => cs.SkillId == skill.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSkillRequest();
+
                 <div class="mb-3">
                     <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
+
+                    <!-- Hidden input for SkillId -->
+                    <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
+
+                    <!-- Checkbox for IsProficient -->
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="skill-@skill.Id-Proficient" name="CharacterSkills[@skill.Id].IsProficient" />
-                        <label class="form-check-label" for="skill-@skill.Id-Proficient">Proficient</label>
+                        <input class="form-check-input" type="checkbox"
+                               id="CharacterSkills_@(i)__IsProficient"
+                               name="CharacterSkills[@(i)].IsProficient"
+                               value="true"
+                               @(characterSkill.IsProficient ? "checked" : "") />
+                        <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
                     </div>
-                    <label class="form-label" for="skill-@skill.Id-Bonus">Bonus</label>
-                    <input type="number" class="form-control" id="skill-@skill.Id-Bonus" name="CharacterSkills[@skill.Id].Bonus" />
+
+                    <!-- Input for Bonus -->
+                    <label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
+                    <input type="number" class="form-control"
+                           id="CharacterSkills_@(i)__Bonus"
+                           name="CharacterSkills[@(i)].Bonus"
+                           value="@characterSkill.Bonus" />
                 </div>
             }
-        </div>
+        }
+        else
+        {
+            <p>No skills available to display.</p>
+        }
+
 
         <button type="submit">Create</button>
     </form>

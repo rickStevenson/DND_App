@@ -27,11 +27,25 @@ namespace DND_App.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var skills = dndDbContext.Skills.ToList();
+            ViewBag.Skills = skills;
+
+            var characterRequest = new CharacterRequest
+            {
+                CharacterSkills = skills.Select(s => new CharacterSkillRequest
+                {
+                    SkillId = s.Id,
+                    IsProficient = false,
+                    Bonus = 0
+                }).ToList()
+            };
+
             ViewBag.Classes = dndDbContext.CharacterClasses.ToList();
             ViewBag.Races = dndDbContext.CharacterRaces.ToList();
-            ViewBag.Skills = dndDbContext.Skills.ToList();
-            return View(new CharacterRequest());
+
+            return View(characterRequest);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(CharacterRequest characterRequest)
@@ -60,7 +74,7 @@ namespace DND_App.Web.Controllers
                 Intelligence = characterRequest.Intelligence,
                 Wisdom = characterRequest.Wisdom,
                 Charisma = characterRequest.Charisma,
-                Level = characterRequest.Level, // Default Level to 1 if null
+                Level = characterRequest.Level,
                 ExperiencePoints = characterRequest.ExperiencePoints,
                 PassiveWisdom = characterRequest.PassiveWisdom,
                 Inspiration = characterRequest.Inspiration,
@@ -101,7 +115,14 @@ namespace DND_App.Web.Controllers
                 }).ToList()
 
             };
-
+            foreach (var key in Request.Form.Keys)
+            {
+                Console.WriteLine($"{key}: {Request.Form[key]}");
+            }
+            foreach (var skill in characterRequest.CharacterSkills)
+            {
+                Console.WriteLine($"SkillId: {skill.SkillId}, IsProficient: {skill.IsProficient}, Bonus: {skill.Bonus}");
+            }
             await characterRepository.CreateAsync(character);
 
             return RedirectToAction("Details", new { id = character.Id });
@@ -117,8 +138,17 @@ namespace DND_App.Web.Controllers
                     .ThenInclude(cs => cs.Skill)
                 .FirstOrDefault(c => c.Id == id);
 
+            if (character != null)
+            {
+                foreach(var skill in character.CharacterSkills)
+                {
+                    Console.WriteLine($"SkillId: {skill.SkillId}, IsProficient: {skill.IsProficient}, Bonus: {skill.Bonus}");
+                }
+            }
             if (character == null)
                 return NotFound();
+
+            ViewBag.Skills = dndDbContext.Skills.ToList();
 
             return View(character);
         }

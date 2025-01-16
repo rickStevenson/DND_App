@@ -29,7 +29,7 @@ namespace DND_App.Web.Models.Domain
         public string? Age { get; set; }
         public int Level { get; set; }
         public int ExperiencePoints { get; set; }
-        public string? Alignment { get; set; }
+        public string? Alignment { get; set; } = "Good";
         public string? Gender { get; set; }
 
         //Backstory
