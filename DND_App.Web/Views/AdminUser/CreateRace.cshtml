@@ -1,0 +1,15 @@
+﻿
+@{
+}
+
+<form asp-action="CreateRace" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label for="MaleImage">Male Image</label>
+        <input type="file" class="form-control" id="MaleImage" name="MaleImage" />
+    </div>
+    <div class="form-group">
+        <label for="FemaleImage">Female Image</label>
+        <input type="file" class="form-control" id="FemaleImage" name="FemaleImage" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

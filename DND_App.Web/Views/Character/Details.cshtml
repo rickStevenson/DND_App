@@ -1,7 +1,5 @@
 ﻿@model DND_App.Web.Models.Domain.Character
-@*@{
-    var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
-}*@
+
 
 <h2>Character: @Model.CharacterName</h2>
 <h4>Player: @Model.PlayerName</h4>
@@ -151,19 +149,34 @@
         <span asp-validation-for="TotalWeight"></span>
     </div>
 
-    @foreach (var skill in Model.CharacterSkills.Where(cs => cs.IsProficient))
-    {
-        // Map the SkillId from CharacterSkillRequest to the Skill's Id
-        var skillName = ((List<DND_App.Web.Models.Domain.Skill>)ViewBag.Skills)
-            .FirstOrDefault(s => s.Id == skill.SkillId)?.Name ?? "Unknown Skill";
+    <div>
+        <h2>Skills</h2>
+        <ul>
+            @foreach (var skill in Model.CharacterSkills.Where(cs => cs.IsProficient))
+            {
+                // Map the SkillId from CharacterSkillRequest to the Skill's Id
+                var skillName = ((List<DND_App.Web.Models.Domain.Skill>)ViewBag.Skills)
+                    .FirstOrDefault(s => s.Id == skill.SkillId)?.Name ?? "Unknown Skill";
 
-        <div class="mb-3">
-            <label class="form-label">
-                Skill Name: @skillName <br />
-                Bonus: @skill.Bonus
-            </label>
-        </div>
-    }
+                <div class="mb-3">
+                    <label class="form-label">
+                        Skill Name: @skillName <br />
+                        Bonus: @skill.Bonus
+                    </label>
+                </div>
+            }
+        </ul>
+        
+    </div>
+    <div>
+        <h2>Spells</h2>
+        <ul>
+            @foreach (var spell in Model.CharacterSpells)
+            {
+                <li>@spell.Spell.Name</li>
+            }
+        </ul>
+    </div>
 
 
 

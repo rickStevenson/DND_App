@@ -27,6 +27,8 @@ namespace DND_App.Web.Repository
                 .Include(c => c.CharacterRace)
                 .Include(c => c.CharacterSkills)
                     .ThenInclude(cs => cs.Skill)
+                .Include(c => c.CharacterSpells)
+                    .ThenInclude(cs => cs.Spell)
                 .ToListAsync();
         }
         public async Task<Character?> ReadByIdAsync(int id)
@@ -36,23 +38,28 @@ namespace DND_App.Web.Repository
                 .Include(c => c.CharacterRace)
                 .Include(c => c.CharacterSkills)
                     .ThenInclude(cs => cs.Skill)
+                .Include(c => c.CharacterSpells)
+                    .ThenInclude(cs => cs.Spell)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
         public async Task<Character?> UpdateAsync(Character character)
         {
+            //Get existing character
             var existingCharacter = await dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
                 .Include(c => c.CharacterSkills)
                     .ThenInclude(cs => cs.Skill)
+                .Include(c => c.CharacterSpells)
+                    .ThenInclude(cs => cs.Spell)
                 .FirstOrDefaultAsync(post => post.Id == character.Id);
 
+            //Update existing character
             if (existingCharacter != null)
             {
+                #region Update Character Properties
                 existingCharacter.Id = character.Id;
                 existingCharacter.CharacterName = character.CharacterName;
-                existingCharacter.CharacterRace.Name = character.CharacterRace.Name;
-                existingCharacter.CharacterClass.Name = character.CharacterClass.Name;
                 existingCharacter.Strength = character.Strength;
                 existingCharacter.Dexterity = character.Dexterity;
                 existingCharacter.Constitution = character.Constitution;
@@ -84,12 +91,16 @@ namespace DND_App.Web.Repository
                 existingCharacter.HitPoints_Current = character.HitPoints_Current;
                 existingCharacter.HitPoints_Total = character.HitPoints_Total;
                 existingCharacter.Initiative = character.Initiative;
+                #endregion
 
-                // Update relationships
+                #region Update Character Race & Class
+                existingCharacter.CharacterRace.Name = character.CharacterRace.Name;
+                existingCharacter.CharacterClass.Name = character.CharacterClass.Name;
                 existingCharacter.CharacterRaceId = character.CharacterRaceId;
                 existingCharacter.CharacterClassId = character.CharacterClassId;
+                #endregion
 
-                // Update CharacterSkills
+                #region Update CharacterSkills
                 var existingSkills = existingCharacter.CharacterSkills.ToList();
                 var updatedSkills = character.CharacterSkills.ToList();
 
@@ -105,7 +116,8 @@ namespace DND_App.Web.Repository
                 // Add or update skills
                 foreach (var skill in updatedSkills)
                 {
-                    var existingSkill = existingSkills.FirstOrDefault(cs => cs.SkillId == skill.SkillId);
+                    var existingSkill = existingSkills
+                        .FirstOrDefault(cs => cs.SkillId == skill.SkillId);
                     if (existingSkill == null)
                     {
                         // Add new skill
@@ -124,7 +136,40 @@ namespace DND_App.Web.Repository
                         existingSkill.Bonus = skill.Bonus;
                     }
                 }
+                #endregion
+
+                #region Update CharacterSpells
+                var existingSpells = existingCharacter.CharacterSpells.ToList();
+                var updatedSpells = character.CharacterSpells.ToList();
+
+                // Remove spells that are no longer associated
+                foreach (var spell in existingSpells)
+                {
+                    if (!updatedSpells.Any(cs => cs.SpellId == spell.SpellId))
+                    {
+                        dndDbContext.CharacterSpells.Remove(spell);
+                    }
+                }
+
+                // Add or update spells
+                foreach (var spell in updatedSpells)
+                {
+                    var existingSpell = existingSpells
+                        .FirstOrDefault(cs => cs.SpellId == spell.SpellId);
+                    if (existingSpell == null)
+                    {
+                        // Add new spell
+                        existingCharacter.CharacterSpells.Add(new CharacterSpell
+                        {
+                            SpellId = spell.SpellId,
+                            CharacterId = existingCharacter.Id
+                        });
+                    }
+                }
+                #endregion
             }
+
+            //Save changes
             await dndDbContext.SaveChangesAsync();
             return existingCharacter;
         }

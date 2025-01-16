@@ -70,9 +70,9 @@ namespace DND_App.Web.Models.Domain
 
 
         //Skills
-        public ICollection<CharacterSkill> CharacterSkills { get; set; } = new List<CharacterSkill>(); 
+        public ICollection<CharacterSkill> CharacterSkills { get; set; } = new List<CharacterSkill>();
 
-
+        public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
 
         //public string? FeaturesAndTraits { get; set; }
         //public List<string>? AlliesAndOrganizations { get; set; }
@@ -81,7 +81,6 @@ namespace DND_App.Web.Models.Domain
 
 
         //public Attack? Attacks { get; set; }
-        //public SpellCasting? SpellCasting { get; set; }
         //public Treasure? Treasure { get; set; }
     }
 }

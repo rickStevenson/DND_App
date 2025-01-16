@@ -1,6 +1,7 @@
 ﻿@model DND_App.Web.Models.ViewModels.EditCharacterRequest
 @{
     var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
+    var spells = ViewBag.Spells as List<DND_App.Web.Models.Domain.Spell>;
 }
 
 <h2>Edit Character</h2>
@@ -191,36 +192,62 @@
             <span asp-validation-for="TotalWeight"></span>
         </div>
 
-        @for (var i = 0; i < Model.CharacterSkills.Count; i++)
-        {
-            var skill = skills[i];
-            var characterSkill = Model.CharacterSkills[i];
+        <div>
+            <h4>Skills</h4>
+            @for (var i = 0; i < Model.CharacterSkills.Count; i++)
+            {
+                var skill = skills[i];
+                var characterSkill = Model.CharacterSkills[i];
 
-            <div class="mb-3">
-                <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
+                <div class="mb-3">
+                    <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
 
-                <!-- Hidden input for SkillId -->
-                <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
+                    <!-- Hidden input for SkillId -->
+                    <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
 
-                <!-- Checkbox for IsProficient -->
-                <div class="form-check">
-                    <input type="hidden" name="CharacterSkills[@(i)].IsProficient" value="false" />
-                    <input class="form-check-input" type="checkbox"
-                           id="CharacterSkills_@(i)__IsProficient"
-                           name="CharacterSkills[@(i)].IsProficient"
-                           value="true"
-                           @(characterSkill.IsProficient ? "checked" : "") />
-                    <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
+                    <!-- Checkbox for IsProficient -->
+                    <div class="form-check">
+                        <input type="hidden" name="CharacterSkills[@(i)].IsProficient" value="false" />
+                        <input class="form-check-input" type="checkbox"
+                               id="CharacterSkills_@(i)__IsProficient"
+                               name="CharacterSkills[@(i)].IsProficient"
+                               value="true"
+                               @(characterSkill.IsProficient ? "checked" : "") />
+                        <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
+                    </div>
+
+                    <!-- Input for Bonus -->
+                    <label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
+                    <input type="number" class="form-control"
+                           id="CharacterSkills_@(i)__Bonus"
+                           name="CharacterSkills[@(i)].Bonus"
+                           value="@characterSkill.Bonus" />
                 </div>
+            }
+        </div>
+        
+        <div>
+            <h4>Spells</h4>
+            <h3>Spells</h3>
+            @for (var i = 0; i < Model.CharacterSpells.Count; i++)
+            {
+                var spell = spells[i];
+                var characterSpell = Model.CharacterSpells[i];
 
-                <!-- Input for Bonus -->
-                <label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
-                <input type="number" class="form-control"
-                       id="CharacterSkills_@(i)__Bonus"
-                       name="CharacterSkills[@(i)].Bonus"
-                       value="@characterSkill.Bonus" />
-            </div>
-        }
+                <div class="form-check">
+                    <input type="hidden" name="CharacterSpells[@(i)].SpellId" value="@spell.SpellID" />
+                    <input type="hidden" name="CharacterSpells[@(i)].IsSelected" value="false" />
+                    <input class="form-check-input" type="checkbox"
+                           id="CharacterSpells_@(i)__IsSelected"
+                           name="CharacterSpells[@(i)].IsSelected"
+                           value="true"
+                           @(characterSpell.IsSelected ? "checked" : "") />
+                    <label class="form-check-label" for="CharacterSpells_@(i)__IsSelected">
+                        @spell.Name (Level: @spell.Level, School: @spell.School)
+                    </label>
+                </div>
+            }
+        </div>
 
         <!-- Image Upload Section -->
         <div class="mb-3">

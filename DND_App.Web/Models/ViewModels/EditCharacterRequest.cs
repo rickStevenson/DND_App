@@ -45,5 +45,6 @@ namespace DND_App.Web.Models.ViewModels
         public int Initiative { get; set; }
 
         public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
+        public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
     }
 }

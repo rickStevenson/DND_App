@@ -33,7 +33,6 @@ namespace DND_App.Web.Models.ViewModels
         public int Charisma { get; set; } = 21;
 
         // Character Mechanics
-        
         public int Level { get; set; } = 1;
         public int ExperiencePoints { get; set; } = 0;
         public int PassiveWisdom { get; set; } = 10;
@@ -64,7 +63,7 @@ namespace DND_App.Web.Models.ViewModels
         public int Initiative { get; set; } = 0;
         public float TotalWeight { get; set; } = 0;
 
-        
         public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
+        public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
     }
 }
