@@ -52,7 +52,7 @@ namespace DND_App.Web.Controllers
                 // Initialize CharacterSpells
                 CharacterSpells = spells.Select(sp => new CharacterSpellRequest
                 {
-                    SpellId = sp.SpellID,
+                    SpellId = sp.SpellId,
                     IsSelected = false // Default to not selected
                 }).ToList()
             };
@@ -256,9 +256,9 @@ namespace DND_App.Web.Controllers
                 // Map CharacterSpells
                 CharacterSpells = dndDbContext.Spells.Select(sp => new CharacterSpellRequest
                 {
-                    SpellId = sp.SpellID,
+                    SpellId = sp.SpellId,
                     Name = sp.Name,
-                    IsSelected = character.CharacterSpells.Any(cs => cs.SpellId == sp.SpellID) // Check if the character has this spell
+                    IsSelected = character.CharacterSpells.Any(cs => cs.SpellId == sp.SpellId) // Check if the character has this spell
                 }).ToList()
             };
 

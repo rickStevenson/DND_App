@@ -73,12 +73,14 @@ namespace DND_App.Web.Data.Extensions
             modelBuilder.Entity<CharacterSpell>()
                 .HasOne(cs => cs.Character)
                 .WithMany(c => c.CharacterSpells)
-                .HasForeignKey(cs => cs.CharacterId);
+                .HasForeignKey(cs => cs.CharacterId)
+                .HasConstraintName("FK_CharacterSpells_Characters_CharacterId"); // Explicit constraint name
 
             modelBuilder.Entity<CharacterSpell>()
                 .HasOne(cs => cs.Spell)
-                .WithMany()
-                .HasForeignKey(cs => cs.SpellId);
+                .WithMany(s => s.CharacterSpells)
+                .HasForeignKey(cs => cs.SpellId)
+                .HasConstraintName("FK_CharacterSpells_Spells_SpellId"); // Explicit constraint name
         }
     }
 }

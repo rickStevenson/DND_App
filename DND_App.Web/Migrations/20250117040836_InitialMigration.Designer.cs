@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    [Migration("20250115212635_AddedSkills")]
-    partial class AddedSkills
+    [Migration("20250117040836_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,6 @@ namespace DND_App.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Alignment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ArmorClass")
@@ -84,7 +83,6 @@ namespace DND_App.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Hair")
@@ -167,6 +165,10 @@ namespace DND_App.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("HitDie")
                         .HasColumnType("int");
 
@@ -182,72 +184,84 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 1,
+                            Description = "",
                             HitDie = 12,
                             Name = "Barbarian"
                         },
                         new
                         {
                             Id = 2,
+                            Description = "",
                             HitDie = 8,
                             Name = "Bard"
                         },
                         new
                         {
                             Id = 3,
+                            Description = "",
                             HitDie = 8,
                             Name = "Cleric"
                         },
                         new
                         {
                             Id = 4,
+                            Description = "",
                             HitDie = 8,
                             Name = "Druid"
                         },
                         new
                         {
                             Id = 5,
+                            Description = "",
                             HitDie = 10,
                             Name = "Fighter"
                         },
                         new
                         {
                             Id = 6,
+                            Description = "",
                             HitDie = 8,
                             Name = "Monk"
                         },
                         new
                         {
                             Id = 7,
+                            Description = "",
                             HitDie = 10,
                             Name = "Paladin"
                         },
                         new
                         {
                             Id = 8,
+                            Description = "",
                             HitDie = 10,
                             Name = "Ranger"
                         },
                         new
                         {
                             Id = 9,
+                            Description = "",
                             HitDie = 8,
                             Name = "Rogue"
                         },
                         new
                         {
                             Id = 10,
+                            Description = "",
                             HitDie = 6,
                             Name = "Sorcerer"
                         },
                         new
                         {
                             Id = 11,
+                            Description = "",
                             HitDie = 8,
                             Name = "Warlock"
                         },
                         new
                         {
                             Id = 12,
+                            Description = "",
                             HitDie = 6,
                             Name = "Wizard"
                         });
@@ -267,11 +281,23 @@ namespace DND_App.Web.Migrations
                     b.Property<int>("ConstitutionBonus")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DexterityBonus")
                         .HasColumnType("int");
 
+                    b.Property<string>("FemaleImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("IntelligenceBonus")
                         .HasColumnType("int");
+
+                    b.Property<string>("MaleImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -293,8 +319,11 @@ namespace DND_App.Web.Migrations
                             Id = 1,
                             CharismaBonus = 1,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/Aasimar_Female.png",
                             IntelligenceBonus = 2,
+                            MaleImage = "/images/races/Aasimar_Male.png",
                             Name = "Aasimar",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -304,8 +333,11 @@ namespace DND_App.Web.Migrations
                             Id = 2,
                             CharismaBonus = 1,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/Dragonborn_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Dragonborn_Male.png",
                             Name = "Dragonborn",
                             StrengthBonus = 2,
                             WisdomBonus = 0
@@ -315,8 +347,11 @@ namespace DND_App.Web.Migrations
                             Id = 3,
                             CharismaBonus = 0,
                             ConstitutionBonus = 2,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/Dwarf_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Dwarf_Male.png",
                             Name = "Dwarf",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -326,8 +361,11 @@ namespace DND_App.Web.Migrations
                             Id = 4,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 2,
+                            FemaleImage = "/images/races/Elf_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Elf_Male.png",
                             Name = "Elf",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -337,8 +375,11 @@ namespace DND_App.Web.Migrations
                             Id = 5,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/Firbolg_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Firbolg_Male.png",
                             Name = "Firbolg",
                             StrengthBonus = 1,
                             WisdomBonus = 2
@@ -348,8 +389,11 @@ namespace DND_App.Web.Migrations
                             Id = 6,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 1,
+                            FemaleImage = "/images/races/GenasiAir_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/GenasiAir_Male.png",
                             Name = "Air Genasi",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -359,8 +403,11 @@ namespace DND_App.Web.Migrations
                             Id = 7,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/GenasiEarth_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/GenasiEarth_Male.png",
                             Name = "Earth Genasi",
                             StrengthBonus = 1,
                             WisdomBonus = 0
@@ -370,8 +417,11 @@ namespace DND_App.Web.Migrations
                             Id = 8,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 1,
+                            FemaleImage = "/images/races/GenasiFire_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/GenasiFire_Male.png",
                             Name = "Fire Genasi",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -381,8 +431,11 @@ namespace DND_App.Web.Migrations
                             Id = 9,
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/GenasiWater_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/GenasiWater_Male.png",
                             Name = "Water Genasi",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -392,8 +445,11 @@ namespace DND_App.Web.Migrations
                             Id = 10,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/Gnome_Female.png",
                             IntelligenceBonus = 2,
+                            MaleImage = "/images/races/Gnome_Male.png",
                             Name = "Gnome",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -403,8 +459,11 @@ namespace DND_App.Web.Migrations
                             Id = 11,
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/Goliath_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Goliath_Male.png",
                             Name = "Goliath",
                             StrengthBonus = 2,
                             WisdomBonus = 0
@@ -414,8 +473,11 @@ namespace DND_App.Web.Migrations
                             Id = 12,
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/HalfElf_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/HalfElf_Male.png",
                             Name = "Half-Elf",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -425,8 +487,11 @@ namespace DND_App.Web.Migrations
                             Id = 13,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 2,
+                            FemaleImage = "/images/races/Halfling_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Halfling_Male.png",
                             Name = "Halfling",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -436,8 +501,11 @@ namespace DND_App.Web.Migrations
                             Id = 14,
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/HalfOrc_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/HalfOrc_Male.png",
                             Name = "Half-Orc",
                             StrengthBonus = 2,
                             WisdomBonus = 0
@@ -447,8 +515,11 @@ namespace DND_App.Web.Migrations
                             Id = 15,
                             CharismaBonus = 1,
                             ConstitutionBonus = 1,
+                            Description = "",
                             DexterityBonus = 1,
+                            FemaleImage = "/images/races/Human_Female.png",
                             IntelligenceBonus = 1,
+                            MaleImage = "/images/races/Human_Male.png",
                             Name = "Human",
                             StrengthBonus = 1,
                             WisdomBonus = 1
@@ -458,8 +529,11 @@ namespace DND_App.Web.Migrations
                             Id = 16,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 2,
+                            FemaleImage = "/images/races/Kenku_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Kenku_Male.png",
                             Name = "Kenku",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -469,8 +543,11 @@ namespace DND_App.Web.Migrations
                             Id = 17,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 2,
+                            FemaleImage = "/images/races/Tabaxi_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Tabaxi_Male.png",
                             Name = "Tabaxi",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -480,8 +557,11 @@ namespace DND_App.Web.Migrations
                             Id = 18,
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/Tiefling_Female.png",
                             IntelligenceBonus = 1,
+                            MaleImage = "/images/races/Tiefling_Male.png",
                             Name = "Tiefling",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -491,8 +571,11 @@ namespace DND_App.Web.Migrations
                             Id = 19,
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/Tortle_Female.png",
                             IntelligenceBonus = 0,
+                            MaleImage = "/images/races/Tortle_Male.png",
                             Name = "Tortle",
                             StrengthBonus = 2,
                             WisdomBonus = 0
@@ -502,8 +585,11 @@ namespace DND_App.Web.Migrations
                             Id = 20,
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
+                            Description = "",
                             DexterityBonus = 0,
+                            FemaleImage = "/images/races/YuanTiPureblood_Female.png",
                             IntelligenceBonus = 1,
+                            MaleImage = "/images/races/YuanTiPureblood_Male.png",
                             Name = "Yuan-Ti Pureblood",
                             StrengthBonus = 0,
                             WisdomBonus = 0
@@ -529,6 +615,21 @@ namespace DND_App.Web.Migrations
                     b.HasIndex("SkillId");
 
                     b.ToTable("CharacterSkills");
+                });
+
+            modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterSpell", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpellId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CharacterId", "SpellId");
+
+                    b.HasIndex("SpellId");
+
+                    b.ToTable("CharacterSpells");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.ClassAbility", b =>
@@ -2441,7 +2542,7 @@ namespace DND_App.Web.Migrations
                             Id = 17,
                             AlignedAttribute = "Charisma",
                             Description = "Covers entertaining others through music, dance, or acting.",
-                            Name = "Perception"
+                            Name = "Performance"
                         },
                         new
                         {
@@ -2449,6 +2550,184 @@ namespace DND_App.Web.Migrations
                             AlignedAttribute = "Charisma",
                             Description = "Covers influencing others with tact and social grace.",
                             Name = "Persuasion"
+                        });
+                });
+
+            modelBuilder.Entity("DND_App.Web.Models.Domain.Spell", b =>
+                {
+                    b.Property<int>("SpellId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpellId"));
+
+                    b.Property<string>("CastingTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPrepared")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RequiresConcentration")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("School")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SpellRange")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SpellId");
+
+                    b.ToTable("Spells");
+
+                    b.HasData(
+                        new
+                        {
+                            SpellId = 1,
+                            CastingTime = "1 Action",
+                            Description = "A creature you touch regains hit points equal to 1d8 + your spellcasting modifier.",
+                            Duration = "Instant",
+                            IsPrepared = false,
+                            Level = 1,
+                            Name = "Cure Wounds",
+                            RequiresConcentration = false,
+                            School = "Evocation",
+                            SpellRange = "Touch"
+                        },
+                        new
+                        {
+                            SpellId = 2,
+                            CastingTime = "1 Reaction",
+                            Description = "You gain +5 to AC until the start of your next turn.",
+                            Duration = "1 Round",
+                            IsPrepared = false,
+                            Level = 1,
+                            Name = "Shield",
+                            RequiresConcentration = false,
+                            School = "Abjuration",
+                            SpellRange = "Self"
+                        },
+                        new
+                        {
+                            SpellId = 3,
+                            CastingTime = "1 Action",
+                            Description = "Create three glowing darts of force, each dealing 1d4+1 damage to a target.",
+                            Duration = "Instant",
+                            IsPrepared = false,
+                            Level = 1,
+                            Name = "Magic Missle",
+                            RequiresConcentration = false,
+                            School = "Evocation",
+                            SpellRange = "120 feet"
+                        },
+                        new
+                        {
+                            SpellId = 4,
+                            CastingTime = "1 Action",
+                            Description = "Sense the presence of magic within 30 feet for up to 10 minutes.",
+                            Duration = "10 minutes",
+                            IsPrepared = false,
+                            Level = 1,
+                            Name = "Detect Magic",
+                            RequiresConcentration = false,
+                            School = "Divination",
+                            SpellRange = "30 feet"
+                        },
+                        new
+                        {
+                            SpellId = 5,
+                            CastingTime = "1 Action",
+                            Description = "Up to three creatures gain +1d4 to attack rolls and saving throws for 1 minute.",
+                            Duration = "1 Minute",
+                            IsPrepared = false,
+                            Level = 1,
+                            Name = "Bless",
+                            RequiresConcentration = false,
+                            School = "Enchantment",
+                            SpellRange = "30 feet"
+                        },
+                        new
+                        {
+                            SpellId = 6,
+                            CastingTime = "Bonus Action",
+                            Description = "Teleport up to 30 feet to an unoccupied space you can see.",
+                            Duration = "Instant",
+                            IsPrepared = false,
+                            Level = 2,
+                            Name = "Misty Step",
+                            RequiresConcentration = false,
+                            School = "Conjuration",
+                            SpellRange = "30 feet"
+                        },
+                        new
+                        {
+                            SpellId = 7,
+                            CastingTime = "1 Action",
+                            Description = "A creature you touch becomes invisible until they attack or cast a spell.",
+                            Duration = "Up to 1 Hour",
+                            IsPrepared = false,
+                            Level = 2,
+                            Name = "Invisibility",
+                            RequiresConcentration = false,
+                            School = "Illusion",
+                            SpellRange = "Touch"
+                        },
+                        new
+                        {
+                            SpellId = 8,
+                            CastingTime = "1 Action",
+                            Description = "Paralyze a humanoid target for 1 minute, with repeated saves to escape.",
+                            Duration = "Up to 1 Minute",
+                            IsPrepared = false,
+                            Level = 2,
+                            Name = "Hold Person",
+                            RequiresConcentration = false,
+                            School = "Enchantment",
+                            SpellRange = "60 feet"
+                        },
+                        new
+                        {
+                            SpellId = 9,
+                            CastingTime = "1 Action",
+                            Description = "Fire three rays of fire, each dealing 2d6 fire damage on a hit.",
+                            Duration = "Instant",
+                            IsPrepared = false,
+                            Level = 2,
+                            Name = "Scorching Ray",
+                            RequiresConcentration = false,
+                            School = "Evocation",
+                            SpellRange = "120 feet"
+                        },
+                        new
+                        {
+                            SpellId = 10,
+                            CastingTime = "1 Action",
+                            Description = "Grant advantage on ability checks or other bonuses to the target.",
+                            Duration = "1 Hour",
+                            IsPrepared = false,
+                            Level = 2,
+                            Name = "Enhance Ability",
+                            RequiresConcentration = false,
+                            School = "Transmutation",
+                            SpellRange = "Touch"
                         });
                 });
 
@@ -2551,6 +2830,27 @@ namespace DND_App.Web.Migrations
                     b.Navigation("Skill");
                 });
 
+            modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterSpell", b =>
+                {
+                    b.HasOne("DND_App.Web.Models.Domain.Character", "Character")
+                        .WithMany("CharacterSpells")
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CharacterSpells_Characters_CharacterId");
+
+                    b.HasOne("DND_App.Web.Models.Domain.Spell", "Spell")
+                        .WithMany("CharacterSpells")
+                        .HasForeignKey("SpellId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CharacterSpells_Spells_SpellId");
+
+                    b.Navigation("Character");
+
+                    b.Navigation("Spell");
+                });
+
             modelBuilder.Entity("DND_App.Web.Models.Domain.ClassAbility", b =>
                 {
                     b.HasOne("DND_App.Web.Models.Domain.CharacterClass", "CharacterClass")
@@ -2609,6 +2909,8 @@ namespace DND_App.Web.Migrations
             modelBuilder.Entity("DND_App.Web.Models.Domain.Character", b =>
                 {
                     b.Navigation("CharacterSkills");
+
+                    b.Navigation("CharacterSpells");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterClass", b =>
@@ -2625,6 +2927,11 @@ namespace DND_App.Web.Migrations
                     b.Navigation("RaceToolProficiencies");
 
                     b.Navigation("RaceWeaponProficiencies");
+                });
+
+            modelBuilder.Entity("DND_App.Web.Models.Domain.Spell", b =>
+                {
+                    b.Navigation("CharacterSpells");
                 });
 #pragma warning restore 612, 618
         }
