@@ -9,19 +9,19 @@ namespace DND_App.Web.Models.ViewModels
         public int CharacterClassId { get; set; }
         public int CharacterRaceId { get; set; }
 
-        public int Strength { get; set; } = 15;
-        public int Dexterity { get; set; } = 15;
-        public int Constitution { get; set; } = 15;
-        public int Intelligence { get; set; } = 15;
-        public int Wisdom { get; set; } = 15;
-        public int Charisma { get; set; } = 15;
-        public int Level { get; set; } = 2;
-        public int ExperiencePoints { get; set; } = 50;
-        public int PassiveWisdom { get; set; } = 15;
-        public bool Inspiration { get; set; } = false;
-        public int ProficiencyBonus { get; set; } = 5;
-        public int ArmorClass { get; set; } = 15;
-        public int Speed { get; set; } = 35;
+        public int Strength { get; set; }
+        public int Dexterity { get; set; }
+        public int Constitution { get; set; }
+        public int Intelligence { get; set; }
+        public int Wisdom { get; set; }
+        public int Charisma { get; set; }
+        public int Level { get; set; }
+        public int ExperiencePoints { get; set; }
+        public int PassiveWisdom { get; set; } 
+        public bool Inspiration { get; set; }
+        public int ProficiencyBonus { get; set; }
+        public int ArmorClass { get; set; }
+        public int Speed { get; set; }
 
         //Character Traits
         public string? Age { get; set; }

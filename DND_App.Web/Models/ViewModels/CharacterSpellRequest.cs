@@ -3,7 +3,6 @@
     public class CharacterSpellRequest
     {
         public int SpellId { get; set; }
-        public string Name { get; set; }
-        public bool IsSelected { get; set; }
+        public bool IsLearned { get; set; }
     }
 }

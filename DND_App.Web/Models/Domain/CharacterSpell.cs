@@ -7,5 +7,7 @@
 
         public int SpellId { get; set; }
         public Spell Spell { get; set; }
+
+        public bool IsLearned { get; set; }
     }
 }

@@ -9,6 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//builder.Services.AddDbContext<DnDDbContext>(options =>
+//options.UseSqlServer(builder.Configuration.GetConnectionString
+//("DND_DbConnection"))
+//.EnableSensitiveDataLogging()
+//.LogTo(Console.WriteLine));
 builder.Services.AddDbContext<DnDDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString
 ("DND_DbConnection")));

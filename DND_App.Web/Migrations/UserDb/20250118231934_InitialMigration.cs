@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DND_App.Web.Migrations.UserDb
 {
     /// <inheritdoc />
-    public partial class InitallUserDbContext : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -171,7 +171,7 @@ namespace DND_App.Web.Migrations.UserDb
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "59c21724-793c-4cb1-9438-dec6213c808b", 0, "f320df12-6019-453e-ab0c-2368c67f4ee0", "dadsathome1@gmail.com", false, false, null, "DADSATHOME1@GMAIL.COM", "RICKTHESTICK", "AQAAAAIAAYagAAAAEEVujbmNG36AUTECBABioVO8xmFXXsgprZqBQyccsDIiDeyj4moeJ2iFBYE8+NzaAQ==", null, false, "f184e8b6-7421-4709-a995-0f7f5deb4c7d", false, "rickthestick" });
+                values: new object[] { "59c21724-793c-4cb1-9438-dec6213c808b", 0, "5e55d75f-7ed2-46c2-ac60-35b7d5a01cc1", "dadsathome1@gmail.com", false, false, null, "DADSATHOME1@GMAIL.COM", "RICKTHESTICK", "AQAAAAIAAYagAAAAEMKwlk2QkpenhCWVUSqn/uK9iZPs3tr8RiIG98SPvjLWarQ4SypvMtYCEMzHZU6UPw==", null, false, "84449599-e41a-41ae-b182-f3a0c4c54d19", false, "rickthestick" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

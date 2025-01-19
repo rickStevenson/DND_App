@@ -10,12 +10,12 @@ namespace DND_App.Web.Models.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        //Images
-        public string? CharacterImage { get; set; }
-
         // Link PlayerName to the User entity
         public Guid UserId { get; set; }
         public IdentityUser<Guid> User { get; set; }
+
+        //Images
+        public string? CharacterImage { get; set; }
 
         //General Info
         public string CharacterName { get; set; }
@@ -67,12 +67,11 @@ namespace DND_App.Web.Models.Domain
         public string? Ideals { get; set; }
         public string? Bonds { get; set; }
         public string? Flaws { get; set; }
-
-
-        //Skills
+        
         public ICollection<CharacterSkill> CharacterSkills { get; set; } = new List<CharacterSkill>();
 
         public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
+        public ICollection<CharacterItem> CharacterInventories { get; set; } = new List<CharacterItem>();
 
         //public string? FeaturesAndTraits { get; set; }
         //public List<string>? AlliesAndOrganizations { get; set; }

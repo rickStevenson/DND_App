@@ -171,7 +171,7 @@
     <div>
         <h2>Spells</h2>
         <ul>
-            @foreach (var spell in Model.CharacterSpells)
+           @foreach (var spell in Model.CharacterSpells.Where(cs => cs.IsLearned))
             {
                 <li>@spell.Spell.Name</li>
             }

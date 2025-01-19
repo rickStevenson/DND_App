@@ -5,7 +5,7 @@ namespace DND_App.Web.Models.ViewModels
     public class CharacterRequest
     {
         [Required]
-        public string CharacterName { get; set; } = "Dong";
+        public string CharacterName { get; set; } = "Donger";
 
         [Required]
         public int CharacterClassId { get; set; }

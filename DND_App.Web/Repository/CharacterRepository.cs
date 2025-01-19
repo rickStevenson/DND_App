@@ -42,6 +42,8 @@ namespace DND_App.Web.Repository
                     .ThenInclude(cs => cs.Spell)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+        
+
         public async Task<Character?> UpdateAsync(Character character)
         {
             //Get existing character
@@ -169,10 +171,14 @@ namespace DND_App.Web.Repository
                 #endregion
             }
 
+            Console.WriteLine($"Updated skills count: {character.CharacterSkills.Count}");
+            Console.WriteLine($"Updated spells count: {character.CharacterSpells.Count}");
+
             //Save changes
             await dndDbContext.SaveChangesAsync();
             return existingCharacter;
         }
+
         public async Task<Character?> DeleteAsync(int id)
         {
             var existingCharacter = await dndDbContext.Characters.FindAsync(id);

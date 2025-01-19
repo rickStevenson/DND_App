@@ -1,4 +1,5 @@
 ﻿@model DND_App.Web.Models.ViewModels.EditCharacterRequest
+@using DND_App.Web.Models.ViewModels
 @{
     var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
     var spells = ViewBag.Spells as List<DND_App.Web.Models.Domain.Spell>;
@@ -19,20 +20,36 @@
         <div class="form-group">
             <label for="CharacterClassId">Character Class</label>
             <select asp-for="CharacterClassId" class="form-control" id="CharacterClassId">
-                @foreach (var characterClass in ViewBag.Classes)
+                @if (ViewBag.Classes != null)
                 {
-                    <option value="@characterClass.Id">@characterClass.Name</option>
+                    @foreach (var characterClass in ViewBag.Classes)
+                    {
+                        <option value="@characterClass.Id">@characterClass.Name</option>
+                    }
                 }
+                else
+                {
+                    <option value="">No classes available</option>
+                }
+
             </select>
         </div>
 
         <div class="form-group">
             <label for="CharacterRaceId">Character Race</label>
             <select asp-for="CharacterRaceId" class="form-control" id="CharacterRaceId">
-                @foreach (var characterRace in ViewBag.Races)
+                @if (ViewBag.Races != null)
                 {
-                    <option value="@characterRace.Id">@characterRace.Name</option>
+                    @foreach (var characterRace in ViewBag.Races)
+                    {
+                        <option value="@characterRace.Id">@characterRace.Name</option>
+                    }
                 }
+                else
+                {
+                    <option value="">No races available</option>
+                }
+
             </select>
         </div>
 
@@ -196,8 +213,19 @@
             <h4>Skills</h4>
             @for (var i = 0; i < Model.CharacterSkills.Count; i++)
             {
+
                 var skill = skills[i];
                 var characterSkill = Model.CharacterSkills[i];
+
+
+
+                @if (characterSkill.IsProficient)
+                {
+                    Console.WriteLine($"skill {skill.Name}");
+                    Console.WriteLine($"SkillId {characterSkill.SkillId}");
+                    Console.WriteLine($"IsProficient {characterSkill.IsProficient}");
+                }
+                
 
                 <div class="mb-3">
                     <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
@@ -225,29 +253,46 @@
                 </div>
             }
         </div>
-        
+
         <div>
             <h4>Spells</h4>
-            <h3>Spells</h3>
-            @for (var i = 0; i < Model.CharacterSpells.Count; i++)
+            @if (spells != null && spells.Any())
             {
-                var spell = spells[i];
-                var characterSpell = Model.CharacterSpells[i];
+                @for (var i = 0; i < spells.Count; i++)
+                {
+                    var spell = spells[i];
+                    var characterSpell = Model.CharacterSpells.FirstOrDefault(cs => cs.SpellId == spell.Id) ?? new CharacterSpellRequest();
 
-                <div class="form-check">
-                    <input type="hidden" name="CharacterSpells[@(i)].SpellId" value="@spell.SpellId" />
-                    <input type="hidden" name="CharacterSpells[@(i)].IsSelected" value="false" />
-                    <input class="form-check-input" type="checkbox"
-                           id="CharacterSpells_@(i)__IsSelected"
-                           name="CharacterSpells[@(i)].IsSelected"
-                           value="true"
-                           @(characterSpell.IsSelected ? "checked" : "") />
-                    <label class="form-check-label" for="CharacterSpells_@(i)__IsSelected">
-                        @spell.Name (Level: @spell.Level, School: @spell.School)
-                    </label>
-                </div>
+
+                    @if (characterSpell.IsLearned)
+                    {
+                        Console.WriteLine($"spell {spell.Name}");
+                        Console.WriteLine($"SpellId {characterSpell.SpellId}");
+                        Console.WriteLine($"IsLearned {characterSpell.IsLearned}");
+                    }
+                    
+
+                    <div class="form-check">
+                        <input type="hidden" name="CharacterSpells[@(i)].Name" value="@spell.Name" />
+                        <input type="hidden" name="CharacterSpells[@(i)].SpellId" value="@spell.Id" />
+                        <input type="hidden" name="CharacterSpells[@(i)].IsLearned" value="false" />
+                        <input class="form-check-input" type="checkbox"
+                               id="CharacterSpells_@(i)__IsLearned"
+                               name="CharacterSpells[@(i)].IsLearned"
+                               value="true"
+                               @(characterSpell.IsLearned ? "checked" : "") />
+                        <label class="form-check-label" for="CharacterSpells_@(i)__IsLearned">
+                            @spell.Name (Level: @spell.Level, School: @spell.School)
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No spells available.</p>
             }
         </div>
+
 
         <!-- Image Upload Section -->
         <div class="mb-3">

@@ -7,7 +7,13 @@ namespace DND_App.Web.Data.Extensions
     {
         public static void ConfigureRelationships(this ModelBuilder modelBuilder)
         {
-           
+            modelBuilder.Entity<Character>()
+                .HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Character>()
                 .HasOne(c => c.CharacterClass)
                 .WithMany()
@@ -43,13 +49,6 @@ namespace DND_App.Web.Data.Extensions
                 .WithMany(rtp => rtp.RaceToolProficiencies)
                 .HasForeignKey(rtp => rtp.CharacterRaceId);
 
-            modelBuilder.Entity<Character>()
-                .HasOne(c => c.User)
-                .WithMany()
-                .HasForeignKey(c => c.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-
 
             // Configure the many-to-many skill relationship
             modelBuilder.Entity<CharacterSkill>()
@@ -81,6 +80,20 @@ namespace DND_App.Web.Data.Extensions
                 .WithMany(s => s.CharacterSpells)
                 .HasForeignKey(cs => cs.SpellId)
                 .HasConstraintName("FK_CharacterSpells_Spells_SpellId"); // Explicit constraint name
+
+            // Configure CharacterItem as the join table
+            modelBuilder.Entity<CharacterItem>()
+                .HasKey(ci => new { ci.CharacterId, ci.ItemId }); // Composite Key
+
+            modelBuilder.Entity<CharacterItem>()
+                .HasOne(ci => ci.Character)
+                .WithMany(c => c.CharacterInventories)
+                .HasForeignKey(ci => ci.CharacterId);
+
+            modelBuilder.Entity<CharacterItem>()
+                .HasOne(ci => ci.Item)
+                .WithMany(i => i.CharacterInventories)
+                .HasForeignKey(ci => ci.ItemId);
         }
     }
 }

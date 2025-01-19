@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    [Migration("20250117040836_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250119003248_AddedRequiredToUser")]
+    partial class AddedRequiredToUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -184,87 +184,105 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "",
+                            Description = "Barbarians are fierce warriors driven by primal instincts and raw rage. They thrive in the heat of battle, using their fury to fuel their strength and durability. Barbarians often hail from wild, untamed lands and have a deep connection to their ancestors or the forces of nature. Their unbridled rage makes them a force to be reckoned with on the battlefield, capable of shrugging off damage that would fell lesser warriors.",
                             HitDie = 12,
                             Name = "Barbarian"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "",
+                            Description = "Bards are versatile spellcasters and performers who weave magic through music, storytelling, or art. They are masters of inspiration, using their talents to bolster allies, deceive enemies, and shape the flow of battle. Bards are naturally charismatic and adaptable, often serving as diplomats, spies, or leaders. Their broad skill set allows them to thrive in almost any situation.",
                             HitDie = 8,
                             Name = "Bard"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "",
+                            Description = "Clerics are divine spellcasters who draw their power from their connection to a deity or cosmic force. They serve as healers, protectors, and champions of their faith, often embodying the ideals of their chosen domain. Clerics can wield both divine magic and martial weapons, making them a versatile class capable of supporting allies or smiting foes.",
                             HitDie = 8,
                             Name = "Cleric"
                         },
                         new
                         {
                             Id = 4,
-                            Description = "",
+                            Description = "Druids are mystical spellcasters who draw power from nature and the elements. They are guardians of the natural world, using their magic to protect the balance between civilization and wilderness. Druids can shapeshift into animals, summon the forces of nature, and wield elemental magic, making them highly adaptable.",
                             HitDie = 8,
                             Name = "Druid"
                         },
                         new
                         {
                             Id = 5,
-                            Description = "",
+                            Description = "Fighters are masters of combat, trained in a wide variety of weapons and fighting techniques. They are highly versatile warriors who excel in physical confrontations, whether using brute strength, precise technique, or advanced tactics. Fighters can specialize in many styles, from sword-and-shield defense to dual-wielding offense or archery.",
                             HitDie = 10,
                             Name = "Fighter"
                         },
                         new
                         {
                             Id = 6,
-                            Description = "",
+                            Description = "Monks are disciplined martial artists who channel their inner energy, or ki, to perform extraordinary feats. They are masters of unarmed combat and agility, moving with precision and speed to outmaneuver their enemies. Monks often hail from monasteries or other ascetic traditions, devoting their lives to physical and spiritual perfection.",
                             HitDie = 8,
                             Name = "Monk"
                         },
                         new
                         {
                             Id = 7,
-                            Description = "",
+                            Description = "Paladins are holy warriors bound by a sacred oath to uphold justice, protect the innocent, and smite evil. They combine divine magic with martial prowess, serving as paragons of virtue or champions of their sworn cause. Their devotion grants them supernatural abilities to heal, protect allies, and punish foes with divine retribution.",
                             HitDie = 10,
                             Name = "Paladin"
                         },
                         new
                         {
                             Id = 8,
-                            Description = "",
+                            Description = "Rangers are expert trackers and hunters who thrive in the wilderness. They are adept at surviving in harsh environments and are skilled at hunting specific foes. Rangers use a combination of martial skill and nature magic to protect the wilds or navigate it as part of their adventuring lifestyle. They often form deep connections with nature, animals, or specific terrains.",
                             HitDie = 10,
                             Name = "Ranger"
                         },
                         new
                         {
                             Id = 9,
-                            Description = "",
+                            Description = "Rogues are cunning and resourceful characters who excel in stealth, agility, and precision. They are masters of subterfuge and deception, capable of striking where it hurts the most. Rogues thrive in a variety of roles, from infiltrators and assassins to treasure hunters and thieves. Their ability to deal devastating damage with sneak attacks makes them a formidable presence in combat.",
                             HitDie = 8,
                             Name = "Rogue"
                         },
                         new
                         {
                             Id = 10,
-                            Description = "",
+                            Description = "Sorcerers are innate spellcasters who wield magic drawn from a powerful bloodline or a mystical source within them. Unlike other spellcasters, sorcerers do not study or practice magic; instead, they manipulate raw magical energy through sheer willpower. Their mastery of metamagic allows them to shape spells in unique and devastating ways.",
                             HitDie = 6,
                             Name = "Sorcerer"
                         },
                         new
                         {
                             Id = 11,
-                            Description = "",
+                            Description = "Warlocks gain their power through pacts with mysterious patrons—powerful entities such as fiends, fey, or eldritch beings. Their bond with their patron grants them unique magical abilities and spells, often reflecting the nature of the pact. Warlocks are versatile and adaptable, wielding both potent spells and eldritch invocations to shape their magic in creative ways.",
                             HitDie = 8,
                             Name = "Warlock"
                         },
                         new
                         {
                             Id = 12,
-                            Description = "",
+                            Description = "Wizards are scholarly spellcasters who dedicate their lives to mastering the arcane. They study spellbooks to learn and prepare a vast array of spells, making them the most versatile magic-users. Wizards rely on their intelligence and preparation to control the battlefield, protect their allies, or destroy their enemies. Their mastery of magic is unparalleled in variety and depth.",
                             HitDie = 6,
                             Name = "Wizard"
                         });
+                });
+
+            modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterItem", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("CharacterId", "ItemId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("CharacterItem");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterRace", b =>
@@ -319,7 +337,7 @@ namespace DND_App.Web.Migrations
                             Id = 1,
                             CharismaBonus = 1,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Aasimar are beings touched by the divine. They serve as celestial champions, guardians of justice and virtue, and often possess a celestial guide to aid them in their quests. Aasimar are marked by their radiant appearance—gleaming eyes, a faint golden or silver sheen to their skin, and an aura of grace. They are driven by a sense of purpose to protect the weak, fight evil, and uphold righteousness.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/Aasimar_Female.png",
                             IntelligenceBonus = 2,
@@ -333,7 +351,7 @@ namespace DND_App.Web.Migrations
                             Id = 2,
                             CharismaBonus = 1,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Dragonborn are proud, draconic humanoids with ancestry linked to the great dragons. Their scales shimmer in hues tied to their draconic lineage—red, blue, green, or even metallic tones. They exude strength and confidence and often bear a natural affinity for leadership. Dragonborn breathe an element of their dragon heritage, whether fire, lightning, or frost, making them fearsome warriors on the battlefield.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/Dragonborn_Female.png",
                             IntelligenceBonus = 0,
@@ -347,7 +365,7 @@ namespace DND_App.Web.Migrations
                             Id = 3,
                             CharismaBonus = 0,
                             ConstitutionBonus = 2,
-                            Description = "",
+                            Description = "Dwarves are sturdy, hearty, and known for their unparalleled craftsmanship. They are short and stocky with a build designed for endurance. Dwarves are fiercely loyal to their kin, and their stronghold cities are engineering marvels carved deep into mountains. Their culture revolves around tradition, respect for ancestry, and a relentless work ethic.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/Dwarf_Female.png",
                             IntelligenceBonus = 0,
@@ -361,7 +379,7 @@ namespace DND_App.Web.Migrations
                             Id = 4,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Elves are graceful and otherworldly beings closely tied to nature and the arcane. With sharp features, pointed ears, and a timeless beauty, elves are creatures of both mystery and elegance. They live much longer than humans and tend to focus on mastering arts, magic, or combat during their lifetimes. Their connection to the Feywild grants them agility and other supernatural abilities.",
                             DexterityBonus = 2,
                             FemaleImage = "/images/races/Elf_Female.png",
                             IntelligenceBonus = 0,
@@ -375,7 +393,7 @@ namespace DND_App.Web.Migrations
                             Id = 5,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Firbolgs are gentle giants connected to the natural world. They live in harmony with the forests, often serving as protectors of the wilds. Firbolgs are shy and reclusive, avoiding contact with the outside world unless their forests are threatened. Despite their peaceful demeanor, they possess incredible strength and innate magical abilities, allowing them to commune with nature and defend it.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/Firbolg_Female.png",
                             IntelligenceBonus = 0,
@@ -389,7 +407,7 @@ namespace DND_App.Web.Migrations
                             Id = 6,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Air Genasi are beings with elemental air ancestry, often descended from djinn. They are free-spirited and dynamic, embodying the essence of the wind. Their connection to the element of air makes them agile and quick, both in thought and movement. Air Genasi are often drawn to exploration and adventure, thriving in environments where they can experience freedom and movement.",
                             DexterityBonus = 1,
                             FemaleImage = "/images/races/GenasiAir_Female.png",
                             IntelligenceBonus = 0,
@@ -403,7 +421,7 @@ namespace DND_App.Web.Migrations
                             Id = 7,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Earth Genasi have elemental earth ancestry, often traced back to dao. They are solid, steady, and reliable, with a physicality that seems carved from the earth itself. Earth Genasi are deeply grounded and unwavering in their decisions, often acting as anchors in chaotic situations. They feel a strong connection to stone and soil, often favoring lives of craftsmanship or exploration beneath the surface.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/GenasiEarth_Female.png",
                             IntelligenceBonus = 0,
@@ -417,7 +435,7 @@ namespace DND_App.Web.Migrations
                             Id = 8,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Fire Genasi are tied to the elemental power of fire, often through lineage connected to efreeti. They are passionate, intense, and prone to bursts of emotion. Their fiery nature often makes them charismatic and inspiring, but also volatile and quick-tempered. Fire Genasi are naturally drawn to heat and light, feeling most comfortable in warm environments.",
                             DexterityBonus = 1,
                             FemaleImage = "/images/races/GenasiFire_Female.png",
                             IntelligenceBonus = 0,
@@ -431,7 +449,7 @@ namespace DND_App.Web.Migrations
                             Id = 9,
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
-                            Description = "",
+                            Description = "Water Genasi possess a connection to elemental water, often through marid ancestry. They are fluid and adaptable, with a calming presence that reflects the stillness of a tranquil sea or the power of a raging storm. Water Genasi are drawn to aquatic environments and often feel at home near rivers, lakes, or oceans.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/GenasiWater_Female.png",
                             IntelligenceBonus = 0,
@@ -445,7 +463,7 @@ namespace DND_App.Web.Migrations
                             Id = 10,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Gnomes are whimsical, energetic, and endlessly curious. They are small but brimming with creativity, wit, and intelligence. Known for their ingenuity, gnomes are often inventors, alchemists, or skilled artisans. They are highly social and love storytelling, jokes, and puzzles. Gnomes are divided into subraces, with forest gnomes being connected to nature and rock gnomes excelling in invention and craftsmanship.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/Gnome_Female.png",
                             IntelligenceBonus = 2,
@@ -459,7 +477,7 @@ namespace DND_App.Web.Migrations
                             Id = 11,
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
-                            Description = "",
+                            Description = "Goliaths are towering, rugged humanoids who dwell in mountainous regions, living in harmony with their harsh environment. They are known for their immense strength, endurance, and competitive nature. Goliaths view life as a series of challenges to overcome, valuing strength and self-sufficiency above all else. Their culture is deeply tied to survival, with each individual striving to prove their worth to the tribe.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/Goliath_Female.png",
                             IntelligenceBonus = 0,
@@ -473,7 +491,7 @@ namespace DND_App.Web.Migrations
                             Id = 12,
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Half-elves are the offspring of humans and elves, embodying the grace and agility of their elven heritage with the ambition and versatility of humanity. They often struggle to find a place in either culture, but their adaptability and charm allow them to thrive in diverse societies. Half-elves are natural diplomats, blending the best qualities of their dual heritage.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/HalfElf_Female.png",
                             IntelligenceBonus = 0,
@@ -487,7 +505,7 @@ namespace DND_App.Web.Migrations
                             Id = 13,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Halflings are small, cheerful, and resourceful folk who live simple lives in tight-knit communities. They are known for their optimism, courage, and love of home and hearth. Despite their size, halflings possess remarkable agility and luck, often escaping danger through quick thinking or sheer serendipity. They prefer peaceful lives but are not afraid to rise to challenges when necessary.",
                             DexterityBonus = 2,
                             FemaleImage = "/images/races/Halfling_Female.png",
                             IntelligenceBonus = 0,
@@ -501,7 +519,7 @@ namespace DND_App.Web.Migrations
                             Id = 14,
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
-                            Description = "",
+                            Description = "Half-orcs are the result of human and orc unions, combining the brute strength and resilience of orcs with human adaptability. They often face prejudice but channel their inner strength to prove their worth. Many half-orcs are driven by a desire to overcome their perceived savagery, seeking honor, redemption, or greatness in their lives.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/HalfOrc_Female.png",
                             IntelligenceBonus = 0,
@@ -515,7 +533,7 @@ namespace DND_App.Web.Migrations
                             Id = 15,
                             CharismaBonus = 1,
                             ConstitutionBonus = 1,
-                            Description = "",
+                            Description = "Humans are the most versatile and ambitious of all the races, thriving in nearly every environment and excelling in a wide variety of fields. Their relatively short lifespans drive them to achieve greatness quickly, whether through exploration, invention, or conquest. Humans are known for their adaptability, ingenuity, and the diversity of their cultures.",
                             DexterityBonus = 1,
                             FemaleImage = "/images/races/Human_Female.png",
                             IntelligenceBonus = 1,
@@ -529,7 +547,7 @@ namespace DND_App.Web.Migrations
                             Id = 16,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Kenku are avian humanoids who resemble flightless crows or ravens. Once capable of flight and speech of their own, they were cursed long ago and now mimic the voices and sounds they hear around them. Kenku are resourceful and clever, often excelling as spies, thieves, or merchants. Their lack of original speech and creativity forces them to rely on imitation and cunning to survive in the world.",
                             DexterityBonus = 2,
                             FemaleImage = "/images/races/Kenku_Female.png",
                             IntelligenceBonus = 0,
@@ -543,7 +561,7 @@ namespace DND_App.Web.Migrations
                             Id = 17,
                             CharismaBonus = 0,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Tabaxi are feline humanoids hailing from distant, exotic lands. They are naturally curious and driven by an insatiable wanderlust, always seeking out new stories, relics, and experiences. Tabaxi are agile and dexterous, often excelling as scouts, rogues, or bards. Their feline grace and inquisitive nature make them both charming and unpredictable.",
                             DexterityBonus = 2,
                             FemaleImage = "/images/races/Tabaxi_Female.png",
                             IntelligenceBonus = 0,
@@ -557,7 +575,7 @@ namespace DND_App.Web.Migrations
                             Id = 18,
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Tieflings are humanoids with infernal heritage, often descended from fiends or those who made pacts with devils. Their infernal bloodline is evident in their appearance—horns, tails, and glowing eyes mark them as different. Despite their fiendish origins, Tieflings are not inherently evil and often seek to rise above the stigma of their heritage, forging their own path in life.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/Tiefling_Female.png",
                             IntelligenceBonus = 1,
@@ -571,7 +589,7 @@ namespace DND_App.Web.Migrations
                             Id = 19,
                             CharismaBonus = 0,
                             ConstitutionBonus = 1,
-                            Description = "",
+                            Description = "Tortles are humanoid turtles, known for their calm demeanor and love of exploration. They carry their homes on their backs in the form of durable shells, making them self-reliant and capable of traveling wherever their curiosity takes them. Tortles are often wise and contemplative, with a deep connection to nature and a strong appreciation for life’s simple pleasures.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/Tortle_Female.png",
                             IntelligenceBonus = 0,
@@ -585,7 +603,7 @@ namespace DND_App.Web.Migrations
                             Id = 20,
                             CharismaBonus = 2,
                             ConstitutionBonus = 0,
-                            Description = "",
+                            Description = "Yuan-Ti Purebloods are snake-like humanoids descended from a once-great serpent empire. They are cold, calculating, and ambitious, often serving as spies, diplomats, or manipulators for their kind. Yuan-Ti Purebloods are the most human-looking of the Yuan-Ti, allowing them to infiltrate societies more easily, but their serpent features—such as scaled skin or slit-pupil eyes—betray their heritage.",
                             DexterityBonus = 0,
                             FemaleImage = "/images/races/YuanTiPureblood_Female.png",
                             IntelligenceBonus = 1,
@@ -624,6 +642,9 @@ namespace DND_App.Web.Migrations
 
                     b.Property<int>("SpellId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsLearned")
+                        .HasColumnType("bit");
 
                     b.HasKey("CharacterId", "SpellId");
 
@@ -1148,6 +1169,36 @@ namespace DND_App.Web.Migrations
                             CharacterClassId = 12,
                             Name = "Wisdom"
                         });
+                });
+
+            modelBuilder.Entity("DND_App.Web.Models.Domain.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.RaceAbility", b =>
@@ -2555,11 +2606,11 @@ namespace DND_App.Web.Migrations
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.Spell", b =>
                 {
-                    b.Property<int>("SpellId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpellId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CastingTime")
                         .IsRequired()
@@ -2594,14 +2645,14 @@ namespace DND_App.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SpellId");
+                    b.HasKey("Id");
 
                     b.ToTable("Spells");
 
                     b.HasData(
                         new
                         {
-                            SpellId = 1,
+                            Id = 1,
                             CastingTime = "1 Action",
                             Description = "A creature you touch regains hit points equal to 1d8 + your spellcasting modifier.",
                             Duration = "Instant",
@@ -2614,7 +2665,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 2,
+                            Id = 2,
                             CastingTime = "1 Reaction",
                             Description = "You gain +5 to AC until the start of your next turn.",
                             Duration = "1 Round",
@@ -2627,7 +2678,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 3,
+                            Id = 3,
                             CastingTime = "1 Action",
                             Description = "Create three glowing darts of force, each dealing 1d4+1 damage to a target.",
                             Duration = "Instant",
@@ -2640,7 +2691,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 4,
+                            Id = 4,
                             CastingTime = "1 Action",
                             Description = "Sense the presence of magic within 30 feet for up to 10 minutes.",
                             Duration = "10 minutes",
@@ -2653,7 +2704,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 5,
+                            Id = 5,
                             CastingTime = "1 Action",
                             Description = "Up to three creatures gain +1d4 to attack rolls and saving throws for 1 minute.",
                             Duration = "1 Minute",
@@ -2666,7 +2717,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 6,
+                            Id = 6,
                             CastingTime = "Bonus Action",
                             Description = "Teleport up to 30 feet to an unoccupied space you can see.",
                             Duration = "Instant",
@@ -2679,7 +2730,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 7,
+                            Id = 7,
                             CastingTime = "1 Action",
                             Description = "A creature you touch becomes invisible until they attack or cast a spell.",
                             Duration = "Up to 1 Hour",
@@ -2692,7 +2743,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 8,
+                            Id = 8,
                             CastingTime = "1 Action",
                             Description = "Paralyze a humanoid target for 1 minute, with repeated saves to escape.",
                             Duration = "Up to 1 Minute",
@@ -2705,7 +2756,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 9,
+                            Id = 9,
                             CastingTime = "1 Action",
                             Description = "Fire three rays of fire, each dealing 2d6 fire damage on a hit.",
                             Duration = "Instant",
@@ -2718,7 +2769,7 @@ namespace DND_App.Web.Migrations
                         },
                         new
                         {
-                            SpellId = 10,
+                            Id = 10,
                             CastingTime = "1 Action",
                             Description = "Grant advantage on ability checks or other bonuses to the target.",
                             Duration = "1 Hour",
@@ -2809,6 +2860,25 @@ namespace DND_App.Web.Migrations
                     b.Navigation("CharacterRace");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterItem", b =>
+                {
+                    b.HasOne("DND_App.Web.Models.Domain.Character", "Character")
+                        .WithMany("CharacterInventories")
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DND_App.Web.Models.Domain.Item", "Item")
+                        .WithMany("CharacterInventories")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Character");
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterSkill", b =>
@@ -2908,6 +2978,8 @@ namespace DND_App.Web.Migrations
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.Character", b =>
                 {
+                    b.Navigation("CharacterInventories");
+
                     b.Navigation("CharacterSkills");
 
                     b.Navigation("CharacterSpells");
@@ -2927,6 +2999,11 @@ namespace DND_App.Web.Migrations
                     b.Navigation("RaceToolProficiencies");
 
                     b.Navigation("RaceWeaponProficiencies");
+                });
+
+            modelBuilder.Entity("DND_App.Web.Models.Domain.Item", b =>
+                {
+                    b.Navigation("CharacterInventories");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.Spell", b =>

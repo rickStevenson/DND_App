@@ -243,16 +243,26 @@
         </div>
         <div>
             <h4>Spells</h4>
-            @for (int i = 0; i < Model.CharacterSpells.Count; i++)
+            @if (spells != null && spells.Count > 0)
             {
-                <div>
-                    <label>
-                        <input type="checkbox" asp-for="CharacterSpells[@i].IsSelected" />
-                        @ViewBag.Spells[i].Name
-                    </label>
-                </div>
+                @for (int i = 0; i < Model.CharacterSpells.Count; i++)
+                {
+                    var spell = spells[i];
+                    var characterSpell = Model.CharacterSpells.FirstOrDefault(cs => cs.SpellId == spell.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSpellRequest();
+                    
+                    <div>
+                        <label>
+                            <input type="checkbox" name="CharacterSpells[@i].IsLearned" value="true" @(Model.CharacterSpells[i].IsLearned ? "checked" : "") />
+                            <label class="form-label">@spell.Name </label>
+                        </label>
+                        <input type="hidden" name="CharacterSpells[@i].SpellId" value="@Model.CharacterSpells[i].SpellId" />
+                        <input type="hidden" name="CharacterSpells[@i].IsLearned" value="false" />
+                    </div>
+                }
             }
+
         </div>
+
 
         <button type="submit">Create</button>
     </form>

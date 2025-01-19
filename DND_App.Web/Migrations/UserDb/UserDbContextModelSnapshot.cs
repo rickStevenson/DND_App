@@ -166,15 +166,15 @@ namespace DND_App.Web.Migrations.UserDb
                         {
                             Id = "59c21724-793c-4cb1-9438-dec6213c808b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f320df12-6019-453e-ab0c-2368c67f4ee0",
+                            ConcurrencyStamp = "5e55d75f-7ed2-46c2-ac60-35b7d5a01cc1",
                             Email = "dadsathome1@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DADSATHOME1@GMAIL.COM",
                             NormalizedUserName = "RICKTHESTICK",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEVujbmNG36AUTECBABioVO8xmFXXsgprZqBQyccsDIiDeyj4moeJ2iFBYE8+NzaAQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMKwlk2QkpenhCWVUSqn/uK9iZPs3tr8RiIG98SPvjLWarQ4SypvMtYCEMzHZU6UPw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f184e8b6-7421-4709-a995-0f7f5deb4c7d",
+                            SecurityStamp = "84449599-e41a-41ae-b182-f3a0c4c54d19",
                             TwoFactorEnabled = false,
                             UserName = "rickthestick"
                         });

@@ -2,7 +2,7 @@
 {
     public class Spell
     {
-        public int SpellId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string School { get; set; } = string.Empty;
         public int Level { get; set; }

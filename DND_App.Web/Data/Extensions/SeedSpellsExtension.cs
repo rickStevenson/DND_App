@@ -11,7 +11,7 @@ namespace DND_App.Web.Data.Extensions
             modelBuilder.Entity<Spell>().HasData(
                 new Spell
                 {
-                    SpellId = 1,
+                    Id = 1,
                     Name = Constants.CureWounds,
                     Level = 1,
                     School = Constants.Evocation,
@@ -23,7 +23,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 2,
+                    Id = 2,
                     Name = Constants.Shield,
                     Level = 1,
                     School = Constants.Abjuration,
@@ -35,7 +35,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 3,
+                    Id = 3,
                     Name = Constants.MagicMissle,
                     Level = 1,
                     School = Constants.Evocation,
@@ -47,7 +47,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 4,
+                    Id = 4,
                     Name = Constants.DetectMagic,
                     Level = 1,
                     School = Constants.Divination,
@@ -59,7 +59,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 5,
+                    Id = 5,
                     Name = Constants.Bless,
                     Level = 1,
                     School = Constants.Enchantment,
@@ -71,7 +71,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 6,
+                    Id = 6,
                     Name = Constants.MistyStep,
                     Level = 2,
                     School = Constants.Conjuration,
@@ -83,7 +83,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 7,
+                    Id = 7,
                     Name = Constants.Invisibility,
                     Level = 2,
                     School = Constants.Illusion,
@@ -95,7 +95,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 8,
+                    Id = 8,
                     Name = Constants.HoldPerson,
                     Level = 2,
                     School = Constants.Enchantment,
@@ -107,7 +107,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 9,
+                    Id = 9,
                     Name = Constants.ScorchingRay,
                     Level = 2,
                     School = Constants.Evocation,
@@ -119,7 +119,7 @@ namespace DND_App.Web.Data.Extensions
                 },
                 new Spell
                 {
-                    SpellId = 10,
+                    Id = 10,
                     Name = Constants.EnhanceAbility,
                     Level = 2,
                     School = Constants.Transmutation,
