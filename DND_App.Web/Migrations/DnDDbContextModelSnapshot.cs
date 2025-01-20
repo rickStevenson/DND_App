@@ -279,7 +279,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("CharacterItem");
+                    b.ToTable("CharacterItems");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterRace", b =>
@@ -1195,7 +1195,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Item");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.RaceAbility", b =>
@@ -2862,13 +2862,13 @@ namespace DND_App.Web.Migrations
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterItem", b =>
                 {
                     b.HasOne("DND_App.Web.Models.Domain.Character", "Character")
-                        .WithMany("CharacterInventories")
+                        .WithMany("CharacterItems")
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DND_App.Web.Models.Domain.Item", "Item")
-                        .WithMany("CharacterInventories")
+                        .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2907,7 +2907,7 @@ namespace DND_App.Web.Migrations
                         .HasConstraintName("FK_CharacterSpells_Characters_CharacterId");
 
                     b.HasOne("DND_App.Web.Models.Domain.Spell", "Spell")
-                        .WithMany("CharacterSpells")
+                        .WithMany()
                         .HasForeignKey("SpellId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -2975,7 +2975,7 @@ namespace DND_App.Web.Migrations
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.Character", b =>
                 {
-                    b.Navigation("CharacterInventories");
+                    b.Navigation("CharacterItems");
 
                     b.Navigation("CharacterSkills");
 
@@ -2996,16 +2996,6 @@ namespace DND_App.Web.Migrations
                     b.Navigation("RaceToolProficiencies");
 
                     b.Navigation("RaceWeaponProficiencies");
-                });
-
-            modelBuilder.Entity("DND_App.Web.Models.Domain.Item", b =>
-                {
-                    b.Navigation("CharacterInventories");
-                });
-
-            modelBuilder.Entity("DND_App.Web.Models.Domain.Spell", b =>
-                {
-                    b.Navigation("CharacterSpells");
                 });
 #pragma warning restore 612, 618
         }

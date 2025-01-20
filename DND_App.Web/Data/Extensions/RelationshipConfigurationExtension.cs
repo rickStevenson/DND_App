@@ -77,7 +77,7 @@ namespace DND_App.Web.Data.Extensions
 
             modelBuilder.Entity<CharacterSpell>()
                 .HasOne(cs => cs.Spell)
-                .WithMany(s => s.CharacterSpells)
+                .WithMany()
                 .HasForeignKey(cs => cs.SpellId)
                 .HasConstraintName("FK_CharacterSpells_Spells_SpellId"); // Explicit constraint name
 
@@ -87,12 +87,12 @@ namespace DND_App.Web.Data.Extensions
 
             modelBuilder.Entity<CharacterItem>()
                 .HasOne(ci => ci.Character)
-                .WithMany(c => c.CharacterInventories)
+                .WithMany(c => c.CharacterItems)
                 .HasForeignKey(ci => ci.CharacterId);
 
             modelBuilder.Entity<CharacterItem>()
                 .HasOne(ci => ci.Item)
-                .WithMany(i => i.CharacterInventories)
+                .WithMany()
                 .HasForeignKey(ci => ci.ItemId);
         }
     }

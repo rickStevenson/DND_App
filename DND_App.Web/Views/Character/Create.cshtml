@@ -3,6 +3,7 @@
 @{
     var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
     var spells = ViewBag.Spells as List<DND_App.Web.Models.Domain.Spell>;
+    var items = ViewBag.Items as List<DND_App.Web.Models.Domain.Item>;
 }
 
 @{
@@ -249,7 +250,7 @@
                 {
                     var spell = spells[i];
                     var characterSpell = Model.CharacterSpells.FirstOrDefault(cs => cs.SpellId == spell.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSpellRequest();
-                    
+
                     <div>
                         <label>
                             <input type="checkbox" name="CharacterSpells[@i].IsLearned" value="true" @(Model.CharacterSpells[i].IsLearned ? "checked" : "") />
@@ -260,9 +261,27 @@
                     </div>
                 }
             }
-
         </div>
+        <div>
+            <h4>Items</h4>
+            @for (int i = 0; i < Model.CharacterItems.Count; i++)
+            {
+                var item = items.FirstOrDefault(it => it.Id == Model.CharacterItems[i].ItemId);
+                var characterItem = Model.CharacterItems[i];
 
+                if (item != null)
+                {
+                    <div class="form-group">
+                        <label class="form-label">@item.Name</label>
+                        <input type="hidden" name="CharacterItems[@(i)].ItemId" value="@characterItem.ItemId" />
+                        <input type="number" class="form-control" id="CharacterItems_@(i)__Quantity"
+                               name="CharacterItems[@(i)].Quantity"
+                               value="@characterItem.Quantity"
+                               min="0" />
+                    </div>
+                }
+            }
+        </div>
 
         <button type="submit">Create</button>
     </form>

@@ -14,7 +14,7 @@ namespace DND_App.Web.Models.Domain
         public int Value { get; set; } // In gold or another currency
         public string? Category { get; set; } // Weapon, Armor, Potion, etc.
 
-        // Navigation property for the characters who own this item
-        public ICollection<CharacterItem> CharacterInventories { get; set; } = new List<CharacterItem>();
+        // Navigation property for the what catagory who own this item
+        //public ICollection<Weapon> WeaponItems { get; set; } = new List<CharacterItem>();
     }
 }

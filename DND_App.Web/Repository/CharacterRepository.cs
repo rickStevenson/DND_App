@@ -46,7 +46,7 @@ namespace DND_App.Web.Repository
 
         public async Task<Character?> UpdateAsync(Character character)
         {
-            //Get existing character
+            #region Get existing character
             var existingCharacter = await dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
@@ -54,9 +54,12 @@ namespace DND_App.Web.Repository
                     .ThenInclude(cs => cs.Skill)
                 .Include(c => c.CharacterSpells)
                     .ThenInclude(cs => cs.Spell)
+                .Include(c => c.CharacterItems)
+                    .ThenInclude(cs => cs.Item)
                 .FirstOrDefaultAsync(post => post.Id == character.Id);
+            #endregion
 
-            //Update existing character
+            #region Update existing character
             if (existingCharacter != null)
             {
                 #region Update Character Properties
@@ -169,14 +172,43 @@ namespace DND_App.Web.Repository
                     }
                 }
                 #endregion
+
+                #region Update CharacterItems
+                var existingItems = existingCharacter.CharacterItems.ToList();
+                var updatedItems = character.CharacterItems.ToList();
+
+                // Remove items that are no longer associated
+                foreach (var item in existingItems)
+                {
+                    if (!updatedItems.Any(cs => cs.ItemId == item.ItemId))
+                    {
+                        dndDbContext.CharacterItems.Remove(item);
+                    }
+                }
+
+                // Add or update Item
+                foreach (var item in updatedItems)
+                {
+                    var existingItem = existingItems
+                        .FirstOrDefault(cs => cs.ItemId == item.ItemId);
+                    if (existingItem == null)
+                    {
+                        // Add new Item
+                        existingCharacter.CharacterItems.Add(new CharacterItem
+                        {
+                            ItemId = item.ItemId,
+                            CharacterId = existingCharacter.Id
+                        });
+                    }
+                }
+                #endregion
             }
+            #endregion
 
-            Console.WriteLine($"Updated skills count: {character.CharacterSkills.Count}");
-            Console.WriteLine($"Updated spells count: {character.CharacterSpells.Count}");
-
-            //Save changes
+            #region Save and Return
             await dndDbContext.SaveChangesAsync();
             return existingCharacter;
+            #endregion
         }
 
         public async Task<Character?> DeleteAsync(int id)

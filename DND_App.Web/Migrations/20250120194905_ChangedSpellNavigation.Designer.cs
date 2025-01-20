@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    [Migration("20250119003248_AddedRequiredToUser")]
-    partial class AddedRequiredToUser
+    [Migration("20250120194905_ChangedSpellNavigation")]
+    partial class ChangedSpellNavigation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2910,7 +2910,7 @@ namespace DND_App.Web.Migrations
                         .HasConstraintName("FK_CharacterSpells_Characters_CharacterId");
 
                     b.HasOne("DND_App.Web.Models.Domain.Spell", "Spell")
-                        .WithMany("CharacterSpells")
+                        .WithMany()
                         .HasForeignKey("SpellId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -3004,11 +3004,6 @@ namespace DND_App.Web.Migrations
             modelBuilder.Entity("DND_App.Web.Models.Domain.Item", b =>
                 {
                     b.Navigation("CharacterItems");
-                });
-
-            modelBuilder.Entity("DND_App.Web.Models.Domain.Spell", b =>
-                {
-                    b.Navigation("CharacterSpells");
                 });
 #pragma warning restore 612, 618
         }

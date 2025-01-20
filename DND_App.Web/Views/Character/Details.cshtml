@@ -166,17 +166,34 @@
                 </div>
             }
         </ul>
-        
+
     </div>
     <div>
         <h2>Spells</h2>
         <ul>
-           @foreach (var spell in Model.CharacterSpells.Where(cs => cs.IsLearned))
+            @foreach (var spell in Model.CharacterSpells.Where(cs => cs.IsLearned))
             {
                 <li>@spell.Spell.Name</li>
             }
         </ul>
     </div>
+    <div>
+        <h4>Items</h4>
+        @if (Model.CharacterItems.Any())
+        {
+            <ul>
+                @foreach (var item in Model.CharacterItems)
+                {
+                    <li>@item.Item.Name - Quantity: @item.Quantity</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No items assigned to this character.</p>
+        }
+    </div>
+
 
 
 
@@ -187,8 +204,15 @@
     <!-- Actions Section -->
     <div class="row mt-4">
         <div class="col-12">
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            <a asp-action="Edit" 
+               asp-route-id="@Model.Id" 
+               class="btn btn-primary">
+                Edit
+            </a>
+            <a asp-action="UserCharacters" 
+               class="btn btn-secondary">
+                Back to List
+            </a>
         </div>
     </div>
 </div>

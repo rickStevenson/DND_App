@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    [Migration("20250119003248_AddedRequiredToUser")]
-    partial class AddedRequiredToUser
+    [Migration("20250120212042_AddedInventoryItemsTable")]
+    partial class AddedInventoryItemsTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -282,7 +282,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("CharacterItem");
+                    b.ToTable("CharacterItems");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterRace", b =>
@@ -1198,7 +1198,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Item");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.RaceAbility", b =>
@@ -2871,7 +2871,7 @@ namespace DND_App.Web.Migrations
                         .IsRequired();
 
                     b.HasOne("DND_App.Web.Models.Domain.Item", "Item")
-                        .WithMany("CharacterItems")
+                        .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2910,7 +2910,7 @@ namespace DND_App.Web.Migrations
                         .HasConstraintName("FK_CharacterSpells_Characters_CharacterId");
 
                     b.HasOne("DND_App.Web.Models.Domain.Spell", "Spell")
-                        .WithMany("CharacterSpells")
+                        .WithMany()
                         .HasForeignKey("SpellId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -2999,16 +2999,6 @@ namespace DND_App.Web.Migrations
                     b.Navigation("RaceToolProficiencies");
 
                     b.Navigation("RaceWeaponProficiencies");
-                });
-
-            modelBuilder.Entity("DND_App.Web.Models.Domain.Item", b =>
-                {
-                    b.Navigation("CharacterItems");
-                });
-
-            modelBuilder.Entity("DND_App.Web.Models.Domain.Spell", b =>
-                {
-                    b.Navigation("CharacterSpells");
                 });
 #pragma warning restore 612, 618
         }

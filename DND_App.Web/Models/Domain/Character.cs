@@ -69,9 +69,8 @@ namespace DND_App.Web.Models.Domain
         public string? Flaws { get; set; }
         
         public ICollection<CharacterSkill> CharacterSkills { get; set; } = new List<CharacterSkill>();
-
         public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
-        public ICollection<CharacterItem> CharacterInventories { get; set; } = new List<CharacterItem>();
+        public ICollection<CharacterItem> CharacterItems { get; set; } = new List<CharacterItem>();
 
         //public string? FeaturesAndTraits { get; set; }
         //public List<string>? AlliesAndOrganizations { get; set; }

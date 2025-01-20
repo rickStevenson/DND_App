@@ -2865,13 +2865,13 @@ namespace DND_App.Web.Migrations
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterItem", b =>
                 {
                     b.HasOne("DND_App.Web.Models.Domain.Character", "Character")
-                        .WithMany("CharacterInventories")
+                        .WithMany("CharacterItems")
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DND_App.Web.Models.Domain.Item", "Item")
-                        .WithMany("CharacterInventories")
+                        .WithMany("CharacterItems")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2978,7 +2978,7 @@ namespace DND_App.Web.Migrations
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.Character", b =>
                 {
-                    b.Navigation("CharacterInventories");
+                    b.Navigation("CharacterItems");
 
                     b.Navigation("CharacterSkills");
 
@@ -3003,7 +3003,7 @@ namespace DND_App.Web.Migrations
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.Item", b =>
                 {
-                    b.Navigation("CharacterInventories");
+                    b.Navigation("CharacterItems");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.Spell", b =>

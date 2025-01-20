@@ -13,6 +13,10 @@ namespace DND_App.Web.Models.ViewModels
         [Required]
         public int CharacterRaceId { get; set; }
 
+        public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
+        public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
+        public List<CharacterItemRequest> CharacterItems { get; set; } = new List<CharacterItemRequest>();
+
         // Required Attributes
         [Required]
         public int Strength { get; set; } = 21;
@@ -62,8 +66,5 @@ namespace DND_App.Web.Models.ViewModels
         public int HitPoints_Total { get; set; } = 100;
         public int Initiative { get; set; } = 0;
         public float TotalWeight { get; set; } = 0;
-
-        public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
-        public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
     }
 }

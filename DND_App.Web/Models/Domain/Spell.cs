@@ -13,6 +13,6 @@
         public bool RequiresConcentration { get; set; }
         public string Description { get; set; } = string.Empty;
 
-        public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
+        //public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
     }
 }

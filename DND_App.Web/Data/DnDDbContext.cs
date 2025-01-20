@@ -15,14 +15,19 @@ namespace DND_App.Web.Data
     public class DnDDbContext : DbContext
     {
         public DbSet<Character> Characters { get; set; }
-        public DbSet<Skill> Skills { get; set; }
-        public DbSet<CharacterSkill> CharacterSkills { get; set; }
-        public DbSet<Spell> Spells { get; set; }
-        public DbSet<CharacterSpell> CharacterSpells { get; set; }
+        
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<ClassAbility> ClassAbilities { get; set; }
         public DbSet<ClassSavingThrow> ClassSavingThrows { get; set; }
         public DbSet<CharacterRace> CharacterRaces { get; set; }
+
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<CharacterSkill> CharacterSkills { get; set; }
+        public DbSet<Spell> Spells { get; set; }
+        public DbSet<CharacterSpell> CharacterSpells { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<CharacterItem> CharacterItems { get; set; }
+
 
         public DnDDbContext(DbContextOptions<DnDDbContext> options) : base(options)
         {
