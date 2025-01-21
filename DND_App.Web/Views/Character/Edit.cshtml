@@ -1,14 +1,16 @@
-﻿@model DND_App.Web.Models.ViewModels.EditCharacterRequest
+﻿@model DND_App.Web.Models.ViewModels.EditCharacterViewModel
 @using DND_App.Web.Models.ViewModels
 @{
     var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
     var spells = ViewBag.Spells as List<DND_App.Web.Models.Domain.Spell>;
     var items = ViewBag.Items as List<DND_App.Web.Models.Domain.Item>;
+    var treasures = ViewBag.Treasures as List<DND_App.Web.Models.Domain.Treasure>;
 }
 
 <h2>Edit Character</h2>
 
 <form asp-action="Edit" method="post">
+    
     <div class="container">
         <input type="hidden" asp-for="Id" />
 
@@ -244,7 +246,6 @@
                 </div>
             }
         </div>
-
         <div>
             <h4>Spells</h4>
             @for (int i = 0; i < Model.CharacterSpells.Count; i++)
@@ -289,32 +290,51 @@
                 }
             }
         </div>
+        <div>
+            <h4>Treasure</h4>
+            @for (int i = 0; i < Model.CharacterTreasures.Count; i++)
+            {
+                var treasure = treasures.FirstOrDefault(it => it.Id == Model.CharacterTreasures[i].TreasureId);
+                var characterTreasure = Model.CharacterTreasures[i];
 
-
-
-
-            <!-- Image Upload Section -->
-            <div class="mb-3">
-                <label class="form-label">Current Character Image</label>
-                <img src="@Model.CharacterImage" id="featuredImageDisplay" style="width: 300px; display: block;" alt="Character Image" />
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Upload New Character Image</label>
-                <input type="file" id="featuredImageUpload" class="form-control" />
-            </div>
-            <input type="hidden" asp-for="CharacterImage" id="featuredImageUrl" />
-
-            <div class="d-flex">
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-                <button type="button" class="btn btn-danger ms-2"
-                        asp-controller="Character"
-                        asp-action="Delete"
-                        asp-route-id="@Model.Id">
-                    Delete
-                </button>
-            </div>
+                if (treasure != null)
+                {
+                    <div class="form-group">
+                        <label class="form-label">@treasure.Name</label>
+                        <input type="hidden" name="CharacterTreasures[@(i)].TreasureId" value="@characterTreasure.TreasureId" />
+                        <input type="number" class="form-control" id="CharacterTreasures_@(i)__Quantity"
+                               name="CharacterTreasures[@(i)].Quantity"
+                               value="@characterTreasure.Quantity"
+                               min="0" />
+                    </div>
+                }
+            }
         </div>
+
+
+
+        <!-- Image Upload Section -->
+        <div class="mb-3">
+            <label class="form-label">Current Character Image</label>
+            <img src="@Model.CharacterImage" id="featuredImageDisplay" style="width: 300px; display: block;" alt="Character Image" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Upload New Character Image</label>
+            <input type="file" id="featuredImageUpload" class="form-control" />
+        </div>
+        <input type="hidden" asp-for="CharacterImage" id="featuredImageUrl" />
+
+        <div class="d-flex">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" class="btn btn-danger ms-2"
+                    asp-controller="Character"
+                    asp-action="Delete"
+                    asp-route-id="@Model.Id">
+                Delete
+            </button>
+        </div>
+    </div>
 </form>
 
 

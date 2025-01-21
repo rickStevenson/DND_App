@@ -150,39 +150,53 @@
     </div>
 
     <div>
-        <h2>Skills</h2>
-        <ul>
-            @foreach (var skill in Model.CharacterSkills.Where(cs => cs.IsProficient))
-            {
-                // Map the SkillId from CharacterSkillRequest to the Skill's Id
-                var skillName = ((List<DND_App.Web.Models.Domain.Skill>)ViewBag.Skills)
-                    .FirstOrDefault(s => s.Id == skill.SkillId)?.Name ?? "Unknown Skill";
-
-                <div class="mb-3">
-                    <label class="form-label">
-                        Skill Name: @skillName <br />
-                        Bonus: @skill.Bonus
-                    </label>
-                </div>
-            }
-        </ul>
+        <h4>Skills</h4>
+        @if (Model.CharacterSkills.Any())
+        {
+            <ul>
+                @foreach (var skill in Model.CharacterSkills.Where(cs => cs.IsProficient))
+                {
+                    <div class="mb-1">
+                        <label class="form-label">
+                            Skill Name: @skill.Skill.Name <br />
+                            Bonus: @skill.Bonus
+                        </label>
+                    </div>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No skills assigned to this character</p>
+        }
 
     </div>
     <div>
-        <h2>Spells</h2>
-        <ul>
-            @foreach (var spell in Model.CharacterSpells.Where(cs => cs.IsLearned))
-            {
-                <li>@spell.Spell.Name</li>
-            }
-        </ul>
+        <h4>Spells</h4>
+        @if (Model.CharacterSpells.Any())
+        {
+            <ul>
+                @foreach (var spell in Model.CharacterSpells.Where(cs => cs.IsLearned))
+                {
+                    <li>@spell.Spell.Name</li>
+                }
+
+
+
+            </ul>
+        }
+        else
+        {
+            <p>No spells assigned to this character</p>
+        }
+
     </div>
     <div>
         <h4>Items</h4>
         @if (Model.CharacterItems.Any())
         {
             <ul>
-                @foreach (var item in Model.CharacterItems)
+                @foreach (var item in Model.CharacterItems.Where(ci => ci.Quantity > 0))
                 {
                     <li>@item.Item.Name - Quantity: @item.Quantity</li>
                 }
@@ -193,9 +207,22 @@
             <p>No items assigned to this character.</p>
         }
     </div>
-
-
-
+    <div>
+        <h4>Treasure</h4>
+        @if (Model.CharacterTreasures.Any())
+        {
+            <ul>
+                @foreach (var treasure in Model.CharacterTreasures.Where(ct => ct.Quantity > 0))
+                {
+                    <li>@treasure.Treasure.Name - Quantity: @treasure.Quantity</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No treasure assigned to this character.</p>
+        }
+    </div>
 
 </div>
 
@@ -204,12 +231,12 @@
     <!-- Actions Section -->
     <div class="row mt-4">
         <div class="col-12">
-            <a asp-action="Edit" 
-               asp-route-id="@Model.Id" 
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
                class="btn btn-primary">
                 Edit
             </a>
-            <a asp-action="UserCharacters" 
+            <a asp-action="UserCharacters"
                class="btn btn-secondary">
                 Back to List
             </a>

@@ -17,10 +17,14 @@
             <img src="@Model.FemaleImage" alt="@Model.Name Female" class="img-fluid" />
         </div>
     </div>
-
-
+    <div class="containter py-3">
+        <h2>Description</h2>
+        <p>
+            @Model.Description
+        </p>
+    </div>
     <div class="container py-3">
-        <h2>Race Abilities Description</h2>
+        <h2>Abilities</h2>
         @if (Model.RaceAbilities != null && Model.RaceAbilities.Any())
         {
             <ul>

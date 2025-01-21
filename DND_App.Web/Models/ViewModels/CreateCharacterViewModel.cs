@@ -2,7 +2,7 @@
 
 namespace DND_App.Web.Models.ViewModels
 {
-    public class CharacterRequest
+    public class CreateCharacterViewModel
     {
         [Required]
         public string CharacterName { get; set; } = "Donger";
@@ -16,6 +16,7 @@ namespace DND_App.Web.Models.ViewModels
         public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
         public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
         public List<CharacterItemRequest> CharacterItems { get; set; } = new List<CharacterItemRequest>();
+        public List<CharacterTreasureRequest> CharacterTreasures { get; set; } = new List<CharacterTreasureRequest>();
 
         // Required Attributes
         [Required]

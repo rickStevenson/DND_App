@@ -1,14 +1,18 @@
 ﻿@model DND_App.Web.Models.Domain.CharacterClass
 
-<div class="bg-secondary bg-opacity-10 py-5">
+<div class="bg-secondary bg-opacity-10 py-3">
     <div class="container">
         <h1>@Model.Name</h1>
-        <p>Hit Die: @Model.HitDie</p>
     </div>
 </div>
 
-<div class="container py-3">
-    <h2>Class Abilities and Saving Throw Description</h2>
+<div class="container py-2">
+    <h2>Description</h2>
+    <p>@Model.Description</p>
+</div>
+
+<div class="container py-2">
+    <h2>Abilities</h2>
     @if (Model.ClassAbilities != null && Model.ClassAbilities.Any())
     {
         <ul>
@@ -24,8 +28,9 @@
     {
         <p class="text-muted">No features or abilities available.</p>
     }
-
-    <h2>Class Saving Throws</h2>
+</div>
+<div class="container py-2">
+    <h2>Saving Throws</h2>
     @if (Model.ClassSavingThrows != null && Model.ClassSavingThrows.Any())
     {
         <ul>

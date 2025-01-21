@@ -14,6 +14,11 @@ namespace DND_App.Web.Models.Domain
         public Guid UserId { get; set; }
         public IdentityUser<Guid> User { get; set; }
 
+        public ICollection<CharacterSkill> CharacterSkills { get; set; } = new List<CharacterSkill>();
+        public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
+        public ICollection<CharacterItem> CharacterItems { get; set; } = new List<CharacterItem>();
+        public ICollection<CharacterTreasure> CharacterTreasures { get; set; } = new List<CharacterTreasure>();
+
         //Images
         public string? CharacterImage { get; set; }
 
@@ -68,9 +73,7 @@ namespace DND_App.Web.Models.Domain
         public string? Bonds { get; set; }
         public string? Flaws { get; set; }
         
-        public ICollection<CharacterSkill> CharacterSkills { get; set; } = new List<CharacterSkill>();
-        public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
-        public ICollection<CharacterItem> CharacterItems { get; set; } = new List<CharacterItem>();
+        
 
         //public string? FeaturesAndTraits { get; set; }
         //public List<string>? AlliesAndOrganizations { get; set; }

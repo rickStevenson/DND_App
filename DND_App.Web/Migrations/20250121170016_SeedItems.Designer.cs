@@ -4,6 +4,7 @@ using DND_App.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    partial class DnDDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250121170016_SeedItems")]
+    partial class SeedItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -650,24 +653,6 @@ namespace DND_App.Web.Migrations
                     b.ToTable("CharacterSpells");
                 });
 
-            modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterTreasure", b =>
-                {
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TreasureId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("CharacterId", "TreasureId");
-
-                    b.HasIndex("TreasureId");
-
-                    b.ToTable("CharacterTreasures");
-                });
-
             modelBuilder.Entity("DND_App.Web.Models.Domain.ClassAbility", b =>
                 {
                     b.Property<int>("Id")
@@ -1214,152 +1199,6 @@ namespace DND_App.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Weapon",
-                            Description = "A versatile blade suitable for slashing and thrusting.",
-                            Name = "Longsword",
-                            Value = 15f,
-                            Weight = 3f
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Category = "Armor",
-                            Description = "A suit of interlocking metal rings providing solid protection.",
-                            Name = "Chainmail",
-                            Value = 75f,
-                            Weight = 55f
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Category = "Potion",
-                            Description = "A small vial of red liquid that restores health when consumed.",
-                            Name = "Healing Potion",
-                            Value = 50f,
-                            Weight = 0.5f
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Category = "Gear",
-                            Description = "A sturdy container to carry your belongings.",
-                            Name = "Backpack",
-                            Value = 2f,
-                            Weight = 5f
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Category = "Gear",
-                            Description = "A hooded lantern that casts bright light in a 30-foot radius.",
-                            Name = "Lantern",
-                            Value = 5f,
-                            Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Category = "Weapon",
-                            Description = "A compact bow designed for quick, short-range shots.",
-                            Name = "Shortbow",
-                            Value = 25f,
-                            Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Category = "Gear",
-                            Description = "A leather-bound tome containing the wizard’s spells.",
-                            Name = "Spellbook",
-                            Value = 50f,
-                            Weight = 3f
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Category = "Gear",
-                            Description = "A package of dried food sufficient for one day.",
-                            Name = "Rations (1 day)",
-                            Value = 0.5f,
-                            Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Category = "Weapon",
-                            Description = "A small, sharp blade perfect for close combat or throwing.",
-                            Name = "Dagger",
-                            Value = 2f,
-                            Weight = 1f
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Category = "Gear",
-                            Description = "A hemp rope useful for climbing or securing items.",
-                            Name = "Rope (50 feet)",
-                            Value = 1f,
-                            Weight = 10f
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Category = "Weapon",
-                            Description = "A large axe designed for heavy combat.",
-                            Name = "Battleaxe",
-                            Value = 10f,
-                            Weight = 4f
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Category = "Weapon",
-                            Description = "A small axe usable in melee or as a thrown weapon.",
-                            Name = "Handaxe",
-                            Value = 5f,
-                            Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Category = "Weapon",
-                            Description = "A hammer balanced for throwing.",
-                            Name = "Throwing Hammer",
-                            Value = 5f,
-                            Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Category = "Weapon",
-                            Description = "A versatile hammer used for powerful strikes.",
-                            Name = "Warhammer",
-                            Value = 15f,
-                            Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Category = "Weapon",
-                            Description = "A lightweight blade ideal for quick, precise strikes.",
-                            Name = "Shortsword",
-                            Value = 10f,
-                            Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Category = "Weapon",
-                            Description = "A long-range bow capable of powerful shots.",
-                            Name = "Longbow",
-                            Value = 50f,
-                            Weight = 2f
-                        });
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.RaceAbility", b =>
@@ -2943,162 +2782,6 @@ namespace DND_App.Web.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DND_App.Web.Models.Domain.Treasure", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsMagical")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Value")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Weight")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Treasures");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "A platnum coin.",
-                            IsMagical = false,
-                            Name = "Platnum Coin",
-                            Type = "Coins",
-                            Value = 10f,
-                            Weight = 0.01f
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "A gold coin.",
-                            IsMagical = false,
-                            Name = "Gold Coin",
-                            Type = "Coins",
-                            Value = 1f,
-                            Weight = 0.01f
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "A electrum coin.",
-                            IsMagical = false,
-                            Name = "Electrum Coin",
-                            Type = "Coins",
-                            Value = 0.5f,
-                            Weight = 0.01f
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "A silver coin.",
-                            IsMagical = false,
-                            Name = "Silver Coin",
-                            Type = "Coins",
-                            Value = 0.1f,
-                            Weight = 0.01f
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "A copper coin.",
-                            IsMagical = false,
-                            Name = "Copper Coin",
-                            Type = "Coins",
-                            Value = 0.01f,
-                            Weight = 0.01f
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "A precious clear gem.",
-                            IsMagical = false,
-                            Name = "Diamond",
-                            Type = "Gems",
-                            Value = 1000f,
-                            Weight = 0f
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "A precious blue gem.",
-                            IsMagical = false,
-                            Name = "Sapphire",
-                            Type = "Gems",
-                            Value = 500f,
-                            Weight = 0f
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "A precious green gem.",
-                            IsMagical = false,
-                            Name = "Emerald",
-                            Type = "Gems",
-                            Value = 100f,
-                            Weight = 0f
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "A precious red gem.",
-                            IsMagical = false,
-                            Name = "Ruby",
-                            Type = "Gems",
-                            Value = 50f,
-                            Weight = 0f
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "A beautiful bracelet with delicate ruby inlays.",
-                            IsMagical = false,
-                            Name = "Silver Bracelet with Ruby Inlays",
-                            Type = "Jewelry",
-                            Value = 100f,
-                            Weight = 1f
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Description = "A magical amulet that grants protection to its wearer.",
-                            IsMagical = true,
-                            Name = "Amulet of Protection",
-                            Type = "Artifact",
-                            Value = 5000f,
-                            Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Description = "A magical sword infused with the essence of valor.",
-                            IsMagical = true,
-                            Name = "Sword of Valor",
-                            Type = "Artifact",
-                            Value = 10000f,
-                            Weight = 10f
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3238,25 +2921,6 @@ namespace DND_App.Web.Migrations
                     b.Navigation("Spell");
                 });
 
-            modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterTreasure", b =>
-                {
-                    b.HasOne("DND_App.Web.Models.Domain.Character", "Character")
-                        .WithMany("CharacterTreasures")
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DND_App.Web.Models.Domain.Treasure", "Treasure")
-                        .WithMany()
-                        .HasForeignKey("TreasureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
-
-                    b.Navigation("Treasure");
-                });
-
             modelBuilder.Entity("DND_App.Web.Models.Domain.ClassAbility", b =>
                 {
                     b.HasOne("DND_App.Web.Models.Domain.CharacterClass", "CharacterClass")
@@ -3319,8 +2983,6 @@ namespace DND_App.Web.Migrations
                     b.Navigation("CharacterSkills");
 
                     b.Navigation("CharacterSpells");
-
-                    b.Navigation("CharacterTreasures");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterClass", b =>

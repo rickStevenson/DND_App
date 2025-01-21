@@ -2,7 +2,7 @@
 
 namespace DND_App.Web.Models.ViewModels
 {
-    public class EditCharacterRequest
+    public class EditCharacterViewModel
     {
         public int Id { get; set; }
         public string CharacterName { get; set; }
@@ -47,5 +47,6 @@ namespace DND_App.Web.Models.ViewModels
         public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
         public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
         public List<CharacterItemRequest> CharacterItems { get; set; } = new List<CharacterItemRequest>();
+        public List<CharacterTreasureRequest> CharacterTreasures { get; set; } = new List<CharacterTreasureRequest>();
     }
 }

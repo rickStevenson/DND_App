@@ -11,10 +11,7 @@ namespace DND_App.Web.Models.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public float Weight { get; set; }
-        public int Value { get; set; } // In gold or another currency
+        public float Value { get; set; } // In gold or another currency
         public string? Category { get; set; } // Weapon, Armor, Potion, etc.
-
-        // Navigation property for the what catagory who own this item
-        //public ICollection<Weapon> WeaponItems { get; set; } = new List<CharacterItem>();
     }
 }

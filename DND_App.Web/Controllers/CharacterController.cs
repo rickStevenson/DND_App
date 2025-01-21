@@ -30,7 +30,6 @@ namespace DND_App.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-
             // Pass classes and races to the view
             ViewBag.Classes = dndDbContext.CharacterClasses.ToList();
             ViewBag.Races = dndDbContext.CharacterRaces.ToList();
@@ -47,8 +46,12 @@ namespace DND_App.Web.Controllers
             var items = dndDbContext.Items.ToList();
             ViewBag.Items = items;
 
-            // Create a CharacterRequest with initial values
-            var characterRequest = new CharacterRequest
+            // Fetch available treasures
+            var treasures = dndDbContext.Treasures.ToList();
+            ViewBag.Treasures = treasures;
+
+            // Create a CreateCharacterViewModel with initial values
+            var characterViewModel = new CreateCharacterViewModel
             {
                 // Initialize CharacterSkills
                 CharacterSkills = skills.Select(s => new CharacterSkillRequest
@@ -70,14 +73,21 @@ namespace DND_App.Web.Controllers
                 {
                     ItemId = ci.Id,
                     Quantity = 0
+                }).ToList(),
+
+                // Initialize CharacterTreasures
+                CharacterTreasures = treasures.Select(ct => new CharacterTreasureRequest
+                {
+                    TreasureId = ct.Id,
+                    Quantity = 0
                 }).ToList()
             };
 
-            return View(characterRequest);
+            return View(characterViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CharacterRequest characterRequest)
+        public async Task<IActionResult> Create(CreateCharacterViewModel createCharacterViewModel)
         {
             // Check if the form submission is valid
             if (!ModelState.IsValid)
@@ -88,7 +98,8 @@ namespace DND_App.Web.Controllers
                 ViewBag.Races = dndDbContext.CharacterRaces.ToList();
                 ViewBag.Skills = dndDbContext.Skills.ToList();
                 ViewBag.Spells = dndDbContext.Spells.ToList();
-                ViewBag.Spells = dndDbContext.Items.ToList();
+                ViewBag.Items = dndDbContext.Items.ToList();
+                ViewBag.Treasure = dndDbContext.Treasures.ToList();
 
                 #region Debug to check model state
                 //var spells = dndDbContext.Spells.ToList();
@@ -103,8 +114,8 @@ namespace DND_App.Web.Controllers
                 //    Console.WriteLine(error.ErrorMessage);
                 //}
 
-                //Console.WriteLine($"CharacterSpells Count: {characterRequest.CharacterSpells.Count}");
-                //foreach (var spell in characterRequest.CharacterSpells)
+                //Console.WriteLine($"CharacterSpells Count: {characterViewModel.CharacterSpells.Count}");
+                //foreach (var spell in characterViewModel.CharacterSpells)
                 //{
                 //    Console.WriteLine($"Id: {spell.Id}, IsLearned: {spell.IsLearned}");
                 //}
@@ -115,62 +126,62 @@ namespace DND_App.Web.Controllers
                 #endregion
 
                 // Return the form with validation errors
-                return View(characterRequest);
+                return View(createCharacterViewModel);
             }
 
-            // Get the currently logged-in user
-            var user = await userManager.GetUserAsync(User);
+            // Get the currently logged-in loggedInUser
+            var loggedInUser = await userManager.GetUserAsync(User);
 
             // Sanitize the CharacterBackstory to prevent malicious input
             var sanitizer = new HtmlSanitizer();
-            characterRequest.CharacterBackstory = sanitizer.Sanitize(characterRequest.CharacterBackstory);
+            createCharacterViewModel.CharacterBackstory = sanitizer.Sanitize(createCharacterViewModel.CharacterBackstory);
 
-            // Map the CharacterRequest to a new Character entity
-            var character = new Character
+            // Map the CreateCharacterViewModel to a new Character entity
+            var characterDomainModel = new Character
             {
                 // User-related properties
-                UserId = Guid.Parse(user.Id), // Associate the character with the logged-in user
-                PlayerName = user.UserName, // Use the user's username as the player name
+                UserId = Guid.Parse(loggedInUser.Id), // Associate the characterDomainModel with the logged-in loggedInUser
+                PlayerName = loggedInUser.UserName, // Use the loggedInUser's username as the player name
 
-                // General character properties
-                CharacterName = characterRequest.CharacterName,
-                CharacterClassId = characterRequest.CharacterClassId,
-                CharacterRaceId = characterRequest.CharacterRaceId,
-                Strength = characterRequest.Strength,
-                Dexterity = characterRequest.Dexterity,
-                Constitution = characterRequest.Constitution,
-                Intelligence = characterRequest.Intelligence,
-                Wisdom = characterRequest.Wisdom,
-                Charisma = characterRequest.Charisma,
-                Level = characterRequest.Level,
-                ExperiencePoints = characterRequest.ExperiencePoints,
-                PassiveWisdom = characterRequest.PassiveWisdom,
-                Inspiration = characterRequest.Inspiration,
-                ProficiencyBonus = characterRequest.ProficiencyBonus,
-                ArmorClass = characterRequest.ArmorClass,
-                Speed = characterRequest.Speed,
-                Age = characterRequest.Age,
-                Height = characterRequest.Height,
-                Weight = characterRequest.Weight,
-                Eyes = characterRequest.Eyes,
-                Skin = characterRequest.Skin,
-                Hair = characterRequest.Hair,
-                PersonalityTraits = characterRequest.PersonalityTraits,
-                Ideals = characterRequest.Ideals,
-                Bonds = characterRequest.Bonds,
-                Flaws = characterRequest.Flaws,
-                CharacterBackstory = characterRequest.CharacterBackstory,
-                Alignment = characterRequest.Alignment,
-                EncumbranceStatus = characterRequest.EncumbranceStatus,
-                CharacterImage = characterRequest.CharacterImage,
-                Gender = characterRequest.Gender,
-                HitPoints_Current = characterRequest.HitPoints_Current,
-                HitPoints_Total = characterRequest.HitPoints_Total,
-                Initiative = characterRequest.Initiative,
-                TotalWeight = characterRequest.TotalWeight,
+                // General characterDomainModel properties
+                CharacterName = createCharacterViewModel.CharacterName,
+                CharacterClassId = createCharacterViewModel.CharacterClassId,
+                CharacterRaceId = createCharacterViewModel.CharacterRaceId,
+                Strength = createCharacterViewModel.Strength,
+                Dexterity = createCharacterViewModel.Dexterity,
+                Constitution = createCharacterViewModel.Constitution,
+                Intelligence = createCharacterViewModel.Intelligence,
+                Wisdom = createCharacterViewModel.Wisdom,
+                Charisma = createCharacterViewModel.Charisma,
+                Level = createCharacterViewModel.Level,
+                ExperiencePoints = createCharacterViewModel.ExperiencePoints,
+                PassiveWisdom = createCharacterViewModel.PassiveWisdom,
+                Inspiration = createCharacterViewModel.Inspiration,
+                ProficiencyBonus = createCharacterViewModel.ProficiencyBonus,
+                ArmorClass = createCharacterViewModel.ArmorClass,
+                Speed = createCharacterViewModel.Speed,
+                Age = createCharacterViewModel.Age,
+                Height = createCharacterViewModel.Height,
+                Weight = createCharacterViewModel.Weight,
+                Eyes = createCharacterViewModel.Eyes,
+                Skin = createCharacterViewModel.Skin,
+                Hair = createCharacterViewModel.Hair,
+                PersonalityTraits = createCharacterViewModel.PersonalityTraits,
+                Ideals = createCharacterViewModel.Ideals,
+                Bonds = createCharacterViewModel.Bonds,
+                Flaws = createCharacterViewModel.Flaws,
+                CharacterBackstory = createCharacterViewModel.CharacterBackstory,
+                Alignment = createCharacterViewModel.Alignment,
+                EncumbranceStatus = createCharacterViewModel.EncumbranceStatus,
+                CharacterImage = createCharacterViewModel.CharacterImage,
+                Gender = createCharacterViewModel.Gender,
+                HitPoints_Current = createCharacterViewModel.HitPoints_Current,
+                HitPoints_Total = createCharacterViewModel.HitPoints_Total,
+                Initiative = createCharacterViewModel.Initiative,
+                TotalWeight = createCharacterViewModel.TotalWeight,
 
                 // Map CharacterSkills from the request
-                CharacterSkills = characterRequest.CharacterSkills
+                CharacterSkills = createCharacterViewModel.CharacterSkills
                     .Select(cs => new CharacterSkill
                     {
                         SkillId = cs.SkillId,
@@ -179,7 +190,7 @@ namespace DND_App.Web.Controllers
                     }).ToList(),
 
                 // Map CharacterSpells from the request
-                CharacterSpells = characterRequest.CharacterSpells
+                CharacterSpells = createCharacterViewModel.CharacterSpells
                     .Select(cs => new CharacterSpell
                     {
                         SpellId = cs.SpellId,
@@ -187,25 +198,33 @@ namespace DND_App.Web.Controllers
                     }).ToList(),
 
                 // Map CharacterItems from the request
-                CharacterItems = characterRequest.CharacterItems
+                CharacterItems = createCharacterViewModel.CharacterItems
                     .Select(ci => new CharacterItem
                     {
                         ItemId = ci.ItemId,
                         Quantity = ci.Quantity
+                    }).ToList(),
+
+                // Map CharacterTreasures from the request
+                CharacterTreasures = createCharacterViewModel.CharacterTreasures
+                    .Select(ct => new CharacterTreasure
+                    {
+                        TreasureId = ct.TreasureId,
+                        Quantity = ct.Quantity
                     }).ToList()
             };
 
-            // Save the new character using the repository
-            await characterRepository.CreateAsync(character);
+            // Save the new characterDomainModel using the repository
+            await characterRepository.CreateAsync(characterDomainModel);
 
-            // Redirect to the details page for the newly created character
-            return RedirectToAction("Details", new { id = character.Id });
+            // Redirect to the details page for the newly created characterDomainModel
+            return RedirectToAction("Details", new { id = characterDomainModel.Id });
         }
 
         [HttpGet]
         public IActionResult Details(int id)
         {
-            // Retrieve the character by ID, including related entities
+            // Retrieve the characterDomainModel by ID, including related entities
             var character = dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
@@ -215,18 +234,21 @@ namespace DND_App.Web.Controllers
                     .ThenInclude(cs => cs.Spell)
                 .Include(c => c.CharacterItems)
                     .ThenInclude(cs => cs.Item)
+                .Include(c => c.CharacterTreasures)
+                    .ThenInclude(cs => cs.Treasure)
                 .FirstOrDefault(c => c.Id == id);
 
-            // Check if the character exists
+            // Check if the characterDomainModel exists
             if (character == null)
                 return NotFound();
 
             // Fetch all skills and spells to display in the details view
             ViewBag.Skills = dndDbContext.Skills.ToList();
             ViewBag.Spells = dndDbContext.Spells.ToList();
-            ViewBag.Spells = dndDbContext.Items.ToList();
+            ViewBag.Items = dndDbContext.Items.ToList();
+            ViewBag.Treasure = dndDbContext.Treasures.ToList();
 
-            // Pass the character entity to the view for display
+            // Pass the characterDomainModel entity to the view for display
             return View(character);
         }
 
@@ -242,7 +264,7 @@ namespace DND_App.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            // Fetch the character from the repository or database
+            // Fetch the characterDomainModel from the repository or database
             var character = await dndDbContext.Characters
                 .Include(c => c.CharacterSkills) // Eagerly load CharacterSkills
                 .ThenInclude(cs => cs.Skill)
@@ -250,15 +272,12 @@ namespace DND_App.Web.Controllers
                 .ThenInclude(cs => cs.Spell)
                 .Include(c => c.CharacterItems) // Eagerly load CharacterItems
                 .ThenInclude(cs => cs.Item)
+                .Include(c => c.CharacterTreasures) // Eagerly load CharacterItems
+                .ThenInclude(cs => cs.Treasure)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            //Console.WriteLine("Character.Spells Count: " + character.CharacterSpells.Count);
-            //foreach (var spell in character.CharacterSpells)
-            //{
-            //    Console.WriteLine($"CharacterSpell: SpellId={spell.SpellId}, IsLearned={spell.IsLearned}");
-            //}
-
-            // Return 404 if the character does not exist
+            
+            // Return 404 if the characterDomainModel does not exist
             if (character == null)
             {
                 return NotFound();//create another view that says "Character not found"
@@ -269,7 +288,8 @@ namespace DND_App.Web.Controllers
             ViewBag.Races = await dndDbContext.CharacterRaces.ToListAsync();
             ViewBag.Skills = await dndDbContext.Skills.ToListAsync();
             ViewBag.Spells = await dndDbContext.Spells.ToListAsync();
-            ViewBag.Itemss = await dndDbContext.Items.ToListAsync();
+            ViewBag.Items = await dndDbContext.Items.ToListAsync();
+            ViewBag.Treasures = await dndDbContext.Treasures.ToListAsync();
 
             // Sanitize the backstory to prevent malicious input
             var sanitizer = new HtmlSanitizer();
@@ -302,8 +322,19 @@ namespace DND_App.Web.Controllers
                     .FirstOrDefault() // Use FirstOrDefault to get the quantity if it exists; otherwise, default to 0
             }).ToList();
 
-            // Map the character data to the EditCharacterRequest view model
-            var editCharacterRequest = new EditCharacterRequest
+            // Map CharacterTreasures
+            var treasures = await dndDbContext.Treasures.ToListAsync();
+            var treasureRequests = treasures.Select(treasure => new CharacterTreasureRequest
+            {
+                TreasureId = treasure.Id,
+                Quantity = character.CharacterTreasures
+                    .Where(ct => ct.TreasureId == treasure.Id)
+                    .Select(ct => ct.Quantity)
+                    .FirstOrDefault() // Use FirstOrDefault to get the quantity if it exists; otherwise, default to 0
+            }).ToList();
+
+            // Map the characterDomainModel data to the EditCharacterViewModel view model
+            var editCharacterRequest = new EditCharacterViewModel
             {
                 Id = character.Id,
                 CharacterName = character.CharacterName,
@@ -343,15 +374,17 @@ namespace DND_App.Web.Controllers
                 TotalWeight = character.TotalWeight,
 
                 CharacterSkills = skillRequests, 
-                CharacterSpells = spellRequests
+                CharacterSpells = spellRequests,
+                CharacterItems = itemRequests,
+                CharacterTreasures = treasureRequests
             };
 
-            // Return the edit view with the character data
+            // Return the edit view with the characterDomainModel data
             return View(editCharacterRequest); 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditCharacterRequest editCharacterRequest)
+        public async Task<IActionResult> Edit(int id, EditCharacterViewModel editCharacterRequest)
         {
             #region Debug suggestions
             //Console.WriteLine($"Character Name: {editCharacterRequest.CharacterName}");
@@ -386,6 +419,7 @@ namespace DND_App.Web.Controllers
                 ViewBag.Skills = await dndDbContext.Skills.ToListAsync();
                 ViewBag.Spells = await dndDbContext.Spells.ToListAsync();
                 ViewBag.Items = await dndDbContext.Items.ToListAsync();
+                ViewBag.Treasures = await dndDbContext.Treasures.ToListAsync();
 
                 foreach (var key in Request.Form.Keys)
                 {
@@ -407,6 +441,7 @@ namespace DND_App.Web.Controllers
                 .Include(c => c.CharacterSkills)
                 .Include(c => c.CharacterSpells)
                 .Include(c => c.CharacterItems)
+                .Include(c => c.CharacterTreasures)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (character == null)
@@ -421,6 +456,7 @@ namespace DND_App.Web.Controllers
             var sanitizer = new HtmlSanitizer();
 
             editCharacterRequest.CharacterBackstory = sanitizer.Sanitize(editCharacterRequest.CharacterBackstory);
+
             character.CharacterName = editCharacterRequest.CharacterName;
             character.CharacterClassId = editCharacterRequest.CharacterClassId;
             character.CharacterRaceId = editCharacterRequest.CharacterRaceId;
@@ -458,41 +494,41 @@ namespace DND_App.Web.Controllers
             #endregion
 
             #region Update CharacterSkills
-            foreach (var skillRequest in editCharacterRequest.CharacterSkills)
+            foreach (var selectedSkill in editCharacterRequest.CharacterSkills)
             {
-                var existingSkill = character.CharacterSkills.FirstOrDefault(cs => cs.SkillId == skillRequest.SkillId);
+                var existingSkill = character.CharacterSkills.FirstOrDefault(cs => cs.SkillId == selectedSkill.SkillId);
                 if (existingSkill != null)
                 {
-                    existingSkill.IsProficient = skillRequest.IsProficient;
-                    existingSkill.Bonus = skillRequest.Bonus;
+                    existingSkill.IsProficient = selectedSkill.IsProficient;
+                    existingSkill.Bonus = selectedSkill.Bonus;
                 }
                 else
                 {
                     character.CharacterSkills.Add(new CharacterSkill
                     {
-                        SkillId = skillRequest.SkillId,
-                        IsProficient = skillRequest.IsProficient,
-                        Bonus = skillRequest.Bonus
+                        SkillId = selectedSkill.SkillId,
+                        IsProficient = selectedSkill.IsProficient,
+                        Bonus = selectedSkill.Bonus
                     });
                 }
             }
             #endregion
 
             #region Update CharacterSpells
-            foreach (var spellRequest in editCharacterRequest.CharacterSpells)
+            foreach (var selectedSpell in editCharacterRequest.CharacterSpells)
             {
                 var existingSpell = character.CharacterSpells
-                    .FirstOrDefault(cs => cs.SpellId == spellRequest.SpellId);
+                    .FirstOrDefault(cs => cs.SpellId == selectedSpell.SpellId);
 
                 if (existingSpell != null)
                 {
-                    existingSpell.IsLearned = spellRequest.IsLearned;
+                    existingSpell.IsLearned = selectedSpell.IsLearned;
                 }
-                else if (spellRequest.IsLearned)
+                else if (selectedSpell.IsLearned)
                 {
                     character.CharacterSpells.Add(new CharacterSpell
                     {
-                        SpellId = spellRequest.SpellId,
+                        SpellId = selectedSpell.SpellId,
                         CharacterId = character.Id,
                         IsLearned = true
                     });
@@ -501,22 +537,44 @@ namespace DND_App.Web.Controllers
             #endregion
 
             #region Update CharacterItems
-            foreach (var itemRequest in editCharacterRequest.CharacterItems)
+            foreach (var selectedItem in editCharacterRequest.CharacterItems)
             {
                 var existingItem = character.CharacterItems
-                    .FirstOrDefault(cs => cs.ItemId == itemRequest.ItemId);
+                    .FirstOrDefault(cs => cs.ItemId == selectedItem.ItemId);
 
-                if (existingItem != null)
+                if (existingItem != null)//This is the updating portion
                 {
-                    existingItem.Quantity = itemRequest.Quantity;
+                    existingItem.Quantity = selectedItem.Quantity;
                 }
-                else if (itemRequest.Quantity > 0)
+                else if (selectedItem.Quantity > 0)//This is the adding portion
                 {
                     character.CharacterItems.Add(new CharacterItem
                     {
-                        ItemId = itemRequest.ItemId,
+                        ItemId = selectedItem.ItemId,
                         CharacterId = character.Id,
-                        Quantity = itemRequest.Quantity
+                        Quantity = selectedItem.Quantity
+                    });
+                }
+            }
+            #endregion
+
+            #region Update CharacterItems
+            foreach (var selectedTreasure in editCharacterRequest.CharacterTreasures)
+            {
+                var existingTreasure = character.CharacterTreasures
+                    .FirstOrDefault(ct => ct.TreasureId == selectedTreasure.TreasureId);
+
+                if (existingTreasure != null)//This is the updating portion
+                {
+                    existingTreasure.Quantity = selectedTreasure.Quantity;
+                }
+                else if (selectedTreasure.Quantity > 0)//This is the adding portion
+                {
+                    character.CharacterTreasures.Add(new CharacterTreasure
+                    {
+                        TreasureId = selectedTreasure.TreasureId,
+                        CharacterId = character.Id,
+                        Quantity = selectedTreasure.Quantity
                     });
                 }
             }
@@ -532,7 +590,7 @@ namespace DND_App.Web.Controllers
 
         [HttpPost]
         [Route("Character/Delete")]
-        public async Task<IActionResult> Delete(EditCharacterRequest editCharacterRequest)
+        public async Task<IActionResult> Delete(EditCharacterViewModel editCharacterRequest)
         {
             var deletedCharacter = await characterRepository.DeleteAsync(editCharacterRequest.Id);
 
@@ -547,7 +605,7 @@ namespace DND_App.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> UserCharacters()
         {
-            // Get the currently logged-in user
+            // Get the currently logged-in loggedInUser
             var user = await userManager.GetUserAsync(User);
 
             if (user == null)
@@ -555,7 +613,7 @@ namespace DND_App.Web.Controllers
                 return RedirectToAction("Login", "Accounts");
             }
 
-            // Fetch characters created by the logged-in user
+            // Fetch characters created by the logged-in loggedInUser
             var userCharacters = await dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)

@@ -6,8 +6,8 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public float Value { get; set; }
-
-        public int CharacterId { get; set; }
-        public Character Character { get; set; }
+        public string Type { get; set; }
+        public float Weight { get; set; }
+        public bool IsMagical { get; set; }
     }
 }

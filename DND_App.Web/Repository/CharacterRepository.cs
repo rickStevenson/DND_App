@@ -29,6 +29,8 @@ namespace DND_App.Web.Repository
                     .ThenInclude(cs => cs.Skill)
                 .Include(c => c.CharacterSpells)
                     .ThenInclude(cs => cs.Spell)
+                .Include(c => c.CharacterTreasures)
+                    .ThenInclude(cs => cs.Treasure)
                 .ToListAsync();
         }
         public async Task<Character?> ReadByIdAsync(int id)
@@ -40,14 +42,14 @@ namespace DND_App.Web.Repository
                     .ThenInclude(cs => cs.Skill)
                 .Include(c => c.CharacterSpells)
                     .ThenInclude(cs => cs.Spell)
+                .Include(c => c.CharacterTreasures)
+                    .ThenInclude(cs => cs.Treasure)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
-        
-
-        public async Task<Character?> UpdateAsync(Character character)
+        public async Task<Character?> UpdateAsync(Character updatedCharacterFromController)
         {
             #region Get existing character
-            var existingCharacter = await dndDbContext.Characters
+            var existingCharacterFromDb = await dndDbContext.Characters
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
                 .Include(c => c.CharacterSkills)
@@ -56,58 +58,60 @@ namespace DND_App.Web.Repository
                     .ThenInclude(cs => cs.Spell)
                 .Include(c => c.CharacterItems)
                     .ThenInclude(cs => cs.Item)
-                .FirstOrDefaultAsync(post => post.Id == character.Id);
+                .Include(c => c.CharacterTreasures)
+                    .ThenInclude(cs => cs.Treasure)
+                .FirstOrDefaultAsync(post => post.Id == updatedCharacterFromController.Id);
             #endregion
 
             #region Update existing character
-            if (existingCharacter != null)
+            if (existingCharacterFromDb != null)
             {
                 #region Update Character Properties
-                existingCharacter.Id = character.Id;
-                existingCharacter.CharacterName = character.CharacterName;
-                existingCharacter.Strength = character.Strength;
-                existingCharacter.Dexterity = character.Dexterity;
-                existingCharacter.Constitution = character.Constitution;
-                existingCharacter.Intelligence = character.Intelligence;
-                existingCharacter.Wisdom = character.Wisdom;
-                existingCharacter.Charisma = character.Charisma;
-                existingCharacter.Level = character.Level;
-                existingCharacter.ExperiencePoints = character.ExperiencePoints;
-                existingCharacter.PassiveWisdom = character.PassiveWisdom;
-                existingCharacter.Inspiration = character.Inspiration;
-                existingCharacter.ProficiencyBonus = character.ProficiencyBonus;
-                existingCharacter.ArmorClass = character.ArmorClass;
-                existingCharacter.Speed = character.Speed;
-                existingCharacter.Age = character.Age;
-                existingCharacter.Height = character.Height;
-                existingCharacter.Weight = character.Weight;
-                existingCharacter.Eyes = character.Eyes;
-                existingCharacter.Skin = character.Skin;
-                existingCharacter.Hair = character.Hair;
-                existingCharacter.PersonalityTraits = character.PersonalityTraits;
-                existingCharacter.Ideals = character.Ideals;
-                existingCharacter.Bonds = character.Bonds;
-                existingCharacter.Flaws = character.Flaws;
-                existingCharacter.CharacterBackstory = character.CharacterBackstory;
-                existingCharacter.Alignment = character.Alignment;
-                existingCharacter.EncumbranceStatus = character.EncumbranceStatus;
-                existingCharacter.CharacterImage = character.CharacterImage;
-                existingCharacter.Gender = character.Gender;
-                existingCharacter.HitPoints_Current = character.HitPoints_Current;
-                existingCharacter.HitPoints_Total = character.HitPoints_Total;
-                existingCharacter.Initiative = character.Initiative;
+                existingCharacterFromDb.Id = updatedCharacterFromController.Id;
+                existingCharacterFromDb.CharacterName = updatedCharacterFromController.CharacterName;
+                existingCharacterFromDb.Strength = updatedCharacterFromController.Strength;
+                existingCharacterFromDb.Dexterity = updatedCharacterFromController.Dexterity;
+                existingCharacterFromDb.Constitution = updatedCharacterFromController.Constitution;
+                existingCharacterFromDb.Intelligence = updatedCharacterFromController.Intelligence;
+                existingCharacterFromDb.Wisdom = updatedCharacterFromController.Wisdom;
+                existingCharacterFromDb.Charisma = updatedCharacterFromController.Charisma;
+                existingCharacterFromDb.Level = updatedCharacterFromController.Level;
+                existingCharacterFromDb.ExperiencePoints = updatedCharacterFromController.ExperiencePoints;
+                existingCharacterFromDb.PassiveWisdom = updatedCharacterFromController.PassiveWisdom;
+                existingCharacterFromDb.Inspiration = updatedCharacterFromController.Inspiration;
+                existingCharacterFromDb.ProficiencyBonus = updatedCharacterFromController.ProficiencyBonus;
+                existingCharacterFromDb.ArmorClass = updatedCharacterFromController.ArmorClass;
+                existingCharacterFromDb.Speed = updatedCharacterFromController.Speed;
+                existingCharacterFromDb.Age = updatedCharacterFromController.Age;
+                existingCharacterFromDb.Height = updatedCharacterFromController.Height;
+                existingCharacterFromDb.Weight = updatedCharacterFromController.Weight;
+                existingCharacterFromDb.Eyes = updatedCharacterFromController.Eyes;
+                existingCharacterFromDb.Skin = updatedCharacterFromController.Skin;
+                existingCharacterFromDb.Hair = updatedCharacterFromController.Hair;
+                existingCharacterFromDb.PersonalityTraits = updatedCharacterFromController.PersonalityTraits;
+                existingCharacterFromDb.Ideals = updatedCharacterFromController.Ideals;
+                existingCharacterFromDb.Bonds = updatedCharacterFromController.Bonds;
+                existingCharacterFromDb.Flaws = updatedCharacterFromController.Flaws;
+                existingCharacterFromDb.CharacterBackstory = updatedCharacterFromController.CharacterBackstory;
+                existingCharacterFromDb.Alignment = updatedCharacterFromController.Alignment;
+                existingCharacterFromDb.EncumbranceStatus = updatedCharacterFromController.EncumbranceStatus;
+                existingCharacterFromDb.CharacterImage = updatedCharacterFromController.CharacterImage;
+                existingCharacterFromDb.Gender = updatedCharacterFromController.Gender;
+                existingCharacterFromDb.HitPoints_Current = updatedCharacterFromController.HitPoints_Current;
+                existingCharacterFromDb.HitPoints_Total = updatedCharacterFromController.HitPoints_Total;
+                existingCharacterFromDb.Initiative = updatedCharacterFromController.Initiative;
                 #endregion
 
                 #region Update Character Race & Class
-                existingCharacter.CharacterRace.Name = character.CharacterRace.Name;
-                existingCharacter.CharacterClass.Name = character.CharacterClass.Name;
-                existingCharacter.CharacterRaceId = character.CharacterRaceId;
-                existingCharacter.CharacterClassId = character.CharacterClassId;
+                existingCharacterFromDb.CharacterRace.Name = updatedCharacterFromController.CharacterRace.Name;
+                existingCharacterFromDb.CharacterClass.Name = updatedCharacterFromController.CharacterClass.Name;
+                existingCharacterFromDb.CharacterRaceId = updatedCharacterFromController.CharacterRaceId;
+                existingCharacterFromDb.CharacterClassId = updatedCharacterFromController.CharacterClassId;
                 #endregion
 
                 #region Update CharacterSkills
-                var existingSkills = existingCharacter.CharacterSkills.ToList();
-                var updatedSkills = character.CharacterSkills.ToList();
+                var existingSkills = existingCharacterFromDb.CharacterSkills.ToList();
+                var updatedSkills = updatedCharacterFromController.CharacterSkills.ToList();
 
                 // Remove skills that are no longer associated
                 foreach (var skill in existingSkills)
@@ -126,10 +130,10 @@ namespace DND_App.Web.Repository
                     if (existingSkill == null)
                     {
                         // Add new skill
-                        existingCharacter.CharacterSkills.Add(new CharacterSkill
+                        existingCharacterFromDb.CharacterSkills.Add(new CharacterSkill
                         {
                             SkillId = skill.SkillId,
-                            CharacterId = existingCharacter.Id,
+                            CharacterId = existingCharacterFromDb.Id,
                             IsProficient = skill.IsProficient,
                             Bonus = skill.Bonus
                         });
@@ -144,8 +148,8 @@ namespace DND_App.Web.Repository
                 #endregion
 
                 #region Update CharacterSpells
-                var existingSpells = existingCharacter.CharacterSpells.ToList();
-                var updatedSpells = character.CharacterSpells.ToList();
+                var existingSpells = existingCharacterFromDb.CharacterSpells.ToList();
+                var updatedSpells = updatedCharacterFromController.CharacterSpells.ToList();
 
                 // Remove spells that are no longer associated
                 foreach (var spell in existingSpells)
@@ -164,23 +168,23 @@ namespace DND_App.Web.Repository
                     if (existingSpell == null)
                     {
                         // Add new spell
-                        existingCharacter.CharacterSpells.Add(new CharacterSpell
+                        existingCharacterFromDb.CharacterSpells.Add(new CharacterSpell
                         {
                             SpellId = spell.SpellId,
-                            CharacterId = existingCharacter.Id
+                            CharacterId = existingCharacterFromDb.Id
                         });
                     }
                 }
                 #endregion
 
                 #region Update CharacterItems
-                var existingItems = existingCharacter.CharacterItems.ToList();
-                var updatedItems = character.CharacterItems.ToList();
+                var existingItems = existingCharacterFromDb.CharacterItems.ToList();
+                var updatedItems = updatedCharacterFromController.CharacterItems.ToList();
 
                 // Remove items that are no longer associated
                 foreach (var item in existingItems)
                 {
-                    if (!updatedItems.Any(cs => cs.ItemId == item.ItemId))
+                    if (!updatedItems.Any(ei => ei.ItemId == item.ItemId))
                     {
                         dndDbContext.CharacterItems.Remove(item);
                     }
@@ -194,10 +198,40 @@ namespace DND_App.Web.Repository
                     if (existingItem == null)
                     {
                         // Add new Item
-                        existingCharacter.CharacterItems.Add(new CharacterItem
+                        existingCharacterFromDb.CharacterItems.Add(new CharacterItem
                         {
                             ItemId = item.ItemId,
-                            CharacterId = existingCharacter.Id
+                            CharacterId = existingCharacterFromDb.Id
+                        });
+                    }
+                }
+                #endregion
+
+                #region Update CharacterTreasures
+                var existingTreasures = existingCharacterFromDb.CharacterTreasures.ToList();
+                var updatedTreasures = updatedCharacterFromController.CharacterTreasures.ToList();
+
+                // Remove treasures that are no longer associated
+                foreach (var treasure in existingTreasures)
+                {
+                    if (!updatedTreasures.Any(et => et.TreasureId == treasure.TreasureId))
+                    {
+                        dndDbContext.CharacterTreasures.Remove(treasure);
+                    }
+                }
+
+                // Add or update treasure
+                foreach (var treasure in updatedTreasures)
+                {
+                    var existingTreasure = existingTreasures
+                        .FirstOrDefault(cs => cs.TreasureId == treasure.TreasureId);
+                    if (existingTreasure == null)
+                    {
+                        // Add new treasure
+                        existingCharacterFromDb.CharacterTreasures.Add(new CharacterTreasure
+                        {
+                            TreasureId = treasure.TreasureId,
+                            CharacterId = existingCharacterFromDb.Id
                         });
                     }
                 }
@@ -207,10 +241,9 @@ namespace DND_App.Web.Repository
 
             #region Save and Return
             await dndDbContext.SaveChangesAsync();
-            return existingCharacter;
+            return existingCharacterFromDb;
             #endregion
         }
-
         public async Task<Character?> DeleteAsync(int id)
         {
             var existingCharacter = await dndDbContext.Characters.FindAsync(id);

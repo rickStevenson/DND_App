@@ -27,6 +27,8 @@ namespace DND_App.Web.Data
         public DbSet<CharacterSpell> CharacterSpells { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<CharacterItem> CharacterItems { get; set; }
+        public DbSet<Treasure> Treasures { get; set; }
+        public DbSet<CharacterTreasure> CharacterTreasures { get; set; }
 
 
         public DnDDbContext(DbContextOptions<DnDDbContext> options) : base(options)
@@ -48,6 +50,8 @@ namespace DND_App.Web.Data
             modelBuilder.SeedRaceWeaponProficiencies();
             modelBuilder.SeedSpells();
             modelBuilder.SeedSkills();
+            modelBuilder.SeedItems();
+            modelBuilder.SeedTreasures();
         }
     }
 }

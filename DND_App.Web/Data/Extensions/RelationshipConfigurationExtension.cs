@@ -94,6 +94,20 @@ namespace DND_App.Web.Data.Extensions
                 .HasOne(ci => ci.Item)
                 .WithMany()
                 .HasForeignKey(ci => ci.ItemId);
+
+            // Configure CharacterTreasures as the join table
+            modelBuilder.Entity<CharacterTreasure>()
+                .HasKey(ct => new { ct.CharacterId, ct.TreasureId }); // Composite Key
+
+            modelBuilder.Entity<CharacterTreasure>()
+                .HasOne(ct => ct.Character)
+                .WithMany(c => c.CharacterTreasures)
+                .HasForeignKey(ct => ct.CharacterId);
+
+            modelBuilder.Entity<CharacterTreasure>()
+                .HasOne(ct => ct.Treasure)
+                .WithMany()
+                .HasForeignKey(ct => ct.TreasureId);
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿@model DND_App.Web.Models.ViewModels.CharacterRequest
+﻿@model DND_App.Web.Models.ViewModels.CreateCharacterViewModel
 
 @{
     var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
     var spells = ViewBag.Spells as List<DND_App.Web.Models.Domain.Spell>;
     var items = ViewBag.Items as List<DND_App.Web.Models.Domain.Item>;
+    var treasures = ViewBag.Treasures as List<DND_App.Web.Models.Domain.Treasure>;
 }
 
 @{
@@ -17,192 +18,192 @@
 <div class="container py-3">
     <form asp-action="Create" method="post">
         <div>
-            <label class="form-label">Character Name</label>
-            <input type="text" class="form-control" id="characterName" asp-for="CharacterName" />
-            <span asp-validation-for="CharacterName"></span>
-        </div>
-        <div>
-            <label>Class</label>
-            <select asp-for="CharacterClassId">
-                @foreach (var c in ViewBag.Classes)
-                {
-                    <option value="@c.Id">@c.Name</option>
-                }
-            </select>
-        </div>
-        <div>
-            <label>Race</label>
-            <select asp-for="CharacterRaceId">
-                @foreach (var r in ViewBag.Races)
-                {
-                    <option value="@r.Id">@r.Name</option>
-                }
-            </select>
-        </div>
+            <div>
+                <label class="form-label">Character Name</label>
+                <input type="text" class="form-control" id="characterName" asp-for="CharacterName" />
+                <span asp-validation-for="CharacterName"></span>
+            </div>
+            <div>
+                <label>Class</label>
+                <select asp-for="CharacterClassId">
+                    @foreach (var c in ViewBag.Classes)
+                    {
+                        <option value="@c.Id">@c.Name</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <label>Race</label>
+                <select asp-for="CharacterRaceId">
+                    @foreach (var r in ViewBag.Races)
+                    {
+                        <option value="@r.Id">@r.Name</option>
+                    }
+                </select>
+            </div>
 
-        <div>
-            <label class="form-label">Strength</label>
-            <input type="text" class="form-control" id="strength" asp-for="Strength" />
-            <span asp-validation-for="Strength"></span>
-        </div>
-        <div>
-            <label class="form-label">Dexterity</label>
-            <input type="text" class="form-control" id="dexterity" asp-for="Dexterity" />
-            <span asp-validation-for="Dexterity"></span>
-        </div>
-        <div>
-            <label class="form-label">Constitution</label>
-            <input type="text" class="form-control" id="constitution" asp-for="Constitution" />
-            <span asp-validation-for="Constitution"></span>
-        </div>
-        <div>
-            <label class="form-label">Intelligence</label>
-            <input type="text" class="form-control" id="intelligence" asp-for="Intelligence" />
-            <span asp-validation-for="Intelligence"></span>
-        </div>
-        <div>
-            <label class="form-label">Wisdom</label>
-            <input type="text" class="form-control" id="wisdom" asp-for="Wisdom" />
-            <span asp-validation-for="Wisdom"></span>
-        </div>
-        <div>
-            <label class="form-label">Charisma</label>
-            <input type="text" class="form-control" id="charisma" asp-for="Charisma" />
-            <span asp-validation-for="Charisma"></span>
-        </div>
-        <div>
-            <label class="form-label">Level</label>
-            <input type="text" class="form-control" id="level" asp-for="Level" />
-            <span asp-validation-for="Level"></span>
-        </div>
-        <div>
-            <label class="form-label">Experience Points</label>
-            <input type="text" class="form-control" id="experiencePoints" asp-for="ExperiencePoints" />
-            <span asp-validation-for="ExperiencePoints"></span>
-        </div>
-        <div>
-            <label class="form-label">Passive Wisdom</label>
-            <input type="text" class="form-control" id="passiveWisdom" asp-for="PassiveWisdom" />
-            <span asp-validation-for="PassiveWisdom"></span>
-        </div>
-        <div>
-            <label class="form-label">Inspiration</label>
-            <input type="text" class="form-control" id="inspiration" asp-for="Inspiration" type="checkbox" />
-            <span asp-validation-for="Inspiration"></span>
-        </div>
-        <div>
-            <label class="form-label">Proficiency Bonus</label>
-            <input type="text" class="form-control" id="proficiencyBonus" asp-for="ProficiencyBonus" />
-            <span asp-validation-for="ProficiencyBonus"></span>
-        </div>
-        <div>
-            <label class="form-label">Armor Class</label>
-            <input type="text" class="form-control" id="armorClass" asp-for="ArmorClass" />
-            <span asp-validation-for="ArmorClass"></span>
-        </div>
-        <div>
-            <label class="form-label">Age</label>
-            <input type="text" class="form-control" id="age" asp-for="Age" />
-            <span asp-validation-for="Age"></span>
-        </div>
-        <div>
-            <label class="form-label">Height</label>
-            <input type="text" class="form-control" id="height" asp-for="Height" />
-            <span asp-validation-for="Height"></span>
-        </div>
-        <div>
-            <label class="form-label">Weight</label>
-            <input type="text" class="form-control" id="weight" asp-for="Weight" />
-            <span asp-validation-for="Weight"></span>
-        </div>
-        <div>
-            <label class="form-label">Eyes</label>
-            <input type="text" class="form-control" id="eyes" asp-for="Eyes" />
-            <span asp-validation-for="Eyes"></span>
-        </div>
-        <div>
-            <label class="form-label">Skin</label>
-            <input type="text" class="form-control" id="skin" asp-for="Skin" />
-            <span asp-validation-for="Skin"></span>
-        </div>
-        <div>
-            <label class="form-label">Hair</label>
-            <input type="text" class="form-control" id="hair" asp-for="Hair" />
-            <span asp-validation-for="Hair"></span>
-        </div>
-        <div>
-            <label class="form-label">Personality Traits</label>
-            <input class="form-control" id="personalityTraits" asp-for="PersonalityTraits" />
-            <span asp-validation-for="PersonalityTraits"></span>
-        </div>
-        <div>
-            <label class="form-label">Ideals</label>
-            <input class="form-control" id="ideals" asp-for="Ideals" />
-            <span asp-validation-for="Ideals"></span>
-        </div>
-        <div>
-            <label class="form-label">Bonds</label>
-            <input class="form-control" id="bonds" asp-for="Bonds" />
-            <span asp-validation-for="Bonds"></span>
-        </div>
-        <div>
-            <label class="form-label">Flaws</label>
-            <input class="form-control" id="flaws" asp-for="Flaws" />
-            <span asp-validation-for="Flaws"></span>
-        </div>
-        <div>
-            <label class="form-label">Character Backstory</label>
-            <textarea class="form-control" id="characterBackstory" asp-for="CharacterBackstory"></textarea>
-            <span asp-validation-for="CharacterBackstory"></span>
-        </div>
-        <div>
-            <label class="form-label">Alignment</label>
-            <input type="text" class="form-control" id="alignment" asp-for="Alignment" />
-            <span asp-validation-for="Alignment"></span>
-        </div>
-        <div>
-            <label class="form-label">Encumbrance Status</label>
-            <input type="text" class="form-control" id="encumbranceStatus" asp-for="EncumbranceStatus" />
-            <span asp-validation-for="EncumbranceStatus"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Featured Image Upload</label>
-            <input type="file" id="featuredImageUpload" class="form-control" />
-            <img src="" id="featuredImageDisplay" style="display:none;width: 300px;" />
-        </div>
-        <div>
-            <label class="form-label">Character Image</label>
-            <input type="text" class="form-control" id="featuredImageUrl" asp-for="CharacterImage" />
-            <span asp-validation-for="CharacterImage"></span>
-        </div>
+            <div>
+                <label class="form-label">Strength</label>
+                <input type="text" class="form-control" id="strength" asp-for="Strength" />
+                <span asp-validation-for="Strength"></span>
+            </div>
+            <div>
+                <label class="form-label">Dexterity</label>
+                <input type="text" class="form-control" id="dexterity" asp-for="Dexterity" />
+                <span asp-validation-for="Dexterity"></span>
+            </div>
+            <div>
+                <label class="form-label">Constitution</label>
+                <input type="text" class="form-control" id="constitution" asp-for="Constitution" />
+                <span asp-validation-for="Constitution"></span>
+            </div>
+            <div>
+                <label class="form-label">Intelligence</label>
+                <input type="text" class="form-control" id="intelligence" asp-for="Intelligence" />
+                <span asp-validation-for="Intelligence"></span>
+            </div>
+            <div>
+                <label class="form-label">Wisdom</label>
+                <input type="text" class="form-control" id="wisdom" asp-for="Wisdom" />
+                <span asp-validation-for="Wisdom"></span>
+            </div>
+            <div>
+                <label class="form-label">Charisma</label>
+                <input type="text" class="form-control" id="charisma" asp-for="Charisma" />
+                <span asp-validation-for="Charisma"></span>
+            </div>
+            <div>
+                <label class="form-label">Level</label>
+                <input type="text" class="form-control" id="level" asp-for="Level" />
+                <span asp-validation-for="Level"></span>
+            </div>
+            <div>
+                <label class="form-label">Experience Points</label>
+                <input type="text" class="form-control" id="experiencePoints" asp-for="ExperiencePoints" />
+                <span asp-validation-for="ExperiencePoints"></span>
+            </div>
+            <div>
+                <label class="form-label">Passive Wisdom</label>
+                <input type="text" class="form-control" id="passiveWisdom" asp-for="PassiveWisdom" />
+                <span asp-validation-for="PassiveWisdom"></span>
+            </div>
+            <div>
+                <label class="form-label">Inspiration</label>
+                <input type="text" class="form-control" id="inspiration" asp-for="Inspiration" type="checkbox" />
+                <span asp-validation-for="Inspiration"></span>
+            </div>
+            <div>
+                <label class="form-label">Proficiency Bonus</label>
+                <input type="text" class="form-control" id="proficiencyBonus" asp-for="ProficiencyBonus" />
+                <span asp-validation-for="ProficiencyBonus"></span>
+            </div>
+            <div>
+                <label class="form-label">Armor Class</label>
+                <input type="text" class="form-control" id="armorClass" asp-for="ArmorClass" />
+                <span asp-validation-for="ArmorClass"></span>
+            </div>
+            <div>
+                <label class="form-label">Age</label>
+                <input type="text" class="form-control" id="age" asp-for="Age" />
+                <span asp-validation-for="Age"></span>
+            </div>
+            <div>
+                <label class="form-label">Height</label>
+                <input type="text" class="form-control" id="height" asp-for="Height" />
+                <span asp-validation-for="Height"></span>
+            </div>
+            <div>
+                <label class="form-label">Weight</label>
+                <input type="text" class="form-control" id="weight" asp-for="Weight" />
+                <span asp-validation-for="Weight"></span>
+            </div>
+            <div>
+                <label class="form-label">Eyes</label>
+                <input type="text" class="form-control" id="eyes" asp-for="Eyes" />
+                <span asp-validation-for="Eyes"></span>
+            </div>
+            <div>
+                <label class="form-label">Skin</label>
+                <input type="text" class="form-control" id="skin" asp-for="Skin" />
+                <span asp-validation-for="Skin"></span>
+            </div>
+            <div>
+                <label class="form-label">Hair</label>
+                <input type="text" class="form-control" id="hair" asp-for="Hair" />
+                <span asp-validation-for="Hair"></span>
+            </div>
+            <div>
+                <label class="form-label">Personality Traits</label>
+                <input class="form-control" id="personalityTraits" asp-for="PersonalityTraits" />
+                <span asp-validation-for="PersonalityTraits"></span>
+            </div>
+            <div>
+                <label class="form-label">Ideals</label>
+                <input class="form-control" id="ideals" asp-for="Ideals" />
+                <span asp-validation-for="Ideals"></span>
+            </div>
+            <div>
+                <label class="form-label">Bonds</label>
+                <input class="form-control" id="bonds" asp-for="Bonds" />
+                <span asp-validation-for="Bonds"></span>
+            </div>
+            <div>
+                <label class="form-label">Flaws</label>
+                <input class="form-control" id="flaws" asp-for="Flaws" />
+                <span asp-validation-for="Flaws"></span>
+            </div>
+            <div>
+                <label class="form-label">Character Backstory</label>
+                <textarea class="form-control" id="characterBackstory" asp-for="CharacterBackstory"></textarea>
+                <span asp-validation-for="CharacterBackstory"></span>
+            </div>
+            <div>
+                <label class="form-label">Alignment</label>
+                <input type="text" class="form-control" id="alignment" asp-for="Alignment" />
+                <span asp-validation-for="Alignment"></span>
+            </div>
+            <div>
+                <label class="form-label">Encumbrance Status</label>
+                <input type="text" class="form-control" id="encumbranceStatus" asp-for="EncumbranceStatus" />
+                <span asp-validation-for="EncumbranceStatus"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Featured Image Upload</label>
+                <input type="file" id="featuredImageUpload" class="form-control" />
+                <img src="" id="featuredImageDisplay" style="display:none;width: 300px;" />
+            </div>
+            <div>
+                <label class="form-label">Character Image</label>
+                <input type="text" class="form-control" id="featuredImageUrl" asp-for="CharacterImage" />
+                <span asp-validation-for="CharacterImage"></span>
+            </div>
 
-        <div>
-            <label class="form-label">Gender</label>
-            <input type="text" class="form-control" id="gender" asp-for="Gender" />
-            <span asp-validation-for="Gender"></span>
+            <div>
+                <label class="form-label">Gender</label>
+                <input type="text" class="form-control" id="gender" asp-for="Gender" />
+                <span asp-validation-for="Gender"></span>
+            </div>
+            <div>
+                <label class="form-label">Current Hit Points</label>
+                <input type="text" class="form-control" id="hitPoints_Current" asp-for="HitPoints_Current" />
+                <span asp-validation-for="HitPoints_Current"></span>
+            </div>
+            <div>
+                <label class="form-label">Total Hit Points</label>
+                <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
+                <span asp-validation-for="HitPoints_Total"></span>
+            </div>
+            <div>
+                <label class="form-label">Initiative</label>
+                <input type="text" class="form-control" id="initiative" asp-for="Initiative" />
+                <span asp-validation-for="Initiative"></span>
+            </div>
+            <div>
+                <label class="form-label">TotalWeight</label>
+                <input type="text" class="form-control" id="totalWeight" asp-for="TotalWeight" />
+                <span asp-validation-for="TotalWeight"></span>
+            </div>
         </div>
-        <div>
-            <label class="form-label">Current Hit Points</label>
-            <input type="text" class="form-control" id="hitPoints_Current" asp-for="HitPoints_Current" />
-            <span asp-validation-for="HitPoints_Current"></span>
-        </div>
-        <div>
-            <label class="form-label">Total Hit Points</label>
-            <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
-            <span asp-validation-for="HitPoints_Total"></span>
-        </div>
-        <div>
-            <label class="form-label">Initiative</label>
-            <input type="text" class="form-control" id="initiative" asp-for="Initiative" />
-            <span asp-validation-for="Initiative"></span>
-        </div>
-        <div>
-            <label class="form-label">TotalWeight</label>
-            <input type="text" class="form-control" id="totalWeight" asp-for="TotalWeight" />
-            <span asp-validation-for="TotalWeight"></span>
-        </div>
-
-
         <div>
             <h4>Skills</h4>
             @if (skills != null && skills.Count > 0)
@@ -277,6 +278,26 @@
                         <input type="number" class="form-control" id="CharacterItems_@(i)__Quantity"
                                name="CharacterItems[@(i)].Quantity"
                                value="@characterItem.Quantity"
+                               min="0" />
+                    </div>
+                }
+            }
+        </div>
+        <div>
+            <h4>Treasures</h4>
+            @for (int i = 0; i < Model.CharacterTreasures.Count; i++)
+            {
+                var treasure = treasures.FirstOrDefault(ct => ct.Id == Model.CharacterTreasures[i].TreasureId);
+                var characterTreasure = Model.CharacterTreasures[i];
+
+                if (treasure != null)
+                {
+                    <div class="form-group">
+                        <label class="form-label">@treasure.Name</label>
+                        <input type="hidden" name="CharacterTreasures[@(i)].TreasureId" value="@characterTreasure.TreasureId" />
+                        <input type="number" class="form-control" id="CharacterTreasures_@(i)__Quantity"
+                               name="CharacterTreasures[@(i)].Quantity"
+                               value="@characterTreasure.Quantity"
                                min="0" />
                     </div>
                 }
