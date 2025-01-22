@@ -499,19 +499,31 @@ namespace DND_App.Web.Controllers
                 var existingSkill = character.CharacterSkills.FirstOrDefault(cs => cs.SkillId == selectedSkill.SkillId);
                 if (existingSkill != null)
                 {
+                    // Update existing skill
                     existingSkill.IsProficient = selectedSkill.IsProficient;
-                    existingSkill.Bonus = selectedSkill.Bonus;
+
+                    // If IsProficient is unchecked, set Bonus to 0
+                    if (!selectedSkill.IsProficient)
+                    {
+                        existingSkill.Bonus = 0;
+                    }
+                    else
+                    {
+                        existingSkill.Bonus = selectedSkill.Bonus;
+                    }
                 }
                 else
                 {
+                    // Add new skill
                     character.CharacterSkills.Add(new CharacterSkill
                     {
                         SkillId = selectedSkill.SkillId,
                         IsProficient = selectedSkill.IsProficient,
-                        Bonus = selectedSkill.Bonus
+                        Bonus = selectedSkill.IsProficient ? selectedSkill.Bonus : 0 // Set Bonus to 0 if not proficient
                     });
                 }
             }
+
             #endregion
 
             #region Update CharacterSpells

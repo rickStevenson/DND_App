@@ -142,9 +142,11 @@ img {
 }
 
 .tab-pane h4 {
-    color: #007bff;
+    color: #007bff; /* Apply the same color for all h4 in tab content */
     margin-bottom: 15px;
+    font-weight: bold; /* Ensure it stands out */
 }
+
 
 .sticky-top {
     top: 56px; /* Adjust based on your fixed navbar height */

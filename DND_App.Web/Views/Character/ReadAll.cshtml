@@ -19,33 +19,9 @@
                     <th>Player Name</th>
                     <th>Race</th>
                     <th>Class</th>
-                    <th>Strength</th>
-                    <th>Dexterity</th>
-                    <th>Constitution</th>
-                    <th>Intellegence</th>
-                    <th>Wisdom</th>
-                    <th>Charisma</th>
                     <th>Level</th>
                     <th>Experience Points</th>
-                    <th>Passive Wisdom</th>
-                    <th>Inspiration</th>
-                    <th>Proficiency Bonus</th>
-                    <th>Armor Class</th>
-                    <th>Speed</th>
-                    <th>Age</th>
-                    <th>Height</th>
-                    <th>Weight</th>
-                    <th>Eyes</th>
-                    <th>Skin</th>
-                    <th>Hair</th>
-                    <th>Personality Traits</th>
-                    <th>Ideals</th>
-                    <th>Bonds</th>
-                    <th>Flaws</th>
-                    <th>Character Backstory</th>
-                    <th>Alignment</th>
-                    <th>Encumbrance Status</th>
-                    <th>Character Image</th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody>
@@ -56,41 +32,28 @@
                         <td>@character.PlayerName</td>
                         <td>@character.CharacterRace.Name</td>
                         <td>@character.CharacterClass.Name</td>
-                        <td>@character.Strength</td>
-                        <td>@character.Dexterity</td>
-                        <td>@character.Constitution</td>
-                        <td>@character.Intelligence</td>
-                        <td>@character.Wisdom</td>
-                        <td>@character.Charisma</td>
                         <td>@character.Level</td>
                         <td>@character.ExperiencePoints</td>
-                        <td>@character.PassiveWisdom</td>
-                        <td>@character.Inspiration</td>
-                        <td>@character.ProficiencyBonus</td>
-                        <td>@character.ArmorClass</td>
-                        <td>@character.Speed</td>
-                        <td>@character.Age</td>
-                        <td>@character.Height</td>
-                        <td>@character.Weight</td>
-                        <td>@character.Eyes</td>
-                        <td>@character.Skin</td>
-                        <td>@character.Hair</td>
-                        <td>@character.PersonalityTraits</td>
-                        <td>@character.Ideals</td>
-                        <td>@character.Bonds</td>
-                        <td>@character.Flaws</td>
-                        <td>@character.CharacterBackstory</td>
-                        <td>@character.Alignment</td>
-                        <td>@character.EncumbranceStatus</td>
-                        <td>@character.CharacterImage</td>
                         <td>
-                            <a class="btn btn-edit"
-                               asp-area=""
+                            <a class="btn btn-primary btn-sm"
+                               asp-controller="Character"
+                               asp-action="Details"
+                               asp-route-id="@character.Id">
+                                Details
+                            </a>
+                            <a class="btn btn-warning btn-sm"
                                asp-controller="Character"
                                asp-action="Edit"
                                asp-route-id="@character.Id">
                                 Edit
                             </a>
+                            <form asp-controller="Character"
+                                  asp-action="Delete"
+                                  asp-route-id="@character.Id" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                  }

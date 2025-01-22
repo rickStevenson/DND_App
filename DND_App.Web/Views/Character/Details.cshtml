@@ -150,8 +150,17 @@
     </div>
 
     <div>
+        @if (Model.CharacterSkills != null)
+        {
+            <p>Total Skills: @Model.CharacterSkills.Count</p>
+        }
+        else
+        {
+            <p>CharacterSkills is null</p>
+        }
+
         <h4>Skills</h4>
-        @if (Model.CharacterSkills.Any())
+        @if (Model.CharacterSkills != null && Model.CharacterSkills.Any())
         {
             <ul>
                 @foreach (var skill in Model.CharacterSkills.Where(cs => cs.IsProficient))
@@ -173,7 +182,7 @@
     </div>
     <div>
         <h4>Spells</h4>
-        @if (Model.CharacterSpells.Any())
+        @if (Model.CharacterSpells != null && Model.CharacterSpells.Any())
         {
             <ul>
                 @foreach (var spell in Model.CharacterSpells.Where(cs => cs.IsLearned))
@@ -193,7 +202,7 @@
     </div>
     <div>
         <h4>Items</h4>
-        @if (Model.CharacterItems.Any())
+        @if (Model.CharacterItems != null && Model.CharacterItems.Any())
         {
             <ul>
                 @foreach (var item in Model.CharacterItems.Where(ci => ci.Quantity > 0))
@@ -209,7 +218,7 @@
     </div>
     <div>
         <h4>Treasure</h4>
-        @if (Model.CharacterTreasures.Any())
+        @if (Model.CharacterTreasures != null && Model.CharacterTreasures.Any())
         {
             <ul>
                 @foreach (var treasure in Model.CharacterTreasures.Where(ct => ct.Quantity > 0))

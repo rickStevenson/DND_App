@@ -221,17 +221,18 @@
 
                         <!-- Checkbox for IsProficient -->
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox"
+                            <input class="form-check-input proficient-checkbox" type="checkbox"
                                    id="CharacterSkills_@(i)__IsProficient"
                                    name="CharacterSkills[@(i)].IsProficient"
                                    value="true"
-                                   @(characterSkill.IsProficient ? "checked" : "") />
+                                   @(characterSkill.IsProficient ? "checked" : "")
+                                   data-bonus-id="CharacterSkills_@(i)__Bonus" />
                             <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
                         </div>
 
                         <!-- Input for Bonus -->
                         <label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
-                        <input type="number" class="form-control"
+                        <input type="number" class="form-control bonus-input"
                                id="CharacterSkills_@(i)__Bonus"
                                name="CharacterSkills[@(i)].Bonus"
                                value="@characterSkill.Bonus" />
@@ -358,5 +359,33 @@
 
         featuredUploadElement.addEventListener('change', uploadFeaturedImage);
 
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all checkboxes with the 'proficient-checkbox' class
+            document.querySelectorAll(".proficient-checkbox").forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
+                    // Get the Bonus input field associated with this checkbox
+                    const bonusInputId = this.getAttribute("data-bonus-id");
+                    const bonusInput = document.getElementById(bonusInputId);
+
+                    if (bonusInput) {
+                        // Set Bonus to 0 if unchecked, otherwise allow user input
+                        bonusInput.value = this.checked ? bonusInput.value : 0;
+                        bonusInput.disabled = !this.checked; // Disable input when unchecked
+                    }
+                });
+            });
+
+            // Initialize Bonus fields on page load
+            document.querySelectorAll(".proficient-checkbox").forEach(function (checkbox) {
+                const bonusInputId = checkbox.getAttribute("data-bonus-id");
+                const bonusInput = document.getElementById(bonusInputId);
+
+                if (bonusInput) {
+                    bonusInput.disabled = !checkbox.checked; // Disable input if checkbox is unchecked
+                }
+            });
+        });
     </script>
 }
