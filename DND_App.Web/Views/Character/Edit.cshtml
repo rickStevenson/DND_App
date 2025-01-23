@@ -212,104 +212,136 @@
             <span asp-validation-for="TotalWeight"></span>
         </div>
 
-        <div>
-            <h4>Skills</h4>
-            @for (var i = 0; i < Model.CharacterSkills.Count; i++)
-            {
-                var skill = skills[i];
-                var characterSkill = Model.CharacterSkills[i];
+        <div class="accordion" id="characterAccordion">
+            <!-- Skills Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSkills">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSkills" aria-expanded="true" aria-controls="collapseSkills">
+                        Skills
+                    </button>
+                </h2>
+                <div id="collapseSkills" class="accordion-collapse collapse show" aria-labelledby="headingSkills" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        @for (var i = 0; i < Model.CharacterSkills.Count; i++)
+                        {
+                            var skill = skills[i];
+                            var characterSkill = Model.CharacterSkills[i];
 
-                <div class="mb-3">
-                    <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
-
-                    <!-- Hidden input for SkillId -->
-                    <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
-
-                    <!-- Checkbox for IsProficient -->
-                    <div class="form-check">
-                        <input type="hidden" name="CharacterSkills[@(i)].IsProficient_Hidden" value="false" />
-                        <input class="form-check-input proficient-checkbox" type="checkbox"
-                               id="CharacterSkills_@(i)__IsProficient"
-                               name="CharacterSkills[@(i)].IsProficient"
-                               value="true"
-                               @(characterSkill.IsProficient ? "checked" : "")
-                               data-bonus-id="CharacterSkills_@(i)__Bonus" />
-                        <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
+                            <div class="mb-3">
+                                <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
+                                <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
+                                <div class="form-check">
+                                    <input type="hidden" name="CharacterSkills[@(i)].IsProficient_Hidden" value="false" />
+                                    <input class="form-check-input proficient-checkbox" type="checkbox"
+                                           id="CharacterSkills_@(i)__IsProficient"
+                                           name="CharacterSkills[@(i)].IsProficient"
+                                           value="true"
+                                           @(characterSkill.IsProficient ? "checked" : "") />
+                                    <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
+                                </div>
+                                <label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
+                                <input type="number" class="form-control bonus-input"
+                                       id="CharacterSkills_@(i)__Bonus"
+                                       name="CharacterSkills[@(i)].Bonus"
+                                       value="@characterSkill.Bonus" />
+                            </div>
+                        }
                     </div>
-
-                    <!-- Input for Bonus -->
-                    <label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
-                    <input type="number" class="form-control bonus-input"
-                           id="CharacterSkills_@(i)__Bonus"
-                           name="CharacterSkills[@(i)].Bonus"
-                           value="@characterSkill.Bonus" />
                 </div>
-            }
-        </div>
-        <div>
-            <h4>Spells</h4>
-            @for (int i = 0; i < Model.CharacterSpells.Count; i++)
-            {
-                var spell = spells.FirstOrDefault(s => s.Id == Model.CharacterSpells[i].SpellId);
-                var characterSpell = Model.CharacterSpells[i];
+            </div>
 
-                if (spell != null)
-                {
-                    <div class="form-check">
-                        <input type="hidden" name="CharacterSpells[@(i)].SpellId" value="@characterSpell.SpellId" />
-                        <input type="hidden" name="CharacterSpells[@(i)].IsLearned_Hidden" value="false" />
-                        <input class="form-check-input" type="checkbox"
-                               id="CharacterSpells_@(i)__IsLearned"
-                               name="CharacterSpells[@(i)].IsLearned"
-                               value="true"
-                               @(characterSpell.IsLearned ? "checked" : "") />
-                        <label class="form-check-label" for="CharacterSpells_@(i)__IsLearned">
-                            @spell.Name (Level: @spell.Level, School: @spell.School)
-                        </label>
+            <!-- Spells Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSpells">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpells" aria-expanded="false" aria-controls="collapseSpells">
+                        Spells
+                    </button>
+                </h2>
+                <div id="collapseSpells" class="accordion-collapse collapse" aria-labelledby="headingSpells" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        @for (int i = 0; i < Model.CharacterSpells.Count; i++)
+                        {
+                            var spell = spells.FirstOrDefault(s => s.Id == Model.CharacterSpells[i].SpellId);
+                            var characterSpell = Model.CharacterSpells[i];
+                            if (spell != null)
+                            {
+                                <div class="form-check">
+                                    <input type="hidden" name="CharacterSpells[@(i)].SpellId" value="@characterSpell.SpellId" />
+                                    <input type="hidden" name="CharacterSpells[@(i)].IsLearned_Hidden" value="false" />
+                                    <input class="form-check-input" type="checkbox"
+                                           id="CharacterSpells_@(i)__IsLearned"
+                                           name="CharacterSpells[@(i)].IsLearned"
+                                           value="true"
+                                           @(characterSpell.IsLearned ? "checked" : "") />
+                                    <label class="form-check-label" for="CharacterSpells_@(i)__IsLearned">
+                                        @spell.Name (Level: @spell.Level, School: @spell.School)
+                                    </label>
+                                </div>
+                            }
+                        }
                     </div>
-                }
-            }
-        </div>
-        <div>
-            <h4>Items</h4>
-            @for (int i = 0; i < Model.CharacterItems.Count; i++)
-            {
-                var item = items.FirstOrDefault(it => it.Id == Model.CharacterItems[i].ItemId);
-                var characterItem = Model.CharacterItems[i];
+                </div>
+            </div>
 
-                if (item != null)
-                {
-                    <div class="form-group">
-                        <label class="form-label">@item.Name</label>
-                        <input type="hidden" name="CharacterItems[@(i)].ItemId" value="@characterItem.ItemId" />
-                        <input type="number" class="form-control" id="CharacterItems_@(i)__Quantity"
-                               name="CharacterItems[@(i)].Quantity"
-                               value="@characterItem.Quantity"
-                               min="0" />
+            <!-- Items Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingItems">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseItems" aria-expanded="false" aria-controls="collapseItems">
+                        Items
+                    </button>
+                </h2>
+                <div id="collapseItems" class="accordion-collapse collapse" aria-labelledby="headingItems" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        @for (int i = 0; i < Model.CharacterItems.Count; i++)
+                        {
+                            var item = items.FirstOrDefault(it => it.Id == Model.CharacterItems[i].ItemId);
+                            var characterItem = Model.CharacterItems[i];
+                            if (item != null)
+                            {
+                                <div class="form-group">
+                                    <label class="form-label">@item.Name</label>
+                                    <input type="hidden" name="CharacterItems[@(i)].ItemId" value="@characterItem.ItemId" />
+                                    <input type="number" class="form-control" id="CharacterItems_@(i)__Quantity"
+                                           name="CharacterItems[@(i)].Quantity"
+                                           value="@characterItem.Quantity"
+                                           min="0" />
+                                </div>
+                            }
+                        }
                     </div>
-                }
-            }
-        </div>
-        <div>
-            <h4>Treasure</h4>
-            @for (int i = 0; i < Model.CharacterTreasures.Count; i++)
-            {
-                var treasure = treasures.FirstOrDefault(it => it.Id == Model.CharacterTreasures[i].TreasureId);
-                var characterTreasure = Model.CharacterTreasures[i];
+                </div>
+            </div>
 
-                if (treasure != null)
-                {
-                    <div class="form-group">
-                        <label class="form-label">@treasure.Name</label>
-                        <input type="hidden" name="CharacterTreasures[@(i)].TreasureId" value="@characterTreasure.TreasureId" />
-                        <input type="number" class="form-control" id="CharacterTreasures_@(i)__Quantity"
-                               name="CharacterTreasures[@(i)].Quantity"
-                               value="@characterTreasure.Quantity"
-                               min="0" />
+            <!-- Treasures Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTreasures">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTreasures" aria-expanded="false" aria-controls="collapseTreasures">
+                        Treasure
+                    </button>
+                </h2>
+                <div id="collapseTreasures" class="accordion-collapse collapse" aria-labelledby="headingTreasures" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        @for (int i = 0; i < Model.CharacterTreasures.Count; i++)
+                        {
+                            var treasure = treasures.FirstOrDefault(it => it.Id == Model.CharacterTreasures[i].TreasureId);
+                            var characterTreasure = Model.CharacterTreasures[i];
+                            if (treasure != null)
+                            {
+                                <div class="form-group">
+                                    <label class="form-label">@treasure.Name</label>
+                                    <input type="hidden" name="CharacterTreasures[@(i)].TreasureId" value="@characterTreasure.TreasureId" />
+                                    <input type="number" class="form-control" id="CharacterTreasures_@(i)__Quantity"
+                                           name="CharacterTreasures[@(i)].Quantity"
+                                           value="@characterTreasure.Quantity"
+                                           min="0" />
+                                </div>
+                            }
+                        }
                     </div>
-                }
-            }
+                </div>
+            </div>
         </div>
+
 
 
 

@@ -1,6 +1,6 @@
 ﻿namespace DND_App.Web.StaticClasses.Constants
 {
-    public static class ClassNames
+    public static class Classes
     {
         public const string Barbarian = "Barbarian";
         public const string Bard = "Bard";

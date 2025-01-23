@@ -4,6 +4,7 @@ using DND_App.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    partial class DnDDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250122194200_AddedItems")]
+    partial class AddedItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1197,9 +1200,6 @@ namespace DND_App.Web.Migrations
                     b.Property<int?>("ArmorClass")
                         .HasColumnType("int");
 
-                    b.Property<int>("ArmorClassBonus")
-                        .HasColumnType("int");
-
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1251,7 +1251,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 1,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "15 gp",
                             Damage = "1d8",
@@ -1270,7 +1269,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 2,
                             ArmorClass = 16,
-                            ArmorClassBonus = 0,
                             Category = "Armor",
                             Cost = "75 gp",
                             Damage = "",
@@ -1289,7 +1287,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 3,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Potion",
                             Cost = "50 gp",
                             Damage = "",
@@ -1308,7 +1305,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 4,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Gear",
                             Cost = "2 gp",
                             Damage = "",
@@ -1327,7 +1323,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 5,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Gear",
                             Cost = "5 gp",
                             Damage = "",
@@ -1346,7 +1341,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 6,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "25 gp",
                             Damage = "1d6",
@@ -1365,7 +1359,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 7,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Gear",
                             Cost = "50 gp",
                             Damage = "",
@@ -1384,7 +1377,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 8,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Gear",
                             Cost = "5 sp",
                             Damage = "",
@@ -1403,7 +1395,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 9,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "2 gp",
                             Damage = "1d4",
@@ -1422,7 +1413,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 10,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Gear",
                             Cost = "1 gp",
                             Damage = "",
@@ -1441,7 +1431,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 11,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "10 gp",
                             Damage = "1d8",
@@ -1460,7 +1449,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 12,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "5 gp",
                             Damage = "1d6",
@@ -1479,7 +1467,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 13,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "5 gp",
                             Damage = "1d4",
@@ -1498,7 +1485,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 14,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "15 gp",
                             Damage = "1d8",
@@ -1517,7 +1503,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 15,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "10 gp",
                             Damage = "1d6",
@@ -1536,7 +1521,6 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 16,
                             ArmorClass = 0,
-                            ArmorClassBonus = 0,
                             Category = "Weapon",
                             Cost = "50 gp",
                             Damage = "1d8",
@@ -1550,63 +1534,6 @@ namespace DND_App.Web.Migrations
                             Strength = "",
                             Value = 50f,
                             Weight = 2f
-                        },
-                        new
-                        {
-                            Id = 17,
-                            ArmorClass = 2,
-                            ArmorClassBonus = 1,
-                            Category = "Shield",
-                            Cost = "500 gp",
-                            Damage = "",
-                            DamageType = "",
-                            Description = "A magical shield that offers increased protection.",
-                            HPRegained = "",
-                            Name = "Shield +1",
-                            Properties = "Magical Bonus (+1)",
-                            Rarity = "Rare",
-                            Stealth = "",
-                            Strength = "",
-                            Value = 500f,
-                            Weight = 6f
-                        },
-                        new
-                        {
-                            Id = 18,
-                            ArmorClass = 15,
-                            ArmorClassBonus = 2,
-                            Category = "Armor",
-                            Cost = "2000 gp",
-                            Damage = "",
-                            DamageType = "",
-                            Description = "This armor grants superior magical protection.",
-                            HPRegained = "",
-                            Name = "Armor +2",
-                            Properties = "Magical Bonus (+2)",
-                            Rarity = "Very Rare",
-                            Stealth = "Disadvantage",
-                            Strength = "Str 13",
-                            Value = 2000f,
-                            Weight = 50f
-                        },
-                        new
-                        {
-                            Id = 19,
-                            ArmorClass = 0,
-                            ArmorClassBonus = 1,
-                            Category = "Magic Item",
-                            Cost = "1500 gp",
-                            Damage = "",
-                            DamageType = "",
-                            Description = "This cloak increases the wearer's AC and saving throws.",
-                            HPRegained = "",
-                            Name = "Cloak Of Protection",
-                            Properties = "Provides +1 bonus to AC and saving throws.",
-                            Rarity = "Uncommon",
-                            Stealth = "",
-                            Strength = "",
-                            Value = 1500f,
-                            Weight = 1f
                         });
                 });
 

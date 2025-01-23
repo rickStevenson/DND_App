@@ -11,6 +11,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Constants = DND_App.Web.StaticClasses.Constants;
 
 namespace DND_App.Web.Controllers
 {
@@ -214,6 +215,9 @@ namespace DND_App.Web.Controllers
                     }).ToList()
             };
 
+            //// Calculate ArmorClass dynamically
+            //characterDomainModel.ArmorClass = CalculateArmorClass(characterDomainModel);
+
             // Save the new characterDomainModel using the repository
             await characterRepository.CreateAsync(characterDomainModel);
 
@@ -266,6 +270,8 @@ namespace DND_App.Web.Controllers
         {
             // Fetch the characterDomainModel from the repository or database
             var character = await dndDbContext.Characters
+                .Include(c => c.CharacterClass) // Eagerly load CharacterClass
+                .Include(c => c.CharacterRace) 
                 .Include(c => c.CharacterSkills) // Eagerly load CharacterSkills
                 .ThenInclude(cs => cs.Skill)
                 .Include(c => c.CharacterSpells) // Eagerly load CharacterSpells
@@ -281,6 +287,11 @@ namespace DND_App.Web.Controllers
             if (character == null)
             {
                 return NotFound();//create another view that says "Character not found"
+            }
+
+            foreach (var item in character.CharacterItems)
+            {
+                Console.WriteLine($"ItemId: {item.ItemId}, Item is null: {item.Item == null}");
             }
 
             // Populate dropdown data for classes, races, skills, and spells
@@ -438,10 +449,16 @@ namespace DND_App.Web.Controllers
 
             #region Fetch the character from the database or return not found
             var character = await dndDbContext.Characters
-                .Include(c => c.CharacterSkills)
-                .Include(c => c.CharacterSpells)
-                .Include(c => c.CharacterItems)
-                .Include(c => c.CharacterTreasures)
+                .Include(c => c.CharacterClass) // Eagerly load CharacterClass
+                .Include(c => c.CharacterRace)
+                .Include(c => c.CharacterSkills) // Eagerly load CharacterSkills
+                .ThenInclude(cs => cs.Skill)
+                .Include(c => c.CharacterSpells) // Eagerly load CharacterSpells
+                .ThenInclude(cs => cs.Spell)
+                .Include(c => c.CharacterItems) // Eagerly load CharacterItems
+                .ThenInclude(cs => cs.Item)
+                .Include(c => c.CharacterTreasures) // Eagerly load CharacterItems
+                .ThenInclude(cs => cs.Treasure)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (character == null)
@@ -452,6 +469,48 @@ namespace DND_App.Web.Controllers
             #endregion
 
             #region Update character properties
+            // Update character's items
+            foreach (var selectedItem in editCharacterRequest.CharacterItems)
+            {
+                var existingItem = character.CharacterItems
+                    .FirstOrDefault(cs => cs.ItemId == selectedItem.ItemId);
+
+                if (existingItem != null)
+                {
+                    if (selectedItem.Quantity > 0)
+                    {
+                        existingItem.Quantity = selectedItem.Quantity;
+                    }
+                    else
+                    {
+                        character.CharacterItems.Remove(existingItem);
+                    }
+                }
+                else if (selectedItem.Quantity > 0)
+                {
+                    character.CharacterItems.Add(new CharacterItem
+                    {
+                        ItemId = selectedItem.ItemId,
+                        CharacterId = character.Id,
+                        Quantity = selectedItem.Quantity
+                    });
+                }
+            }
+
+            // Save changes to the database
+            await dndDbContext.SaveChangesAsync();
+            //await characterRepository.UpdateAsync(character);
+
+            // Reload CharacterItems from the database to reflect changes
+            await dndDbContext.Entry(character).Collection(c => c.CharacterItems).Query()
+                .Include(ci => ci.Item) // Ensure related Items are loaded
+                .LoadAsync();
+
+            // Recalculate Armor Class
+            character.ArmorClass = CalculateArmorClass(character);
+
+
+
             // Sanitize the backstory
             var sanitizer = new HtmlSanitizer();
 
@@ -471,7 +530,7 @@ namespace DND_App.Web.Controllers
             character.PassiveWisdom = editCharacterRequest.PassiveWisdom;
             character.Inspiration = editCharacterRequest.Inspiration;
             character.ProficiencyBonus = editCharacterRequest.ProficiencyBonus;
-            character.ArmorClass = editCharacterRequest.ArmorClass;
+            character.ArmorClass = CalculateArmorClass(character);
             character.Speed = editCharacterRequest.Speed;
             character.Age = editCharacterRequest.Age;
             character.Height = editCharacterRequest.Height;
@@ -556,7 +615,16 @@ namespace DND_App.Web.Controllers
 
                 if (existingItem != null)//This is the updating portion
                 {
-                    existingItem.Quantity = selectedItem.Quantity;
+                    if (selectedItem.Quantity > 0)
+                    {
+                        // Update the quantity if it is greater than 0
+                        existingItem.Quantity = selectedItem.Quantity;
+                    }
+                    else
+                    {
+                        // Remove the item if the quantity is 0
+                        character.CharacterItems.Remove(existingItem);
+                    }
                 }
                 else if (selectedItem.Quantity > 0)//This is the adding portion
                 {
@@ -570,7 +638,7 @@ namespace DND_App.Web.Controllers
             }
             #endregion
 
-            #region Update CharacterItems
+            #region Update CharacterTreasure
             foreach (var selectedTreasure in editCharacterRequest.CharacterTreasures)
             {
                 var existingTreasure = character.CharacterTreasures
@@ -578,7 +646,16 @@ namespace DND_App.Web.Controllers
 
                 if (existingTreasure != null)//This is the updating portion
                 {
-                    existingTreasure.Quantity = selectedTreasure.Quantity;
+                    if (selectedTreasure.Quantity > 0)
+                    {
+                        // Update the quantity if it is greater than 0
+                        existingTreasure.Quantity = selectedTreasure.Quantity;
+                    }
+                    else
+                    {
+                        // Remove the item if the quantity is 0
+                        character.CharacterTreasures.Remove(existingTreasure);
+                    }
                 }
                 else if (selectedTreasure.Quantity > 0)//This is the adding portion
                 {
@@ -637,6 +714,73 @@ namespace DND_App.Web.Controllers
                 .ToListAsync();
 
             return View(userCharacters);
+        }
+
+
+        public int CalculateArmorClass(Character character)
+        {
+            int baseAC = 10; // Default AC if no armor is worn.
+            int dexterityModifier = (character.Dexterity - 10) / 2;
+            
+            // Check if character has equipped armor.
+            var equippedArmor = character.CharacterItems
+                .FirstOrDefault(item => item.Item != null && item.Item.Category == Constants.Category.Armor);
+
+            if (equippedArmor != null && equippedArmor.Item != null)
+            {
+                switch (equippedArmor.Item.Name)
+                {
+                    case Constants.Items.LeatherArmor:
+                        baseAC = 11 + dexterityModifier;
+                        break;
+
+                    case Constants.Items.ChainShirt:
+                        baseAC = 13 + Math.Min(dexterityModifier, 2);
+                        break;
+
+                    case Constants.Items.Chainmail:
+                        baseAC = 16 + Math.Min(dexterityModifier, 2);
+                        break;
+
+                    case Constants.Items.PlateArmor:
+                        baseAC = 18;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                // If no armor is equipped, check for special class AC bonuses.
+                if (character.CharacterClass.Name == Constants.Classes.Barbarian)
+                {
+                    int constitutionModifier = (character.Constitution - 10) / 2;
+                    baseAC = 10 + dexterityModifier + constitutionModifier;
+                }
+                else if (character.CharacterClass.Name == Constants.Classes.Monk)
+                {
+                    int wisdomModifier = (character.Wisdom - 10) / 2;
+                    baseAC = 10 + dexterityModifier + wisdomModifier;
+                }
+            }
+
+            // Check if a shield is equipped.
+            var shieldEquipped = character.CharacterItems
+                .Any(item => item.Item != null && item.Item.Name == Constants.Items.Shield);
+            if (shieldEquipped)
+            {
+                baseAC += 2;
+            }
+
+            // Add bonuses from magic items.
+            int magicBonus = character.CharacterItems
+                .Where(item => item.Item.ArmorClassBonus > 0)
+                .Sum(item => item.Item.ArmorClassBonus);
+
+            baseAC += magicBonus;
+
+            return baseAC;
         }
 
     }

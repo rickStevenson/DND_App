@@ -4,8 +4,8 @@
     {
         public const string CureWounds = "Cure Wounds";
         public const string Shield = "Shield";
-        public const string MagicMissle = "Magic Missle";
-        public const string DetectMagic = "Detect Magic";
+        public const string MagicMissle = "MagicArmor Missle";
+        public const string DetectMagic = "Detect MagicArmor";
         public const string Bless = "Bless";
         public const string MistyStep = "Misty Step";
         public const string Invisibility = "Invisibility";

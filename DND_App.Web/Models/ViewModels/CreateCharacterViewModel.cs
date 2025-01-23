@@ -43,7 +43,7 @@ namespace DND_App.Web.Models.ViewModels
         public int PassiveWisdom { get; set; } = 10;
         public bool Inspiration { get; set; } = false;
         public int ProficiencyBonus { get; set; } = 2;
-        public int ArmorClass { get; set; } = 10;
+        public int ArmorClass { get; set; } = 0;
         public int Speed { get; set; } = 30;
 
         //Character Traits

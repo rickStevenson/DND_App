@@ -1,6 +1,6 @@
 ﻿namespace DND_App.Web.StaticClasses.Constants
 {
-    public static class RaceNames
+    public static class Races
     {
         public const string Aasimar = "Aasimar";
         public const string Dragonborn = "Dragonborn";

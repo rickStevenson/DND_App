@@ -22,7 +22,7 @@
         public const string Trance = "Trance";
 
         //Firbolg 5
-        public const string FirbolgMagic = "Firbolg Magic";
+        public const string FirbolgMagic = "Firbolg MagicArmor";
         public const string HiddenStep = "Hidden Step";
         public const string PowerfulBuild = "Powerful Build";
         public const string SpeachOfBeastAndLeaf = "Speach Of Beast And Leaf";
@@ -84,7 +84,7 @@
         public const string Claws = "Claws";
 
         //Yuan-ti Pureblood 20
-        public const string MagicResistance = "Magic Resistance";
+        public const string MagicResistance = "MagicArmor Resistance";
         public const string PoisonImmunity = "Poison Immunity";
     }
 }

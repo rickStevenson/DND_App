@@ -726,7 +726,7 @@ namespace DND_App.Web.Migrations
                             Id = 7,
                             CharacterClassId = 2,
                             Description = "Use a wide variety of spells to charm, inspire, and deal damage.",
-                            Name = "Bardic Magic"
+                            Name = "Bardic MagicArmor"
                         },
                         new
                         {
@@ -880,7 +880,7 @@ namespace DND_App.Web.Migrations
                             Id = 29,
                             CharacterClassId = 8,
                             Description = "Use nature magic to aid exploration and combat.",
-                            Name = "Ranger Magic"
+                            Name = "Ranger MagicArmor"
                         },
                         new
                         {
@@ -929,7 +929,7 @@ namespace DND_App.Web.Migrations
                             Id = 36,
                             CharacterClassId = 10,
                             Description = " Gain features based on your origin, such as elemental resistance or chaotic magical effects.",
-                            Name = "Wild Magic"
+                            Name = "Wild MagicArmor"
                         },
                         new
                         {
@@ -950,7 +950,7 @@ namespace DND_App.Web.Migrations
                             Id = 39,
                             CharacterClassId = 11,
                             Description = "Use limited spell slots that recharge on short rests.",
-                            Name = "Pact Magic"
+                            Name = "Pact MagicArmor"
                         },
                         new
                         {
@@ -1469,7 +1469,7 @@ namespace DND_App.Web.Migrations
                             Id = 14,
                             CharacterRaceId = 5,
                             Description = "Cast detect magic and disguise self without expending a spell slot.",
-                            Name = "Firbolg Magic"
+                            Name = "Firbolg MagicArmor"
                         },
                         new
                         {
@@ -1770,7 +1770,7 @@ namespace DND_App.Web.Migrations
                             Id = 57,
                             CharacterRaceId = 20,
                             Description = "Advantage on saving throws against spells and magical effects.",
-                            Name = "Magic Resistance"
+                            Name = "MagicArmor Resistance"
                         },
                         new
                         {
@@ -2830,7 +2830,7 @@ namespace DND_App.Web.Migrations
                             Duration = "Instant",
                             IsPrepared = false,
                             Level = 1,
-                            Name = "Magic Missle",
+                            Name = "MagicArmor Missle",
                             RequiresConcentration = false,
                             School = "Evocation",
                             SpellRange = "120 feet"
@@ -2843,7 +2843,7 @@ namespace DND_App.Web.Migrations
                             Duration = "10 minutes",
                             IsPrepared = false,
                             Level = 1,
-                            Name = "Detect Magic",
+                            Name = "Detect MagicArmor",
                             RequiresConcentration = false,
                             School = "Divination",
                             SpellRange = "30 feet"

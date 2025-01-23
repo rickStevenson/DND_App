@@ -11,7 +11,7 @@
         //Bard
         public const string BardicInspiration = "Bardic Inspiration";
         public const string SongOfRest = "Song of Rest";
-        public const string BardicMagic = "Bardic Magic";
+        public const string BardicMagic = "Bardic MagicArmor";
         public const string JackOfAllTrades = "Jack Of All Trades";
 
         //Cleric
@@ -45,7 +45,7 @@
         //Ranger
         public const string FavoredEnemy = "Favored Enemy";
         public const string NaturalExplorer = "Natural Explorer";
-        public const string RangerMagic = "Ranger Magic";
+        public const string RangerMagic = "Ranger MagicArmor";
         public const string HuntersMark = "Hunter's Mark";
 
         //Rogue
@@ -56,13 +56,13 @@
 
         //Sorcerer
         public const string Metamagic = "Metamagic";
-        public const string WildMagic = "Wild Magic";
+        public const string WildMagic = "Wild MagicArmor";
         public const string Sorcery = "Sorcery";
         public const string SorceryPoints = "SorceryPoints";
 
 
         //Warlock
-        public const string PactMagic = "Pact Magic";
+        public const string PactMagic = "Pact MagicArmor";
         public const string EldritchInvocations = "Eldritch Invocations";
         public const string PactBoon = "Pact Boon";
         public const string PatronFeatures = "Patron Features";

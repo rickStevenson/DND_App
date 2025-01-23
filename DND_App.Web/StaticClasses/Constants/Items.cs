@@ -12,17 +12,19 @@
         public const string Rope_50feet = "Rope (50 feet)";
         public const string Shortbow = "Shortbow";
         public const string Longsword = "Longsword";
-
         public const string Battleaxe = "Battleaxe";
         public const string Handaxe = "Handaxe";
         public const string ThrowingHammer = "Throwing Hammer";
         public const string Warhammer = "Warhammer";
         public const string Shortsword = "Shortsword";
         public const string Longbow = "Longbow";
+        public const string LeatherArmor = "Leather Armor";
+        public const string ChainShirt = "Chain Shirt";
+        public const string PlateArmor = "Plate Armor";
+        public const string Shield = "Shield";
+        public const string ShieldPlusOne = "Shield +1";
+        public const string ArmorPlusTwo = "Armor +2";
+        public const string CloakOfProtection = "Cloak Of Protection";
 
-        public const string Weapon = "Weapon";
-        public const string Armor = "Armor";
-        public const string Potion = "Potion";
-        public const string Gear = "Gear";
     }
 }
