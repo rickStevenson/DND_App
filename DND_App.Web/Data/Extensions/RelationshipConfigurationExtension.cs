@@ -17,12 +17,14 @@ namespace DND_App.Web.Data.Extensions
             modelBuilder.Entity<Character>()
                 .HasOne(c => c.CharacterClass)
                 .WithMany()
-                .HasForeignKey(c => c.CharacterClassId);
+                .HasForeignKey(c => c.CharacterClassId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Character>()
                 .HasOne(c => c.CharacterRace)
                 .WithMany()
-                .HasForeignKey(c => c.CharacterRaceId);
+                .HasForeignKey(c => c.CharacterRaceId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ClassAbility>()
                .HasOne(ca => ca.CharacterClass)
@@ -57,7 +59,8 @@ namespace DND_App.Web.Data.Extensions
             modelBuilder.Entity<CharacterSkill>()
                 .HasOne(cs => cs.Character)
                 .WithMany(c => c.CharacterSkills)
-                .HasForeignKey(cs => cs.CharacterId);
+                .HasForeignKey(cs => cs.CharacterId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CharacterSkill>()
                 .HasOne(cs => cs.Skill)
@@ -73,7 +76,8 @@ namespace DND_App.Web.Data.Extensions
                 .HasOne(cs => cs.Character)
                 .WithMany(c => c.CharacterSpells)
                 .HasForeignKey(cs => cs.CharacterId)
-                .HasConstraintName("FK_CharacterSpells_Characters_CharacterId"); // Explicit constraint name
+                .HasConstraintName("FK_CharacterSpells_Characters_CharacterId")// Explicit constraint name
+                .OnDelete(DeleteBehavior.Cascade); 
 
             modelBuilder.Entity<CharacterSpell>()
                 .HasOne(cs => cs.Spell)
@@ -88,7 +92,8 @@ namespace DND_App.Web.Data.Extensions
             modelBuilder.Entity<CharacterItem>()
                 .HasOne(ci => ci.Character)
                 .WithMany(c => c.CharacterItems)
-                .HasForeignKey(ci => ci.CharacterId);
+                .HasForeignKey(ci => ci.CharacterId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CharacterItem>()
                 .HasOne(ci => ci.Item)
@@ -102,7 +107,8 @@ namespace DND_App.Web.Data.Extensions
             modelBuilder.Entity<CharacterTreasure>()
                 .HasOne(ct => ct.Character)
                 .WithMany(c => c.CharacterTreasures)
-                .HasForeignKey(ct => ct.CharacterId);
+                .HasForeignKey(ct => ct.CharacterId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CharacterTreasure>()
                 .HasOne(ct => ct.Treasure)

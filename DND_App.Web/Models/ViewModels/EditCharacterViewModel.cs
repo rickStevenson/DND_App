@@ -24,7 +24,7 @@ namespace DND_App.Web.Models.ViewModels
         public int Speed { get; set; }
 
         //Character Traits
-        public string? Age { get; set; }
+        public int Age { get; set; }
         public string? Height { get; set; }
         public string? Weight { get; set; }
         public string? Eyes { get; set; }

@@ -31,7 +31,7 @@ namespace DND_App.Web.Models.Domain
         public int CharacterRaceId { get; set; }
         public CharacterRace CharacterRace { get; set; }
 
-        public string? Age { get; set; }
+        public int Age { get; set; }
         public int Level { get; set; }
         public int ExperiencePoints { get; set; }
         public string? Alignment { get; set; } = "Good";
@@ -72,16 +72,6 @@ namespace DND_App.Web.Models.Domain
         public string? Ideals { get; set; }
         public string? Bonds { get; set; }
         public string? Flaws { get; set; }
-        
-        
 
-        //public string? FeaturesAndTraits { get; set; }
-        //public List<string>? AlliesAndOrganizations { get; set; }
-        //public List<string>? Languages { get; set; }
-        //public List<string>? Equipment { get; set; }
-
-
-        //public Attack? Attacks { get; set; }
-        //public Treasure? Treasure { get; set; }
     }
 }

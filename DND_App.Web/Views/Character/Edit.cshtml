@@ -7,212 +7,309 @@
     var treasures = ViewBag.Treasures as List<DND_App.Web.Models.Domain.Treasure>;
 }
 
-<h2>Edit Character</h2>
+<div class="bg-primary bg-opacity-10 py-3">
+    <div class="container">
+        <h1>Change your character</h1>
+    </div>
+</div>
 
 <form asp-action="Edit" method="post">
-    
     <div class="container">
-        <input type="hidden" asp-for="Id" />
-
-        <div class="form-group">
-            <label for="CharacterName">Character Name</label>
-            <input asp-for="CharacterName" class="form-control" id="CharacterName" />
-            <span asp-validation-for="CharacterName" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label for="CharacterClassId">Character Class</label>
-            <select asp-for="CharacterClassId" class="form-control" id="CharacterClassId">
-                @if (ViewBag.Classes != null)
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h2>Character: @Model.CharacterName</h2>
+            </div>
+            <div class="col-md-4 text-end">
+                @if (!string.IsNullOrEmpty(Model.CharacterImage))
                 {
-                    @foreach (var characterClass in ViewBag.Classes)
-                    {
-                        <option value="@characterClass.Id">@characterClass.Name</option>
-                    }
+                    <img src="@Model.CharacterImage" alt="Character Image" class="img-fluid rounded" style="max-width: 50%; height: auto;" />
                 }
                 else
                 {
-                    <option value="">No classes available</option>
+                    <p>No image available</p>
                 }
-
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="CharacterRaceId">Character Race</label>
-            <select asp-for="CharacterRaceId" class="form-control" id="CharacterRaceId">
-                @if (ViewBag.Races != null)
-                {
-                    @foreach (var characterRace in ViewBag.Races)
-                    {
-                        <option value="@characterRace.Id">@characterRace.Name</option>
-                    }
-                }
-                else
-                {
-                    <option value="">No races available</option>
-                }
-
-            </select>
-        </div>
-
-        <div>
-            <label asp-for="Strength"></label>
-            <input asp-for="Strength" />
-            <span asp-validation-for="Strength"></span>
-        </div>
-        <div>
-            <label asp-for="Dexterity"></label>
-            <input asp-for="Dexterity" />
-            <span asp-validation-for="Dexterity"></span>
-        </div>
-        <div>
-            <label asp-for="Constitution"></label>
-            <input asp-for="Constitution" />
-            <span asp-validation-for="Constitution"></span>
-        </div>
-        <div>
-            <label asp-for="Intelligence"></label>
-            <input asp-for="Intelligence" />
-            <span asp-validation-for="Intelligence"></span>
-        </div>
-        <div>
-            <label asp-for="Wisdom"></label>
-            <input asp-for="Wisdom" />
-            <span asp-validation-for="Wisdom"></span>
-        </div>
-        <div>
-            <label asp-for="Charisma"></label>
-            <input asp-for="Charisma" />
-            <span asp-validation-for="Charisma"></span>
-        </div>
-        <div>
-            <label asp-for="Level"></label>
-            <input asp-for="Level" />
-            <span asp-validation-for="Level"></span>
-        </div>
-        <div>
-            <label asp-for="ExperiencePoints"></label>
-            <input asp-for="ExperiencePoints" />
-            <span asp-validation-for="ExperiencePoints"></span>
-        </div>
-        <div>
-            <label asp-for="PassiveWisdom"></label>
-            <input asp-for="PassiveWisdom" />
-            <span asp-validation-for="PassiveWisdom"></span>
-        </div>
-        <div>
-            <label asp-for="Inspiration"></label>
-            <input asp-for="Inspiration" type="checkbox" />
-            <span asp-validation-for="Inspiration"></span>
-        </div>
-        <div>
-            <label asp-for="ProficiencyBonus"></label>
-            <input asp-for="ProficiencyBonus" />
-            <span asp-validation-for="ProficiencyBonus"></span>
-        </div>
-        <div>
-            <label asp-for="ArmorClass"></label>
-            <input asp-for="ArmorClass" />
-            <span asp-validation-for="ArmorClass"></span>
-        </div>
-        <div>
-            <label asp-for="Speed"></label>
-            <input asp-for="Speed" />
-            <span asp-validation-for="Speed"></span>
-        </div>
-        <div>
-            <label asp-for="Age"></label>
-            <input asp-for="Age" />
-            <span asp-validation-for="Age"></span>
-        </div>
-        <div>
-            <label asp-for="Height"></label>
-            <input asp-for="Height" />
-            <span asp-validation-for="Height"></span>
-        </div>
-        <div>
-            <label asp-for="Weight"></label>
-            <input asp-for="Weight" />
-            <span asp-validation-for="Weight"></span>
-        </div>
-        <div>
-            <label asp-for="Eyes"></label>
-            <input asp-for="Eyes" />
-            <span asp-validation-for="Eyes"></span>
-        </div>
-        <div>
-            <label asp-for="Skin"></label>
-            <input asp-for="Skin" />
-            <span asp-validation-for="Skin"></span>
-        </div>
-        <div>
-            <label asp-for="Hair"></label>
-            <input asp-for="Hair" />
-            <span asp-validation-for="Hair"></span>
-        </div>
-        <div>
-            <label asp-for="PersonalityTraits"></label>
-            <input asp-for="PersonalityTraits" />
-            <span asp-validation-for="PersonalityTraits"></span>
-        </div>
-        <div>
-            <label asp-for="Ideals"></label>
-            <input asp-for="Ideals" />
-            <span asp-validation-for="Ideals"></span>
-        </div>
-        <div>
-            <label asp-for="Bonds"></label>
-            <input asp-for="Bonds" />
-            <span asp-validation-for="Bonds"></span>
-        </div>
-        <div>
-            <label asp-for="Flaws"></label>
-            <input asp-for="Flaws" />
-            <span asp-validation-for="Flaws"></span>
-        </div>
-        <div>
-            <label class="form-label">Character Backstory</label>
-            <textarea class="form-control" id="characterBackstory" asp-for="CharacterBackstory"></textarea>
-            <span asp-validation-for="CharacterBackstory"></span>
-        </div>
-        <div>
-            <label asp-for="Alignment"></label>
-            <input asp-for="Alignment" />
-            <span asp-validation-for="Alignment"></span>
-        </div>
-        <div>
-            <label asp-for="EncumbranceStatus"></label>
-            <input asp-for="EncumbranceStatus" />
-            <span asp-validation-for="EncumbranceStatus"></span>
-        </div>
-        <div>
-            <label class="form-label">Gender</label>
-            <input type="text" class="form-control" id="gender" asp-for="Gender" />
-            <span asp-validation-for="Gender"></span>
-        </div>
-        <div>
-            <label class="form-label">Current Hit Points</label>
-            <input type="text" class="form-control" id="hitPoints_Current" asp-for="HitPoints_Current" />
-            <span asp-validation-for="HitPoints_Current"></span>
-        </div>
-        <div>
-            <label class="form-label">Total Hit Points</label>
-            <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
-            <span asp-validation-for="HitPoints_Total"></span>
-        </div>
-        <div>
-            <label class="form-label">Initiative</label>
-            <input type="text" class="form-control" id="initiative" asp-for="Initiative" />
-            <span asp-validation-for="Initiative"></span>
-        </div>
-        <div>
-            <label class="form-label">TotalWeight</label>
-            <input type="text" class="form-control" id="totalWeight" asp-for="TotalWeight" />
-            <span asp-validation-for="TotalWeight"></span>
+            </div>
         </div>
 
         <div class="accordion" id="characterAccordion">
+
+            <input type="hidden" asp-for="Id" />
+            <!-- GeneralInformation Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingGeneralInformation">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneralInformation" aria-expanded="true" aria-controls="collapseGeneralInformation">
+                        General Information
+                    </button>
+                </h2>
+                <div id="collapseGeneralInformation" class="accordion-collapse collapse show" aria-labelledby="headingGeneralInformation" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div class="form-group">
+                            <label for="CharacterName">Character Name</label>
+                            <input asp-for="CharacterName" class="form-control" id="CharacterName" />
+                            <span asp-validation-for="CharacterName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Upload New Character Image</label>
+                            <input type="file" id="featuredImageUpload" class="form-control" />
+                            <img id="featuredImageDisplay" class="img-fluid rounded mt-3" style="display: none;" alt="Uploaded Character Image" />
+                        </div>
+                        <input type="hidden" asp-for="CharacterImage" id="featuredImageUrl" />
+                        <div class="form-group">
+                            <label for="CharacterClassId">Character Class</label>
+                            <select asp-for="CharacterClassId" class="form-control" id="CharacterClassId">
+                                @if (ViewBag.Classes != null)
+                                {
+                                    @foreach (var characterClass in ViewBag.Classes)
+                                    {
+                                        <option value="@characterClass.Id">@characterClass.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">No classes available</option>
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="CharacterRaceId">Character Race</label>
+                            <select asp-for="CharacterRaceId" class="form-control" id="CharacterRaceId">
+                                @if (ViewBag.Races != null)
+                                {
+                                    @foreach (var characterRace in ViewBag.Races)
+                                    {
+                                        <option value="@characterRace.Id">@characterRace.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">No races available</option>
+                                }
+
+                            </select>
+                            <div>
+                                <label asp-for="Level"></label>
+                                <input asp-for="Level" />
+                                <span asp-validation-for="Level"></span>
+                            </div>
+                            <div>
+                                <label asp-for="ExperiencePoints"></label>
+                                <input asp-for="ExperiencePoints" />
+                                <span asp-validation-for="ExperiencePoints"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Alignment"></label>
+                                <input asp-for="Alignment" />
+                                <span asp-validation-for="Alignment"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Age"></label>
+                                <input asp-for="Age" />
+                                <span asp-validation-for="Age"></span>
+                            </div>
+                            <div>
+                                <label class="form-label">Gender</label>
+                                <input type="text" class="form-control" id="gender" asp-for="Gender" />
+                                <span asp-validation-for="Gender"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Attribute Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAttributes">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttributes" aria-expanded="true" aria-controls="collapseAttributes">
+                        Attributes
+                    </button>
+                </h2>
+                <div id="collapseAttributes" class="accordion-collapse collapse show" aria-labelledby="headingAttributes" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div class="mb-3">
+                            <label asp-for="Strength" class="form-label"></label>
+                            <input asp-for="Strength" class="form-control" />
+                            <span asp-validation-for="Strength" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Dexterity" class="form-label"></label>
+                            <input asp-for="Dexterity" class="form-control" />
+                            <span asp-validation-for="Dexterity" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Constitution" class="form-label"></label>
+                            <input asp-for="Constitution" class="form-control" />
+                            <span asp-validation-for="Constitution" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Intelligence" class="form-label"></label>
+                            <input asp-for="Intelligence" class="form-control" />
+                            <span asp-validation-for="Intelligence" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Wisdom" class="form-label"></label>
+                            <input asp-for="Wisdom" class="form-control" />
+                            <span asp-validation-for="Wisdom" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Charisma" class="form-label"></label>
+                            <input asp-for="Charisma" class="form-control" />
+                            <span asp-validation-for="Charisma" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Backstory Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingBackstory">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackstory" aria-expanded="true" aria-controls="collapseBackstory">
+                        Backstory
+                    </button>
+                </h2>
+                <div id="collapseBackstory" class="accordion-collapse collapse show" aria-labelledby="headingBackstory" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label class="form-label">Character Backstory</label>
+                            <textarea class="form-control" id="characterBackstory" asp-for="CharacterBackstory"></textarea>
+                            <span asp-validation-for="CharacterBackstory"></span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Appearance Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAppearance">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAppearance" aria-expanded="true" aria-controls="collapseAppearance">
+                        Appearance
+                    </button>
+                </h2>
+                <div id="collapseAppearance" class="accordion-collapse collapse show" aria-labelledby="headingAppearance" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label asp-for="Height"></label>
+                            <input asp-for="Height" />
+                            <span asp-validation-for="Height"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Weight"></label>
+                            <input asp-for="Weight" />
+                            <span asp-validation-for="Weight"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Eyes"></label>
+                            <input asp-for="Eyes" />
+                            <span asp-validation-for="Eyes"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Skin"></label>
+                            <input asp-for="Skin" />
+                            <span asp-validation-for="Skin"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Hair"></label>
+                            <input asp-for="Hair" />
+                            <span asp-validation-for="Hair"></span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Combat Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingCombat">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCombat" aria-expanded="true" aria-controls="collapseCombat">
+                        Combat
+                    </button>
+                </h2>
+                <div id="collapseCombat" class="accordion-collapse collapse show" aria-labelledby="headingCombat" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label asp-for="PassiveWisdom"></label>
+                            <input asp-for="PassiveWisdom" />
+                            <span asp-validation-for="PassiveWisdom"></span>
+                        </div>
+                        <div>
+                            <label asp-for="ProficiencyBonus"></label>
+                            <input asp-for="ProficiencyBonus" />
+                            <span asp-validation-for="ProficiencyBonus"></span>
+                        </div>
+                        <div>
+                            <label asp-for="ArmorClass"></label>
+                            <input asp-for="ArmorClass" />
+                            <span asp-validation-for="ArmorClass"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Speed"></label>
+                            <input asp-for="Speed" />
+                            <span asp-validation-for="Speed"></span>
+                        </div>
+                        <div>
+                            <label asp-for="EncumbranceStatus"></label>
+                            <input asp-for="EncumbranceStatus" />
+                            <span asp-validation-for="EncumbranceStatus"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Current Hit Points</label>
+                            <input type="text" class="form-control" id="hitPoints_Current" asp-for="HitPoints_Current" />
+                            <span asp-validation-for="HitPoints_Current"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Total Hit Points</label>
+                            <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
+                            <span asp-validation-for="HitPoints_Total"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Initiative</label>
+                            <input type="text" class="form-control" id="initiative" asp-for="Initiative" />
+                            <span asp-validation-for="Initiative"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">TotalWeight</label>
+                            <input type="text" class="form-control" id="totalWeight" asp-for="TotalWeight" />
+                            <span asp-validation-for="TotalWeight"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FeaturesAndTraits Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFeaturesAndTraits">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFeaturesAndTraits" aria-expanded="true" aria-controls="collapseFeaturesAndTraits">
+                        Features And Traits
+                    </button>
+                </h2>
+                <div id="collapseFeaturesAndTraits" class="accordion-collapse collapse show" aria-labelledby="headingFeaturesAndTraits" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label asp-for="PersonalityTraits"></label>
+                            <input asp-for="PersonalityTraits" />
+                            <span asp-validation-for="PersonalityTraits"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Ideals"></label>
+                            <input asp-for="Ideals" />
+                            <span asp-validation-for="Ideals"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Bonds"></label>
+                            <input asp-for="Bonds" />
+                            <span asp-validation-for="Bonds"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Flaws"></label>
+                            <input asp-for="Flaws" />
+                            <span asp-validation-for="Flaws"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Inspiration"></label>
+                            <input asp-for="Inspiration" type="checkbox" />
+                            <span asp-validation-for="Inspiration"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Skills Section -->
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingSkills">
@@ -239,17 +336,16 @@
                                            @(characterSkill.IsProficient ? "checked" : "") />
                                     <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
                                 </div>
-                                <label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
+                                @*<label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
                                 <input type="number" class="form-control bonus-input"
                                        id="CharacterSkills_@(i)__Bonus"
                                        name="CharacterSkills[@(i)].Bonus"
-                                       value="@characterSkill.Bonus" />
+                                       value="@characterSkill.Bonus" />*@
                             </div>
                         }
                     </div>
                 </div>
             </div>
-
             <!-- Spells Section -->
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingSpells">
@@ -282,7 +378,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Items Section -->
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingItems">
@@ -311,7 +406,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Treasures Section -->
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingTreasures">
@@ -340,33 +434,22 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="d-flex justify-content-between mt-3">
+                <button type="submit" class="btn btn-primary">
+                    Save Changes
+                </button>
+                <button type="button" class="btn btn-danger"
+                        asp-controller="Character"
+                        asp-action="Delete"
+                        asp-route-id="@Model.Id">
+                    Delete
+                </button>
+            </div>
+
         </div>
 
-
-
-
-        <!-- Image Upload Section -->
-        <div class="mb-3">
-            <label class="form-label">Current Character Image</label>
-            <img src="@Model.CharacterImage" id="featuredImageDisplay" style="width: 300px; display: block;" alt="Character Image" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Upload New Character Image</label>
-            <input type="file" id="featuredImageUpload" class="form-control" />
-        </div>
-        <input type="hidden" asp-for="CharacterImage" id="featuredImageUrl" />
-
-        <div class="d-flex">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <button type="button" class="btn btn-danger ms-2"
-                    asp-controller="Character"
-                    asp-action="Delete"
-                    asp-route-id="@Model.Id">
-                Delete
-            </button>
-        </div>
-    </div>
 </form>
 
 

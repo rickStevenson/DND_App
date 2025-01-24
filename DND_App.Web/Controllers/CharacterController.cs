@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Constants = DND_App.Web.StaticClasses.Constants;
+using DND_App.Web.StaticClasses;
+using DND_App.Web.StaticClasses.Constants;
 
 namespace DND_App.Web.Controllers
 {
@@ -34,7 +36,10 @@ namespace DND_App.Web.Controllers
             // Pass classes and races to the view
             ViewBag.Classes = dndDbContext.CharacterClasses.ToList();
             ViewBag.Races = dndDbContext.CharacterRaces.ToList();
-            
+
+            ViewBag.Alignments = HelperMethods.GetAlignments();
+            ViewBag.Gender = HelperMethods.GetGender();
+
             // Fetch available skills
             var skills = dndDbContext.Skills.ToList();
             ViewBag.Skills = skills;
@@ -101,6 +106,8 @@ namespace DND_App.Web.Controllers
                 ViewBag.Spells = dndDbContext.Spells.ToList();
                 ViewBag.Items = dndDbContext.Items.ToList();
                 ViewBag.Treasure = dndDbContext.Treasures.ToList();
+                ViewBag.Alignment = HelperMethods.GetAlignments();
+                ViewBag.Gender = HelperMethods.GetGender();
 
                 #region Debug to check model state
                 //var spells = dndDbContext.Spells.ToList();
@@ -133,6 +140,8 @@ namespace DND_App.Web.Controllers
             // Get the currently logged-in loggedInUser
             var loggedInUser = await userManager.GetUserAsync(User);
 
+
+
             // Sanitize the CharacterBackstory to prevent malicious input
             var sanitizer = new HtmlSanitizer();
             createCharacterViewModel.CharacterBackstory = sanitizer.Sanitize(createCharacterViewModel.CharacterBackstory);
@@ -144,7 +153,6 @@ namespace DND_App.Web.Controllers
                 UserId = Guid.Parse(loggedInUser.Id), // Associate the characterDomainModel with the logged-in loggedInUser
                 PlayerName = loggedInUser.UserName, // Use the loggedInUser's username as the player name
 
-                // General characterDomainModel properties
                 CharacterName = createCharacterViewModel.CharacterName,
                 CharacterClassId = createCharacterViewModel.CharacterClassId,
                 CharacterRaceId = createCharacterViewModel.CharacterRaceId,
@@ -176,7 +184,6 @@ namespace DND_App.Web.Controllers
                 EncumbranceStatus = createCharacterViewModel.EncumbranceStatus,
                 CharacterImage = createCharacterViewModel.CharacterImage,
                 Gender = createCharacterViewModel.Gender,
-                HitPoints_Current = createCharacterViewModel.HitPoints_Current,
                 HitPoints_Total = createCharacterViewModel.HitPoints_Total,
                 Initiative = createCharacterViewModel.Initiative,
                 TotalWeight = createCharacterViewModel.TotalWeight,
@@ -187,7 +194,7 @@ namespace DND_App.Web.Controllers
                     {
                         SkillId = cs.SkillId,
                         IsProficient = cs.IsProficient,
-                        Bonus = cs.Bonus
+                        Bonus = createCharacterViewModel.ProficiencyBonus//cs.Bonus
                     }).ToList(),
 
                 // Map CharacterSpells from the request
@@ -215,8 +222,8 @@ namespace DND_App.Web.Controllers
                     }).ToList()
             };
 
-            //// Calculate ArmorClass dynamically
-            //characterDomainModel.ArmorClass = CalculateArmorClass(characterDomainModel);
+            // Calculate and set the Proficiency Bonus based on the character's level
+            characterDomainModel.ProficiencyBonus = HelperMethods.CalculateProficiencyBonus(characterDomainModel.Level);
 
             // Save the new characterDomainModel using the repository
             await characterRepository.CreateAsync(characterDomainModel);
@@ -251,6 +258,9 @@ namespace DND_App.Web.Controllers
             ViewBag.Spells = dndDbContext.Spells.ToList();
             ViewBag.Items = dndDbContext.Items.ToList();
             ViewBag.Treasure = dndDbContext.Treasures.ToList();
+            ViewBag.Alignments = HelperMethods.GetAlignments();
+            ViewBag.Gender = HelperMethods.GetGender();
+
 
             // Pass the characterDomainModel entity to the view for display
             return View(character);
@@ -289,10 +299,10 @@ namespace DND_App.Web.Controllers
                 return NotFound();//create another view that says "Character not found"
             }
 
-            foreach (var item in character.CharacterItems)
-            {
-                Console.WriteLine($"ItemId: {item.ItemId}, Item is null: {item.Item == null}");
-            }
+            //foreach (var item in character.CharacterItems)
+            //{
+            //    Console.WriteLine($"ItemId: {item.ItemId}, Item is null: {item.Item == null}");
+            //}
 
             // Populate dropdown data for classes, races, skills, and spells
             ViewBag.Classes = await dndDbContext.CharacterClasses.ToListAsync();
@@ -301,6 +311,8 @@ namespace DND_App.Web.Controllers
             ViewBag.Spells = await dndDbContext.Spells.ToListAsync();
             ViewBag.Items = await dndDbContext.Items.ToListAsync();
             ViewBag.Treasures = await dndDbContext.Treasures.ToListAsync();
+            ViewBag.Alignments = HelperMethods.GetAlignments();
+            ViewBag.Gender = HelperMethods.GetGender();
 
             // Sanitize the backstory to prevent malicious input
             var sanitizer = new HtmlSanitizer();
@@ -398,15 +410,15 @@ namespace DND_App.Web.Controllers
         public async Task<IActionResult> Edit(int id, EditCharacterViewModel editCharacterRequest)
         {
             #region Debug suggestions
-            //Console.WriteLine($"Character Name: {editCharacterRequest.CharacterName}");
-            //Console.WriteLine($"Skills Count: {editCharacterRequest.CharacterSkills.Count}");
-            //foreach (var skill in editCharacterRequest.CharacterSkills)
+            //Console.WriteLine($"Character Name: {editCharacterViewModel.CharacterName}");
+            //Console.WriteLine($"Skills Count: {editCharacterViewModel.CharacterSkills.Count}");
+            //foreach (var skill in editCharacterViewModel.CharacterSkills)
             //{
             //    Console.WriteLine($"SkillId: {skill.SkillId}, IsProficient: {skill.IsProficient}, Bonus: {skill.Bonus}");
             //}
 
-            //Console.WriteLine($"Spells Count: {editCharacterRequest.CharacterSpells.Count}");
-            //foreach (var spell in editCharacterRequest.CharacterSpells)
+            //Console.WriteLine($"Spells Count: {editCharacterViewModel.CharacterSpells.Count}");
+            //foreach (var spell in editCharacterViewModel.CharacterSpells)
             //{
             //    Console.WriteLine($"SpellId: {spell.SpellId}, IsLearned: {spell.IsLearned}");
             //}
@@ -431,6 +443,8 @@ namespace DND_App.Web.Controllers
                 ViewBag.Spells = await dndDbContext.Spells.ToListAsync();
                 ViewBag.Items = await dndDbContext.Items.ToListAsync();
                 ViewBag.Treasures = await dndDbContext.Treasures.ToListAsync();
+                ViewBag.Alignments = HelperMethods.GetAlignments();
+                ViewBag.Gender = HelperMethods.GetGender();
 
                 foreach (var key in Request.Form.Keys)
                 {
@@ -507,9 +521,10 @@ namespace DND_App.Web.Controllers
                 .LoadAsync();
 
             // Recalculate Armor Class
-            character.ArmorClass = CalculateArmorClass(character);
+            character.ArmorClass = HelperMethods.CalculateArmorClass(character);
 
-
+            // Calculate and update Proficiency Bonus
+            character.ProficiencyBonus = HelperMethods.CalculateProficiencyBonus(character.Level);
 
             // Sanitize the backstory
             var sanitizer = new HtmlSanitizer();
@@ -529,8 +544,8 @@ namespace DND_App.Web.Controllers
             character.ExperiencePoints = editCharacterRequest.ExperiencePoints;
             character.PassiveWisdom = editCharacterRequest.PassiveWisdom;
             character.Inspiration = editCharacterRequest.Inspiration;
-            character.ProficiencyBonus = editCharacterRequest.ProficiencyBonus;
-            character.ArmorClass = CalculateArmorClass(character);
+            character.ProficiencyBonus = HelperMethods.CalculateProficiencyBonus(character.Level);
+            character.ArmorClass = HelperMethods.CalculateArmorClass(character);
             character.Speed = editCharacterRequest.Speed;
             character.Age = editCharacterRequest.Age;
             character.Height = editCharacterRequest.Height;
@@ -568,7 +583,7 @@ namespace DND_App.Web.Controllers
                     }
                     else
                     {
-                        existingSkill.Bonus = selectedSkill.Bonus;
+                        existingSkill.Bonus = HelperMethods.CalculateProficiencyBonus(character.Level);//selectedSkill.Bonus;
                     }
                 }
                 else
@@ -578,7 +593,7 @@ namespace DND_App.Web.Controllers
                     {
                         SkillId = selectedSkill.SkillId,
                         IsProficient = selectedSkill.IsProficient,
-                        Bonus = selectedSkill.IsProficient ? selectedSkill.Bonus : 0 // Set Bonus to 0 if not proficient
+                        Bonus = selectedSkill.IsProficient ? HelperMethods.CalculateProficiencyBonus(character.Level) : 0 // Set Bonus to 0 if not proficient
                     });
                 }
             }
@@ -679,16 +694,16 @@ namespace DND_App.Web.Controllers
 
         [HttpPost]
         [Route("Character/Delete")]
-        public async Task<IActionResult> Delete(EditCharacterViewModel editCharacterRequest)
+        public async Task<IActionResult> Delete(EditCharacterViewModel editCharacterViewModel)
         {
-            var deletedCharacter = await characterRepository.DeleteAsync(editCharacterRequest.Id);
+            var deletedCharacter = await characterRepository.DeleteAsync(editCharacterViewModel.Id);
 
             if (deletedCharacter != null)
             {
                 return RedirectToAction("ReadAll");
             }
 
-            return RedirectToAction("Edit", new {id = editCharacterRequest?.Id});
+            return RedirectToAction("Edit", new {id = editCharacterViewModel?.Id});
         }
 
         [HttpGet]
@@ -717,71 +732,9 @@ namespace DND_App.Web.Controllers
         }
 
 
-        public int CalculateArmorClass(Character character)
-        {
-            int baseAC = 10; // Default AC if no armor is worn.
-            int dexterityModifier = (character.Dexterity - 10) / 2;
+        //public static class HelperMethods
+        //{
             
-            // Check if character has equipped armor.
-            var equippedArmor = character.CharacterItems
-                .FirstOrDefault(item => item.Item != null && item.Item.Category == Constants.Category.Armor);
-
-            if (equippedArmor != null && equippedArmor.Item != null)
-            {
-                switch (equippedArmor.Item.Name)
-                {
-                    case Constants.Items.LeatherArmor:
-                        baseAC = 11 + dexterityModifier;
-                        break;
-
-                    case Constants.Items.ChainShirt:
-                        baseAC = 13 + Math.Min(dexterityModifier, 2);
-                        break;
-
-                    case Constants.Items.Chainmail:
-                        baseAC = 16 + Math.Min(dexterityModifier, 2);
-                        break;
-
-                    case Constants.Items.PlateArmor:
-                        baseAC = 18;
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                // If no armor is equipped, check for special class AC bonuses.
-                if (character.CharacterClass.Name == Constants.Classes.Barbarian)
-                {
-                    int constitutionModifier = (character.Constitution - 10) / 2;
-                    baseAC = 10 + dexterityModifier + constitutionModifier;
-                }
-                else if (character.CharacterClass.Name == Constants.Classes.Monk)
-                {
-                    int wisdomModifier = (character.Wisdom - 10) / 2;
-                    baseAC = 10 + dexterityModifier + wisdomModifier;
-                }
-            }
-
-            // Check if a shield is equipped.
-            var shieldEquipped = character.CharacterItems
-                .Any(item => item.Item != null && item.Item.Name == Constants.Items.Shield);
-            if (shieldEquipped)
-            {
-                baseAC += 2;
-            }
-
-            // Add bonuses from magic items.
-            int magicBonus = character.CharacterItems
-                .Where(item => item.Item.ArmorClassBonus > 0)
-                .Sum(item => item.Item.ArmorClassBonus);
-
-            baseAC += magicBonus;
-
-            return baseAC;
-        }
-
+        //}
     }
 }

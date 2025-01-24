@@ -42,12 +42,12 @@ namespace DND_App.Web.Models.ViewModels
         public int ExperiencePoints { get; set; } = 0;
         public int PassiveWisdom { get; set; } = 10;
         public bool Inspiration { get; set; } = false;
-        public int ProficiencyBonus { get; set; } = 2;
-        public int ArmorClass { get; set; } = 0;
+        public int ProficiencyBonus { get; set; }
+        public int ArmorClass { get; set; } = 10;
         public int Speed { get; set; } = 30;
 
         //Character Traits
-        public string? Age { get; set; }
+        public int Age { get; set; } = 0;
         public string? Height { get; set; }
         public string? Weight { get; set; }
         public string? Eyes { get; set; }
@@ -63,7 +63,6 @@ namespace DND_App.Web.Models.ViewModels
         public string? CharacterImage { get; set; }
 
         public string Gender { get; set; } = "Male";
-        public int HitPoints_Current { get; set; } = 100;
         public int HitPoints_Total { get; set; } = 100;
         public int Initiative { get; set; } = 0;
         public float TotalWeight { get; set; } = 0;

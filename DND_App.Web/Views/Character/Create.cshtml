@@ -15,299 +15,431 @@
     </div>
 </div>
 
-<div class="container py-3">
-    <form asp-action="Create" method="post">
-        <div>
-            <div>
-                <label class="form-label">Character Name</label>
-                <input type="text" class="form-control" id="characterName" asp-for="CharacterName" />
-                <span asp-validation-for="CharacterName"></span>
-            </div>
-            <div>
-                <label>Class</label>
-                <select asp-for="CharacterClassId">
-                    @foreach (var c in ViewBag.Classes)
-                    {
-                        <option value="@c.Id">@c.Name</option>
-                    }
-                </select>
-            </div>
-            <div>
-                <label>Race</label>
-                <select asp-for="CharacterRaceId">
-                    @foreach (var r in ViewBag.Races)
-                    {
-                        <option value="@r.Id">@r.Name</option>
-                    }
-                </select>
-            </div>
+<form asp-action="Create" method="post">
+    <div class="container">
+        <div class="accordion" id="characterAccordion">
 
-            <div>
-                <label class="form-label">Strength</label>
-                <input type="text" class="form-control" id="strength" asp-for="Strength" />
-                <span asp-validation-for="Strength"></span>
+            <!-- GeneralInformation Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingGeneralInformation">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneralInformation" aria-expanded="true" aria-controls="collapseGeneralInformation">
+                        General Information
+                    </button>
+                </h2>
+                <div id="collapseGeneralInformation" class="accordion-collapse collapse show" aria-labelledby="headingGeneralInformation" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label class="form-label">Character Image</label>
+                            <input type="text" class="form-control" id="featuredImageUrl" asp-for="CharacterImage" />
+                            <span asp-validation-for="CharacterImage"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Featured Image Upload</label>
+                            <input type="file" id="featuredImageUpload" class="form-control" />
+                            <img id="featuredImageDisplay" class="img-fluid rounded mt-3" style="display: none; width: 25%; height: auto;" alt="Uploaded Character Image" />
+                        </div>
+                        <div>
+                            <label class="form-label">Character Name</label>
+                            <input type="text" class="form-control" id="characterName" asp-for="CharacterName" />
+                            <span asp-validation-for="CharacterName"></span>
+                        </div>
+                        <div>
+                            <label style="display:block" class="py-3">Class</label>
+                            <select asp-for="CharacterClassId" style="display:block; width:100%">
+                                @foreach (var c in ViewBag.Classes)
+                                {
+                                    <option value="@c.Id">@c.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block" class="py-3">Race</label>
+                            <select asp-for="CharacterRaceId" style="display:block; width:100%">
+                                @foreach (var r in ViewBag.Races)
+                                {
+                                    <option value="@r.Id">@r.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label mt-3">Level</label>
+                            <input type="number" class="form-control" id="level" asp-for="Level" step="1" min="0" />
+                            <span asp-validation-for="Level"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Experience Points</label>
+                            <input type="text" class="form-control" id="experiencePoints" asp-for="ExperiencePoints" />
+                            <span asp-validation-for="ExperiencePoints"></span>
+                        </div>
+                        <div>
+                            <label style="display: block" class="py-3">Alignment</label>
+                            <select class="form-control" id="alignment" style="display:block; width:100%" asp-for="Alignment">
+                                @foreach (var alignment in ViewBag.Alignments)
+                                {
+                                    <option value="@alignment">@alignment</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Alignment"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Age</label>
+                            <input type="number" class="form-control" id="age" asp-for="Age" step="1" min="0" />
+                            <span asp-validation-for="Age"></span>
+                        </div>
+                        <div>
+                            <label style="display: block" class="py-3">Gender</label>
+                            <select class="form-control" id="gender" style="display:block; width:100%" asp-for="Gender">
+                                @foreach (var gender in ViewBag.Gender)
+                                {
+                                    <option value="@gender">@gender</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Gender"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label class="form-label">Dexterity</label>
-                <input type="text" class="form-control" id="dexterity" asp-for="Dexterity" />
-                <span asp-validation-for="Dexterity"></span>
+            <!-- Attribute Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAttributes">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttributes" aria-expanded="true" aria-controls="collapseAttributes">
+                        Attributes
+                    </button>
+                </h2>
+                <div id="collapseAttributes" class="accordion-collapse collapse show" aria-labelledby="headingAttributes" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label class="form-label">Strength</label>
+                            <input type="number" class="form-control" id="strength" asp-for="Strength" step="1" min="0"/>
+                            <span asp-validation-for="Strength"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Dexterity</label>
+                            <input type="number" class="form-control" id="dexterity" asp-for="Dexterity" step="1" min="0"/>
+                            <span asp-validation-for="Dexterity"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Constitution</label>
+                            <input type="number" class="form-control" id="constitution" asp-for="Constitution" step="1" min="0"/>
+                            <span asp-validation-for="Constitution"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Intelligence</label>
+                            <input type="number" class="form-control" id="intelligence" asp-for="Intelligence" step="1" min="0"/>
+                            <span asp-validation-for="Intelligence"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Wisdom</label>
+                            <input type="number" class="form-control" id="wisdom" asp-for="Wisdom" step="1" min="0"/>
+                            <span asp-validation-for="Wisdom"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Charisma</label>
+                            <input type="number" class="form-control" id="charisma" asp-for="Charisma" step="1" min="0"/>
+                            <span asp-validation-for="Charisma"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label class="form-label">Constitution</label>
-                <input type="text" class="form-control" id="constitution" asp-for="Constitution" />
-                <span asp-validation-for="Constitution"></span>
+            <!-- Backstory Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingBackstory">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackstory" aria-expanded="true" aria-controls="collapseBackstory">
+                        Backstory
+                    </button>
+                </h2>
+                <div id="collapseBackstory" class="accordion-collapse collapse show" aria-labelledby="headingBackstory" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label class="form-label">Character Backstory</label>
+                            <textarea class="form-control" id="characterBackstory" asp-for="CharacterBackstory"></textarea>
+                            <span asp-validation-for="CharacterBackstory"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label class="form-label">Intelligence</label>
-                <input type="text" class="form-control" id="intelligence" asp-for="Intelligence" />
-                <span asp-validation-for="Intelligence"></span>
-            </div>
-            <div>
-                <label class="form-label">Wisdom</label>
-                <input type="text" class="form-control" id="wisdom" asp-for="Wisdom" />
-                <span asp-validation-for="Wisdom"></span>
-            </div>
-            <div>
-                <label class="form-label">Charisma</label>
-                <input type="text" class="form-control" id="charisma" asp-for="Charisma" />
-                <span asp-validation-for="Charisma"></span>
-            </div>
-            <div>
-                <label class="form-label">Level</label>
-                <input type="text" class="form-control" id="level" asp-for="Level" />
-                <span asp-validation-for="Level"></span>
-            </div>
-            <div>
-                <label class="form-label">Experience Points</label>
-                <input type="text" class="form-control" id="experiencePoints" asp-for="ExperiencePoints" />
-                <span asp-validation-for="ExperiencePoints"></span>
-            </div>
-            <div>
-                <label class="form-label">Passive Wisdom</label>
-                <input type="text" class="form-control" id="passiveWisdom" asp-for="PassiveWisdom" />
-                <span asp-validation-for="PassiveWisdom"></span>
-            </div>
-            <div>
-                <label class="form-label">Inspiration</label>
-                <input type="text" class="form-control" id="inspiration" asp-for="Inspiration" type="checkbox" />
-                <span asp-validation-for="Inspiration"></span>
-            </div>
-            <div>
-                <label class="form-label">Proficiency Bonus</label>
-                <input type="text" class="form-control" id="proficiencyBonus" asp-for="ProficiencyBonus" />
-                <span asp-validation-for="ProficiencyBonus"></span>
-            </div>
-            <div>
-                <label class="form-label">Armor Class</label>
-                <input type="text" class="form-control" id="armorClass" asp-for="ArmorClass" />
-                <span asp-validation-for="ArmorClass"></span>
-            </div>
-            <div>
-                <label class="form-label">Age</label>
-                <input type="text" class="form-control" id="age" asp-for="Age" />
-                <span asp-validation-for="Age"></span>
-            </div>
-            <div>
-                <label class="form-label">Height</label>
-                <input type="text" class="form-control" id="height" asp-for="Height" />
-                <span asp-validation-for="Height"></span>
-            </div>
-            <div>
-                <label class="form-label">Weight</label>
-                <input type="text" class="form-control" id="weight" asp-for="Weight" />
-                <span asp-validation-for="Weight"></span>
-            </div>
-            <div>
-                <label class="form-label">Eyes</label>
-                <input type="text" class="form-control" id="eyes" asp-for="Eyes" />
-                <span asp-validation-for="Eyes"></span>
-            </div>
-            <div>
-                <label class="form-label">Skin</label>
-                <input type="text" class="form-control" id="skin" asp-for="Skin" />
-                <span asp-validation-for="Skin"></span>
-            </div>
-            <div>
-                <label class="form-label">Hair</label>
-                <input type="text" class="form-control" id="hair" asp-for="Hair" />
-                <span asp-validation-for="Hair"></span>
-            </div>
-            <div>
-                <label class="form-label">Personality Traits</label>
-                <input class="form-control" id="personalityTraits" asp-for="PersonalityTraits" />
-                <span asp-validation-for="PersonalityTraits"></span>
-            </div>
-            <div>
-                <label class="form-label">Ideals</label>
-                <input class="form-control" id="ideals" asp-for="Ideals" />
-                <span asp-validation-for="Ideals"></span>
-            </div>
-            <div>
-                <label class="form-label">Bonds</label>
-                <input class="form-control" id="bonds" asp-for="Bonds" />
-                <span asp-validation-for="Bonds"></span>
-            </div>
-            <div>
-                <label class="form-label">Flaws</label>
-                <input class="form-control" id="flaws" asp-for="Flaws" />
-                <span asp-validation-for="Flaws"></span>
-            </div>
-            <div>
-                <label class="form-label">Character Backstory</label>
-                <textarea class="form-control" id="characterBackstory" asp-for="CharacterBackstory"></textarea>
-                <span asp-validation-for="CharacterBackstory"></span>
-            </div>
-            <div>
-                <label class="form-label">Alignment</label>
-                <input type="text" class="form-control" id="alignment" asp-for="Alignment" />
-                <span asp-validation-for="Alignment"></span>
-            </div>
-            <div>
-                <label class="form-label">Encumbrance Status</label>
-                <input type="text" class="form-control" id="encumbranceStatus" asp-for="EncumbranceStatus" />
-                <span asp-validation-for="EncumbranceStatus"></span>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Featured Image Upload</label>
-                <input type="file" id="featuredImageUpload" class="form-control" />
-                <img src="" id="featuredImageDisplay" style="display:none;width: 300px;" />
-            </div>
-            <div>
-                <label class="form-label">Character Image</label>
-                <input type="text" class="form-control" id="featuredImageUrl" asp-for="CharacterImage" />
-                <span asp-validation-for="CharacterImage"></span>
-            </div>
-
-            <div>
-                <label class="form-label">Gender</label>
-                <input type="text" class="form-control" id="gender" asp-for="Gender" />
-                <span asp-validation-for="Gender"></span>
-            </div>
-            <div>
-                <label class="form-label">Current Hit Points</label>
-                <input type="text" class="form-control" id="hitPoints_Current" asp-for="HitPoints_Current" />
-                <span asp-validation-for="HitPoints_Current"></span>
-            </div>
-            <div>
-                <label class="form-label">Total Hit Points</label>
-                <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
-                <span asp-validation-for="HitPoints_Total"></span>
-            </div>
-            <div>
-                <label class="form-label">Initiative</label>
-                <input type="text" class="form-control" id="initiative" asp-for="Initiative" />
-                <span asp-validation-for="Initiative"></span>
-            </div>
-            <div>
-                <label class="form-label">TotalWeight</label>
-                <input type="text" class="form-control" id="totalWeight" asp-for="TotalWeight" />
-                <span asp-validation-for="TotalWeight"></span>
-            </div>
-        </div>
-        <div>
-            <h4>Skills</h4>
-            @if (skills != null && skills.Count > 0)
-            {
-                for (var i = 0; i < skills.Count; i++)
-                {
-                    var skill = skills[i];
-                    var characterSkill = Model.CharacterSkills.FirstOrDefault(cs => cs.SkillId == skill.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSkillRequest();
-
-                    <div class="mb-3">
-                        <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
-
-                        <!-- Hidden input for SkillId -->
-                        <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
-
-                        <!-- Checkbox for IsProficient -->
-                        <div class="form-check">
-                            <input class="form-check-input proficient-checkbox" type="checkbox"
-                                   id="CharacterSkills_@(i)__IsProficient"
-                                   name="CharacterSkills[@(i)].IsProficient"
-                                   value="true"
-                                   @(characterSkill.IsProficient ? "checked" : "")
-                                   data-bonus-id="CharacterSkills_@(i)__Bonus" />
-                            <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
+            <!-- Appearance Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAppearance">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAppearance" aria-expanded="true" aria-controls="collapseAppearance">
+                        Appearance
+                    </button>
+                </h2>
+                <div id="collapseAppearance" class="accordion-collapse collapse show" aria-labelledby="headingAppearance" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label class="form-label">Height</label>
+                            <input type="text" class="form-control" id="height" placeholder="Enter height (e.g., 6 2)" />
+                            <span asp-validation-for="Height"></span>
+                        </div>
+                        <p id="formattedHeight" class="mt-2"></p>
+                        <!-- Hidden input to store the formatted height -->
+                        <input type="hidden" id="formattedHeightInput" asp-for="Height" />
+                        <div>
+                            <label class="form-label">Weight</label>
+                            <input type="text" class="form-control" id="weight" asp-for="Weight" placeholder="Enter weight (e.g., 150)" />
+                            <span asp-validation-for="Weight"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Eyes</label>
+                            <input type="text" class="form-control" id="eyes" asp-for="Eyes" />
+                            <span asp-validation-for="Eyes"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Skin</label>
+                            <input type="text" class="form-control" id="skin" asp-for="Skin" />
+                            <span asp-validation-for="Skin"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Hair</label>
+                            <input type="text" class="form-control" id="hair" asp-for="Hair" />
+                            <span asp-validation-for="Hair"></span>
                         </div>
 
-                        <!-- Input for Bonus -->
-                        <label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
-                        <input type="number" class="form-control bonus-input"
-                               id="CharacterSkills_@(i)__Bonus"
-                               name="CharacterSkills[@(i)].Bonus"
-                               value="@characterSkill.Bonus" />
-                    </div>
-                }
-            }
-            else
-            {
-                <p>No skills available to display.</p>
-            }
-        </div>
-        <div>
-            <h4>Spells</h4>
-            @if (spells != null && spells.Count > 0)
-            {
-                @for (int i = 0; i < Model.CharacterSpells.Count; i++)
-                {
-                    var spell = spells[i];
-                    var characterSpell = Model.CharacterSpells.FirstOrDefault(cs => cs.SpellId == spell.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSpellRequest();
 
-                    <div>
-                        <label>
-                            <input type="checkbox" name="CharacterSpells[@i].IsLearned" value="true" @(Model.CharacterSpells[i].IsLearned ? "checked" : "") />
-                            <label class="form-label">@spell.Name </label>
-                        </label>
-                        <input type="hidden" name="CharacterSpells[@i].SpellId" value="@Model.CharacterSpells[i].SpellId" />
-                        <input type="hidden" name="CharacterSpells[@i].IsLearned" value="false" />
                     </div>
-                }
-            }
-        </div>
-        <div>
-            <h4>Items</h4>
-            @for (int i = 0; i < Model.CharacterItems.Count; i++)
-            {
-                var item = items.FirstOrDefault(it => it.Id == Model.CharacterItems[i].ItemId);
-                var characterItem = Model.CharacterItems[i];
-
-                if (item != null)
-                {
-                    <div class="form-group">
-                        <label class="form-label">@item.Name</label>
-                        <input type="hidden" name="CharacterItems[@(i)].ItemId" value="@characterItem.ItemId" />
-                        <input type="number" class="form-control" id="CharacterItems_@(i)__Quantity"
-                               name="CharacterItems[@(i)].Quantity"
-                               value="@characterItem.Quantity"
-                               min="0" />
+                </div>
+            </div>
+            <!-- Combat Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingCombat">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCombat" aria-expanded="true" aria-controls="collapseCombat">
+                        Combat
+                    </button>
+                </h2>
+                <div id="collapseCombat" class="accordion-collapse collapse show" aria-labelledby="headingCombat" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label class="form-label">Passive Wisdom</label>
+                            <input type="text" class="form-control" id="passiveWisdom" asp-for="PassiveWisdom" />
+                            <span asp-validation-for="PassiveWisdom"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Proficiency Bonus</label>
+                            <input type="text" class="form-control" id="proficiencyBonus" asp-for="ProficiencyBonus" />
+                            <span asp-validation-for="ProficiencyBonus"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Armor Class</label>
+                            <input type="text" class="form-control" id="armorClass" asp-for="ArmorClass" />
+                            <span asp-validation-for="ArmorClass"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Speed</label>
+                            <input type="text" class="form-control" id="speed" asp-for="Speed" />
+                            <span asp-validation-for="Speed"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Encumbrance Status</label>
+                            <input type="text" class="form-control" id="encumbranceStatus" asp-for="EncumbranceStatus" />
+                            <span asp-validation-for="EncumbranceStatus"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Total Hit Points</label>
+                            <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
+                            <span asp-validation-for="HitPoints_Total"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Initiative</label>
+                            <input type="text" class="form-control" id="initiative" asp-for="Initiative" />
+                            <span asp-validation-for="Initiative"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">TotalWeight</label>
+                            <input type="text" class="form-control" id="totalWeight" asp-for="TotalWeight" />
+                            <span asp-validation-for="TotalWeight"></span>
+                        </div>
                     </div>
-                }
-            }
-        </div>
-        <div>
-            <h4>Treasures</h4>
-            @for (int i = 0; i < Model.CharacterTreasures.Count; i++)
-            {
-                var treasure = treasures.FirstOrDefault(ct => ct.Id == Model.CharacterTreasures[i].TreasureId);
-                var characterTreasure = Model.CharacterTreasures[i];
-
-                if (treasure != null)
-                {
-                    <div class="form-group">
-                        <label class="form-label">@treasure.Name</label>
-                        <input type="hidden" name="CharacterTreasures[@(i)].TreasureId" value="@characterTreasure.TreasureId" />
-                        <input type="number" class="form-control" id="CharacterTreasures_@(i)__Quantity"
-                               name="CharacterTreasures[@(i)].Quantity"
-                               value="@characterTreasure.Quantity"
-                               min="0" />
+                </div>
+            </div>
+            <!-- FeaturesAndTraits Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFeaturesAndTraits">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFeaturesAndTraits" aria-expanded="true" aria-controls="collapseFeaturesAndTraits">
+                        Features And Traits
+                    </button>
+                </h2>
+                <div id="collapseFeaturesAndTraits" class="accordion-collapse collapse show" aria-labelledby="headingFeaturesAndTraits" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <div>
+                            <label class="form-label">Personality Traits</label>
+                            <input class="form-control" id="personalityTraits" asp-for="PersonalityTraits" />
+                            <span asp-validation-for="PersonalityTraits"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Ideals</label>
+                            <input class="form-control" id="ideals" asp-for="Ideals" />
+                            <span asp-validation-for="Ideals"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Bonds</label>
+                            <input class="form-control" id="bonds" asp-for="Bonds" />
+                            <span asp-validation-for="Bonds"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Flaws</label>
+                            <input class="form-control" id="flaws" asp-for="Flaws" />
+                            <span asp-validation-for="Flaws"></span>
+                        </div>
+                        <div>
+                            <label class="form-label">Inspiration</label>
+                            <input type="text" class="form-control" id="inspiration" asp-for="Inspiration" type="checkbox" />
+                            <span asp-validation-for="Inspiration"></span>
+                        </div>
                     </div>
-                }
-            }
+                </div>
+            </div>
+            <!-- Skills Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSkills">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSkills" aria-expanded="true" aria-controls="collapseSkills">
+                        Skills
+                    </button>
+                </h2>
+                <div id="collapseSkills" class="accordion-collapse collapse show" aria-labelledby="headingSkills" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <h4>Skills</h4>
+                        @if (skills != null && skills.Count > 0)
+                        {
+                            for (var i = 0; i < skills.Count; i++)
+                            {
+                                var skill = skills[i];
+                                var characterSkill = Model.CharacterSkills.FirstOrDefault(cs => cs.SkillId == skill.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSkillRequest();
+
+                                <div class="mb-3">
+                                    <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
+
+                                    <!-- Hidden input for SkillId -->
+                                    <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
+
+                                    <!-- Checkbox for IsProficient -->
+                                    <div class="form-check">
+                                        <input class="form-check-input proficient-checkbox" type="checkbox"
+                                               id="CharacterSkills_@(i)__IsProficient"
+                                               name="CharacterSkills[@(i)].IsProficient"
+                                               value="true"
+                                               @(characterSkill.IsProficient ? "checked" : "")
+                                               data-bonus-id="CharacterSkills_@(i)__Bonus" />
+                                        <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
+                                    </div>
+
+                                    <!-- Input for Bonus -->
+                                    @*<label class="form-label" for="CharacterSkills_@(i)__Bonus">Bonus</label>
+                                    <input type="number" class="form-control bonus-input"
+                                           id="CharacterSkills_@(i)__Bonus"
+                                           name="CharacterSkills[@(i)].Bonus"
+                                           value="@characterSkill.Bonus" />*@
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Spells Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSpells">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpells" aria-expanded="true" aria-controls="collapseSpells">
+                        Spells
+                    </button>
+                </h2>
+                <div id="collapseSpells" class="accordion-collapse collapse show" aria-labelledby="headingSpells" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <h4>Spells</h4>
+                        @if (spells != null && spells.Count > 0)
+                        {
+                            @for (int i = 0; i < Model.CharacterSpells.Count; i++)
+                            {
+                                var spell = spells[i];
+                                var characterSpell = Model.CharacterSpells.FirstOrDefault(cs => cs.SpellId == spell.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSpellRequest();
+
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="CharacterSpells[@i].IsLearned" value="true" @(Model.CharacterSpells[i].IsLearned ? "checked" : "") />
+                                        <label class="form-label">@spell.Name </label>
+                                    </label>
+                                    <input type="hidden" name="CharacterSpells[@i].SpellId" value="@Model.CharacterSpells[i].SpellId" />
+                                    <input type="hidden" name="CharacterSpells[@i].IsLearned" value="false" />
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Items Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingItems">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseItems" aria-expanded="true" aria-controls="collapseItems">
+                        Items
+                    </button>
+                </h2>
+                <div id="collapseItems" class="accordion-collapse collapse show" aria-labelledby="headingItems" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <h4>Items</h4>
+                        @for (int i = 0; i < Model.CharacterItems.Count; i++)
+                        {
+                            var item = items.FirstOrDefault(it => it.Id == Model.CharacterItems[i].ItemId);
+                            var characterItem = Model.CharacterItems[i];
+
+                            if (item != null)
+                            {
+                                <div class="form-group">
+                                    <label class="form-label">@item.Name</label>
+                                    <input type="hidden" name="CharacterItems[@(i)].ItemId" value="@characterItem.ItemId" />
+                                    <input type="number" class="form-control" id="CharacterItems_@(i)__Quantity"
+                                           name="CharacterItems[@(i)].Quantity"
+                                           value="@characterItem.Quantity"
+                                           min="0" />
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Treasures Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTreasures">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTreasures" aria-expanded="true" aria-controls="collapseTreasures">
+                        Treasures
+                    </button>
+                </h2>
+                <div id="collapseTreasures" class="accordion-collapse collapse show" aria-labelledby="headingTreasures" data-bs-parent="#characterAccordion">
+                    <div class="accordion-body">
+                        <h4>Treasures</h4>
+                        @for (int i = 0; i < Model.CharacterTreasures.Count; i++)
+                        {
+                            var treasure = treasures.FirstOrDefault(ct => ct.Id == Model.CharacterTreasures[i].TreasureId);
+                            var characterTreasure = Model.CharacterTreasures[i];
+
+                            if (treasure != null)
+                            {
+                                <div class="form-group">
+                                    <label class="form-label">@treasure.Name</label>
+                                    <input type="hidden" name="CharacterTreasures[@(i)].TreasureId" value="@characterTreasure.TreasureId" />
+                                    <input type="number" class="form-control" id="CharacterTreasures_@(i)__Quantity"
+                                           name="CharacterTreasures[@(i)].Quantity"
+                                           value="@characterTreasure.Quantity"
+                                           min="0" />
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <button type="submit">Create</button>
-    </form>
-</div>
+    </div>
+
+
+    <div class="d-flex justify-content-between mt-3">
+        <button type="submit" class="btn btn-primary">
+            Create
+        </button>
+    </div>
+</form>
 
 @section Scripts{
     <script>
@@ -386,6 +518,42 @@
                     bonusInput.disabled = !checkbox.checked; // Disable input if checkbox is unchecked
                 }
             });
+        });
+    </script>
+    <script>
+        document.getElementById('height').addEventListener('input', function (event) {
+            const input = event.target.value.replace(/[^\d\s]/g, '').trim(); // Remove non-digit/non-space characters
+            const heightPattern = /^(\d{1,2})\s*(\d{1,2})?$/;
+            const formattedHeightElement = document.getElementById('formattedHeight');
+            const hiddenHeightInput = document.getElementById('formattedHeightInput');
+
+            if (heightPattern.test(input)) {
+                const matches = input.match(heightPattern);
+                const feet = matches[1];
+                const inches = matches[2] || 0; // Default inches to 0 if not provided
+                const formattedHeight = `${feet}ft ${inches}in`;
+                formattedHeightElement.textContent = formattedHeight; // Display in <p>
+                hiddenHeightInput.value = formattedHeight; // Update hidden input
+            } else {
+                formattedHeightElement.textContent = "Invalid format. Enter as '6 2' or '12 10'.";
+                hiddenHeightInput.value = ""; // Clear hidden input if invalid
+            }
+        });
+
+    </script>
+    <script>
+        document.getElementById('weight').addEventListener('input', function (event) {
+            let input = event.target.value;
+
+            // Remove any existing "lbs." or unwanted characters
+            input = input.replace(/[^0-9]/g, '').trim();
+
+            // Append "lbs." to the numeric input
+            if (input) {
+                event.target.value = `${input} lbs.`;
+            } else {
+                event.target.value = ''; // Clear input if it's empty
+            }
         });
     </script>
 }
