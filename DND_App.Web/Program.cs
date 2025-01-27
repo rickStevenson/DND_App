@@ -11,25 +11,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DnDDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString
-("DND_DbConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
+        sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "DND_DbSchema")
+    ));
 
 builder.Services.AddDbContext<UserDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString
-("DND_UserAuth_DbConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
+        sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory_UserAuth", "UserAuthSchema")
+    ));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+// Add Identity using UserDbContext for authentication
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<UserDbContext>();
+    //.AddDefaultTokenProviders(); // Optional: Add token providers if needed
+
+builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.ClaimsIdentity.RoleClaimType = ClaimTypes.Role; // Add RoleClaimType for proper role functionality
+    // Default settings
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
-})
-.AddEntityFrameworkStores<UserDbContext>() // Ensure UserDbContext is used for identity
-.AddDefaultTokenProviders();
+});
+
 
 builder.Services.AddScoped<ICharacterClassRepository, CharacterClassRepository>();
 builder.Services.AddScoped<ICharacterRaceRepository, CharacterRaceRepository>();

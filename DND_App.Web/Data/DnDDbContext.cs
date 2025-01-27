@@ -38,6 +38,7 @@ namespace DND_App.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("DND_DbSchema");
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ConfigureRelationships();

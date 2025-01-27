@@ -16,9 +16,10 @@ namespace DND_App.Web.Data
             base.OnConfiguring(optionsBuilder);
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            modelBuilder.HasDefaultSchema("UserAuthSchema");
+            base.OnModelCreating(modelBuilder);
 
             var adminRoleId = "785d5a0a-24a4-40ec-a98b-95e5b4bf43ad";
             var dungeonMasterRoleId = "bd0c279f-d8df-4e39-add7-b33aa79f7cdf";
@@ -49,7 +50,7 @@ namespace DND_App.Web.Data
                 }
             };
 
-            builder.Entity<IdentityRole>().HasData(roles);
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
 
             var adminId = "59c21724-793c-4cb1-9438-dec6213c808b";
             var adminUser = new IdentityUser
@@ -64,7 +65,7 @@ namespace DND_App.Web.Data
             adminUser.PasswordHash = new PasswordHasher<IdentityUser>()
                 .HashPassword(adminUser, "$$RickTheStick11");
 
-            builder.Entity<IdentityUser>().HasData(adminUser);
+            modelBuilder.Entity<IdentityUser>().HasData(adminUser);
 
             var adminRoles = new List<IdentityUserRole<string>>
             {
@@ -85,7 +86,7 @@ namespace DND_App.Web.Data
                 }
             };
 
-            builder.Entity<IdentityUserRole<string>>().HasData(adminRoles);
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(adminRoles);
         }
     }
 }

@@ -4,6 +4,7 @@ using DND_App.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    partial class DnDDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250127183751_InitialDnDDbContext")]
+    partial class InitialDnDDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1297,7 +1300,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A small vial of red liquid that restores health when consumed.",
                             HPRegained = "2d4+2",
-                            Name = "HealingPotion",
+                            Name = "Healing Potion",
                             Properties = "Consumable",
                             Rarity = "Uncommon",
                             Stealth = "",
@@ -1392,7 +1395,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A package of dried food sufficient for one day.",
                             HPRegained = "",
-                            Name = "Rations_1day",
+                            Name = "Rations 1 day",
                             Properties = "Consumable",
                             Rarity = "Common",
                             Stealth = "",
@@ -1430,7 +1433,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A hemp rope useful for climbing or securing items.",
                             HPRegained = "",
-                            Name = "Rope_50feet",
+                            Name = "Rope 50 feet",
                             Properties = "50 feet",
                             Rarity = "Common",
                             Stealth = "",
@@ -1487,7 +1490,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "Bludgeoning",
                             Description = "A hammer balanced for throwing.",
                             HPRegained = "",
-                            Name = "ThrowingHammer",
+                            Name = "Throwing Hammer",
                             Properties = "Light, Thrown (range 20/60)",
                             Rarity = "Common",
                             Stealth = "",
@@ -1506,7 +1509,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "Bludgeoning",
                             Description = "A versatile hammer used for powerful strikes.",
                             HPRegained = "",
-                            Name = "Warhammer",
+                            Name = "War hammer",
                             Properties = "Versatile (1d10)",
                             Rarity = "Common",
                             Stealth = "",
@@ -1563,7 +1566,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A magical shield that offers increased protection.",
                             HPRegained = "",
-                            Name = "ShieldPlusOne",
+                            Name = "Shield Plus One",
                             Properties = "Magical Bonus (+1)",
                             Rarity = "Rare",
                             Stealth = "",
@@ -1582,7 +1585,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "This armor grants superior magical protection.",
                             HPRegained = "",
-                            Name = "ArmorPlusTwo",
+                            Name = "Armor Plus Two",
                             Properties = "Magical Bonus (+2)",
                             Rarity = "Very Rare",
                             Stealth = "Disadvantage",
@@ -1601,7 +1604,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "This cloak increases the wearer's AC and saving throws.",
                             HPRegained = "",
-                            Name = "CloakOfProtection",
+                            Name = "Cloak Of Protection",
                             Properties = "Provides +1 bonus to AC and saving throws.",
                             Rarity = "Uncommon",
                             Stealth = "",
@@ -2071,157 +2074,157 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 1,
                             CharacterRaceId = 1,
-                            Name = "AlchemistsSupplies"
+                            Name = "Alchemists Supplies"
                         },
                         new
                         {
                             Id = 2,
                             CharacterRaceId = 1,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         },
                         new
                         {
                             Id = 3,
                             CharacterRaceId = 1,
-                            Name = "HerbalismKit"
+                            Name = "Herbalism Kit"
                         },
                         new
                         {
                             Id = 4,
                             CharacterRaceId = 1,
-                            Name = "MusicalInstrument"
+                            Name = "Musical Instrument"
                         },
                         new
                         {
                             Id = 5,
                             CharacterRaceId = 1,
-                            Name = "PaintersSupplies"
+                            Name = "Painters Supplies"
                         },
                         new
                         {
                             Id = 6,
                             CharacterRaceId = 2,
-                            Name = "SmithsTools"
+                            Name = "Smiths Tools"
                         },
                         new
                         {
                             Id = 7,
                             CharacterRaceId = 2,
-                            Name = "BrewersSupplies"
+                            Name = "Brewers Supplies"
                         },
                         new
                         {
                             Id = 8,
                             CharacterRaceId = 2,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         },
                         new
                         {
                             Id = 9,
                             CharacterRaceId = 2,
-                            Name = "MasonsTools"
+                            Name = "Masons Tools"
                         },
                         new
                         {
                             Id = 10,
                             CharacterRaceId = 2,
-                            Name = "DragonchessSet"
+                            Name = "Dragonchess Set"
                         },
                         new
                         {
                             Id = 11,
                             CharacterRaceId = 3,
-                            Name = "SmithsTools"
+                            Name = "Smiths Tools"
                         },
                         new
                         {
                             Id = 13,
                             CharacterRaceId = 3,
-                            Name = "BrewersSupplies"
+                            Name = "Brewers Supplies"
                         },
                         new
                         {
                             Id = 14,
                             CharacterRaceId = 3,
-                            Name = "MasonsTools"
+                            Name = "Masons Tools"
                         },
                         new
                         {
                             Id = 15,
                             CharacterRaceId = 4,
-                            Name = "HerbalismKit"
+                            Name = "Herbalism Kit"
                         },
                         new
                         {
                             Id = 16,
                             CharacterRaceId = 4,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         },
                         new
                         {
                             Id = 17,
                             CharacterRaceId = 4,
-                            Name = "MusicalInstrument"
+                            Name = "Musical Instrument"
                         },
                         new
                         {
                             Id = 18,
                             CharacterRaceId = 4,
-                            Name = "PaintersSupplies"
+                            Name = "Painters Supplies"
                         },
                         new
                         {
                             Id = 19,
                             CharacterRaceId = 4,
-                            Name = "AlchemistsSupplies"
+                            Name = "Alchemists Supplies"
                         },
                         new
                         {
                             Id = 20,
                             CharacterRaceId = 5,
-                            Name = "HerbalismKit"
+                            Name = "Herbalism Kit"
                         },
                         new
                         {
                             Id = 21,
                             CharacterRaceId = 5,
-                            Name = "CarpenterTools"
+                            Name = "Carpenter Tools"
                         },
                         new
                         {
                             Id = 22,
                             CharacterRaceId = 5,
-                            Name = "CooksUtensils"
+                            Name = "Cooks Utensils"
                         },
                         new
                         {
                             Id = 23,
                             CharacterRaceId = 5,
-                            Name = "MasonsTools"
+                            Name = "Masons Tools"
                         },
                         new
                         {
                             Id = 24,
                             CharacterRaceId = 5,
-                            Name = "PaintersSupplies"
+                            Name = "Painters Supplies"
                         },
                         new
                         {
                             Id = 25,
                             CharacterRaceId = 6,
-                            Name = "NavigatorsTools"
+                            Name = "Navigators Tools"
                         },
                         new
                         {
                             Id = 26,
                             CharacterRaceId = 6,
-                            Name = "CartographerTools"
+                            Name = "Cartographer Tools"
                         },
                         new
                         {
                             Id = 27,
                             CharacterRaceId = 6,
-                            Name = "TinkersTools"
+                            Name = "Tinkers Tools"
                         },
                         new
                         {
@@ -2233,157 +2236,157 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 29,
                             CharacterRaceId = 6,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         },
                         new
                         {
                             Id = 30,
                             CharacterRaceId = 7,
-                            Name = "SmithsTools"
+                            Name = "Smiths Tools"
                         },
                         new
                         {
                             Id = 31,
                             CharacterRaceId = 7,
-                            Name = "MasonsTools"
+                            Name = "Masons Tools"
                         },
                         new
                         {
                             Id = 32,
                             CharacterRaceId = 7,
-                            Name = "MinersTools"
+                            Name = "Miners Tools"
                         },
                         new
                         {
                             Id = 33,
                             CharacterRaceId = 7,
-                            Name = "PottersTools"
+                            Name = "Potters Tools"
                         },
                         new
                         {
                             Id = 34,
                             CharacterRaceId = 7,
-                            Name = "CartographerTools"
+                            Name = "Cartographer Tools"
                         },
                         new
                         {
                             Id = 35,
                             CharacterRaceId = 8,
-                            Name = "AlchemistsSupplies"
+                            Name = "Alchemists Supplies"
                         },
                         new
                         {
                             Id = 36,
                             CharacterRaceId = 8,
-                            Name = "GlassblowersTools"
+                            Name = "Glassblowers Tools"
                         },
                         new
                         {
                             Id = 37,
                             CharacterRaceId = 8,
-                            Name = "SmithsTools"
+                            Name = "Smiths Tools"
                         },
                         new
                         {
                             Id = 38,
                             CharacterRaceId = 8,
-                            Name = "CooksUtensils"
+                            Name = "Cooks Utensils"
                         },
                         new
                         {
                             Id = 39,
                             CharacterRaceId = 8,
-                            Name = "BrewersSupplies"
+                            Name = "Brewers Supplies"
                         },
                         new
                         {
                             Id = 40,
                             CharacterRaceId = 9,
-                            Name = "NavigatorsTools"
+                            Name = "Navigators Tools"
                         },
                         new
                         {
                             Id = 41,
                             CharacterRaceId = 9,
-                            Name = "FishingTackle"
+                            Name = "Fishing Tackle"
                         },
                         new
                         {
                             Id = 42,
                             CharacterRaceId = 9,
-                            Name = "CartographerTools"
+                            Name = "Cartographer Tools"
                         },
                         new
                         {
                             Id = 43,
                             CharacterRaceId = 9,
-                            Name = "CooksUtensils"
+                            Name = "Cooks Utensils"
                         },
                         new
                         {
                             Id = 44,
                             CharacterRaceId = 9,
-                            Name = "BrewersSupplies"
+                            Name = "Brewers Supplies"
                         },
                         new
                         {
                             Id = 45,
                             CharacterRaceId = 10,
-                            Name = "TinkersTools"
+                            Name = "Tinkers Tools"
                         },
                         new
                         {
                             Id = 46,
                             CharacterRaceId = 10,
-                            Name = "AlchemistsSupplies"
+                            Name = "Alchemists Supplies"
                         },
                         new
                         {
                             Id = 47,
                             CharacterRaceId = 10,
-                            Name = "ArtisansTools"
+                            Name = "Artisans Tools"
                         },
                         new
                         {
                             Id = 48,
                             CharacterRaceId = 10,
-                            Name = "CartographerTools"
+                            Name = "Cartographer Tools"
                         },
                         new
                         {
                             Id = 49,
                             CharacterRaceId = 10,
-                            Name = "PaintersSupplies"
+                            Name = "Painters Supplies"
                         },
                         new
                         {
                             Id = 50,
                             CharacterRaceId = 11,
-                            Name = "SmithsTools"
+                            Name = "Smiths Tools"
                         },
                         new
                         {
                             Id = 51,
                             CharacterRaceId = 11,
-                            Name = "MasonsTools"
+                            Name = "Masons Tools"
                         },
                         new
                         {
                             Id = 52,
                             CharacterRaceId = 11,
-                            Name = "CarpenterTools"
+                            Name = "Carpenter Tools"
                         },
                         new
                         {
                             Id = 53,
                             CharacterRaceId = 11,
-                            Name = "CooksUtensils"
+                            Name = "Cooks Utensils"
                         },
                         new
                         {
                             Id = 54,
                             CharacterRaceId = 11,
-                            Name = "BrewersSupplies"
+                            Name = "Brewers Supplies"
                         },
                         new
                         {
@@ -2395,163 +2398,163 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 56,
                             CharacterRaceId = 12,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         },
                         new
                         {
                             Id = 57,
                             CharacterRaceId = 12,
-                            Name = "PaintersSupplies"
+                            Name = "Painters Supplies"
                         },
                         new
                         {
                             Id = 58,
                             CharacterRaceId = 12,
-                            Name = "AlchemistsSupplies"
+                            Name = "Alchemists Supplies"
                         },
                         new
                         {
                             Id = 59,
                             CharacterRaceId = 12,
-                            Name = "JewelersTools"
+                            Name = "Jewelers Tools"
                         },
                         new
                         {
                             Id = 60,
                             CharacterRaceId = 13,
-                            Name = "CooksUtensils"
+                            Name = "Cooks Utensils"
                         },
                         new
                         {
                             Id = 61,
                             CharacterRaceId = 13,
-                            Name = "BrewersSupplies"
+                            Name = "Brewers Supplies"
                         },
                         new
                         {
                             Id = 62,
                             CharacterRaceId = 13,
-                            Name = "WeaversTools"
+                            Name = "Weavers Tools"
                         },
                         new
                         {
                             Id = 63,
                             CharacterRaceId = 13,
-                            Name = "WoodcarversTools"
+                            Name = "Woodcarvers Tools"
                         },
                         new
                         {
                             Id = 64,
                             CharacterRaceId = 13,
-                            Name = "HerbalismKit"
+                            Name = "Herbalism Kit"
                         },
                         new
                         {
                             Id = 65,
                             CharacterRaceId = 14,
-                            Name = "SmithsTools"
+                            Name = "Smiths Tools"
                         },
                         new
                         {
                             Id = 66,
                             CharacterRaceId = 14,
-                            Name = "LeatherworkerTools"
+                            Name = "Leatherworker Tools"
                         },
                         new
                         {
                             Id = 67,
                             CharacterRaceId = 14,
-                            Name = "CarpenterTools"
+                            Name = "Carpenter Tools"
                         },
                         new
                         {
                             Id = 68,
                             CharacterRaceId = 14,
-                            Name = "CooksUtensils"
+                            Name = "Cooks Utensils"
                         },
                         new
                         {
                             Id = 69,
                             CharacterRaceId = 14,
-                            Name = "BrewersSupplies"
+                            Name = "Brewers Supplies"
                         },
                         new
                         {
                             Id = 70,
                             CharacterRaceId = 15,
-                            Name = "SmithsTools"
+                            Name = "Smiths Tools"
                         },
                         new
                         {
                             Id = 71,
                             CharacterRaceId = 15,
-                            Name = "FarmersTools"
+                            Name = "Farmers Tools"
                         },
                         new
                         {
                             Id = 72,
                             CharacterRaceId = 15,
-                            Name = "MasonsTools"
+                            Name = "Masons Tools"
                         },
                         new
                         {
                             Id = 73,
                             CharacterRaceId = 15,
-                            Name = "BrewersSupplies"
+                            Name = "Brewers Supplies"
                         },
                         new
                         {
                             Id = 74,
                             CharacterRaceId = 15,
-                            Name = "HerbalismKit"
+                            Name = "Herbalism Kit"
                         },
                         new
                         {
                             Id = 75,
                             CharacterRaceId = 16,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         },
                         new
                         {
                             Id = 76,
                             CharacterRaceId = 16,
-                            Name = "DisguiseKit"
+                            Name = "Disguise Kit"
                         },
                         new
                         {
                             Id = 77,
                             CharacterRaceId = 16,
-                            Name = "TinkersTools"
+                            Name = "Tinkers Tools"
                         },
                         new
                         {
                             Id = 78,
                             CharacterRaceId = 16,
-                            Name = "ThievesTools"
+                            Name = "Thieves Tools"
                         },
                         new
                         {
                             Id = 79,
                             CharacterRaceId = 16,
-                            Name = "PaintersSupplies"
+                            Name = "Painters Supplies"
                         },
                         new
                         {
                             Id = 80,
                             CharacterRaceId = 17,
-                            Name = "CartographerTools"
+                            Name = "Cartographer Tools"
                         },
                         new
                         {
                             Id = 81,
                             CharacterRaceId = 17,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         },
                         new
                         {
                             Id = 82,
                             CharacterRaceId = 17,
-                            Name = "PaintersSupplies"
+                            Name = "Painters Supplies"
                         },
                         new
                         {
@@ -2563,25 +2566,25 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 84,
                             CharacterRaceId = 17,
-                            Name = "ThievesTools"
+                            Name = "Thieves Tools"
                         },
                         new
                         {
                             Id = 85,
                             CharacterRaceId = 18,
-                            Name = "AlchemistsSupplies"
+                            Name = "Alchemists Supplies"
                         },
                         new
                         {
                             Id = 86,
                             CharacterRaceId = 18,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         },
                         new
                         {
                             Id = 87,
                             CharacterRaceId = 18,
-                            Name = "DisguiseKit"
+                            Name = "Disguise Kit"
                         },
                         new
                         {
@@ -2593,67 +2596,67 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 89,
                             CharacterRaceId = 18,
-                            Name = "ForgeryKit"
+                            Name = "Forgery Kit"
                         },
                         new
                         {
                             Id = 90,
                             CharacterRaceId = 19,
-                            Name = "MasonsTools"
+                            Name = "Masons Tools"
                         },
                         new
                         {
                             Id = 91,
                             CharacterRaceId = 19,
-                            Name = "CarpenterTools"
+                            Name = "Carpenter Tools"
                         },
                         new
                         {
                             Id = 92,
                             CharacterRaceId = 19,
-                            Name = "CooksUtensils"
+                            Name = "Cooks Utensils"
                         },
                         new
                         {
                             Id = 93,
                             CharacterRaceId = 19,
-                            Name = "FishingTackle"
+                            Name = "Fishing Tackle"
                         },
                         new
                         {
                             Id = 94,
                             CharacterRaceId = 19,
-                            Name = "HerbalismKit"
+                            Name = "Herbalism Kit"
                         },
                         new
                         {
                             Id = 95,
                             CharacterRaceId = 20,
-                            Name = "PoisonersKit"
+                            Name = "Poisoners Kit"
                         },
                         new
                         {
                             Id = 96,
                             CharacterRaceId = 20,
-                            Name = "AlchemistsSupplies"
+                            Name = "Alchemists Supplies"
                         },
                         new
                         {
                             Id = 97,
                             CharacterRaceId = 20,
-                            Name = "DisguiseKit"
+                            Name = "Disguise Kit"
                         },
                         new
                         {
                             Id = 98,
                             CharacterRaceId = 20,
-                            Name = "ForgeryKit"
+                            Name = "Forgery Kit"
                         },
                         new
                         {
                             Id = 99,
                             CharacterRaceId = 20,
-                            Name = "CalligraphersSupplies"
+                            Name = "Calligraphers Supplies"
                         });
                 });
 
@@ -2707,13 +2710,13 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 5,
                             CharacterRaceId = 3,
-                            Name = "ThrowingHammer"
+                            Name = "Throwing Hammer"
                         },
                         new
                         {
                             Id = 6,
                             CharacterRaceId = 3,
-                            Name = "Warhammer"
+                            Name = "War hammer"
                         },
                         new
                         {
@@ -2905,7 +2908,7 @@ namespace DND_App.Web.Migrations
                             Id = 3,
                             AlignedAttribute = "Dexterity",
                             Description = "Covers manual trickery like pickpocketing.",
-                            Name = "SleightOfHand"
+                            Name = "Sleight Of Hand"
                         },
                         new
                         {
@@ -2954,7 +2957,7 @@ namespace DND_App.Web.Migrations
                             Id = 10,
                             AlignedAttribute = "Wisdom",
                             Description = "Covers calming, controlling, and training animals.",
-                            Name = "AnimalHandling"
+                            Name = "Animal Handling"
                         },
                         new
                         {
@@ -3067,13 +3070,13 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 1,
-                            CastingTime = "_1Action",
+                            CastingTime = "One Action",
                             Components = "[]",
                             Description = "A creature you touch regains hit points equal to 1d8 + your spellcasting modifier.",
                             Duration = "Instant",
                             IsPrepared = false,
                             Level = 1,
-                            Name = "CureWounds",
+                            Name = "Cure Wounds",
                             RequiresConcentration = false,
                             School = "Evocation",
                             SpellRange = "Touch"
@@ -3081,10 +3084,10 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 2,
-                            CastingTime = "_1Reaction",
+                            CastingTime = "One Reaction",
                             Components = "[]",
                             Description = "You gain +5 to AC until the start of your next turn.",
-                            Duration = "_1Round",
+                            Duration = "One Round",
                             IsPrepared = false,
                             Level = 1,
                             Name = "Shield",
@@ -3095,66 +3098,66 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 3,
-                            CastingTime = "_1Action",
+                            CastingTime = "One Action",
                             Components = "[]",
                             Description = "Create three glowing darts of force, each dealing 1d4+1 damage to a target.",
                             Duration = "Instant",
                             IsPrepared = false,
                             Level = 1,
-                            Name = "MagicMissle",
+                            Name = "Magic Missle",
                             RequiresConcentration = false,
                             School = "Evocation",
-                            SpellRange = "_120feet"
+                            SpellRange = "120 feet"
                         },
                         new
                         {
                             Id = 4,
-                            CastingTime = "_1Action",
+                            CastingTime = "One Action",
                             Components = "[]",
                             Description = "Sense the presence of magic within 30 feet for up to 10 minutes.",
-                            Duration = "_10minutes",
+                            Duration = "10 minutes",
                             IsPrepared = false,
                             Level = 1,
-                            Name = "DetectMagic",
+                            Name = "Detect Magic",
                             RequiresConcentration = false,
                             School = "Divination",
-                            SpellRange = "_30feet"
+                            SpellRange = "30 feet"
                         },
                         new
                         {
                             Id = 5,
-                            CastingTime = "_1Action",
+                            CastingTime = "One Action",
                             Components = "[]",
                             Description = "Up to three creatures gain +1d4 to attack rolls and saving throws for 1 minute.",
-                            Duration = "_1Minute",
+                            Duration = "1 Minute",
                             IsPrepared = false,
                             Level = 1,
                             Name = "Bless",
                             RequiresConcentration = false,
                             School = "Enchantment",
-                            SpellRange = "_30feet"
+                            SpellRange = "30 feet"
                         },
                         new
                         {
                             Id = 6,
-                            CastingTime = "BonusAction",
+                            CastingTime = "Bonus Action",
                             Components = "[]",
                             Description = "Teleport up to 30 feet to an unoccupied space you can see.",
                             Duration = "Instant",
                             IsPrepared = false,
                             Level = 2,
-                            Name = "MistyStep",
+                            Name = "Misty Step",
                             RequiresConcentration = false,
                             School = "Conjuration",
-                            SpellRange = "_30feet"
+                            SpellRange = "30 feet"
                         },
                         new
                         {
                             Id = 7,
-                            CastingTime = "_1Action",
+                            CastingTime = "One Action",
                             Components = "[]",
                             Description = "A creature you touch becomes invisible until they attack or cast a spell.",
-                            Duration = "Upto1Hour",
+                            Duration = "Up to 1 Hour",
                             IsPrepared = false,
                             Level = 2,
                             Name = "Invisibility",
@@ -3165,41 +3168,41 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 8,
-                            CastingTime = "_1Action",
+                            CastingTime = "One Action",
                             Components = "[]",
                             Description = "Paralyze a humanoid target for 1 minute, with repeated saves to escape.",
-                            Duration = "Upto1Minute",
+                            Duration = "Up to 1 Minute",
                             IsPrepared = false,
                             Level = 2,
-                            Name = "HoldPerson",
+                            Name = "Hold Person",
                             RequiresConcentration = false,
                             School = "Enchantment",
-                            SpellRange = "_60feet"
+                            SpellRange = "60 feet"
                         },
                         new
                         {
                             Id = 9,
-                            CastingTime = "_1Action",
+                            CastingTime = "One Action",
                             Components = "[]",
                             Description = "Fire three rays of fire, each dealing 2d6 fire damage on a hit.",
                             Duration = "Instant",
                             IsPrepared = false,
                             Level = 2,
-                            Name = "ScorchingRay",
+                            Name = "Scorching Ray",
                             RequiresConcentration = false,
                             School = "Evocation",
-                            SpellRange = "_120feet"
+                            SpellRange = "120 feet"
                         },
                         new
                         {
                             Id = 10,
-                            CastingTime = "_1Action",
+                            CastingTime = "One Action",
                             Components = "[]",
                             Description = "Grant advantage on ability checks or other bonuses to the target.",
-                            Duration = "_1Hour",
+                            Duration = "One Hour",
                             IsPrepared = false,
                             Level = 2,
-                            Name = "EnhanceAbility",
+                            Name = "Enhance Ability",
                             RequiresConcentration = false,
                             School = "Transmutation",
                             SpellRange = "Touch"
@@ -3245,7 +3248,7 @@ namespace DND_App.Web.Migrations
                             Id = 1,
                             Description = "A platnum coin.",
                             IsMagical = false,
-                            Name = "PlatnumCoin",
+                            Name = "Platnum Coin",
                             Type = "Coins",
                             Value = 10f,
                             Weight = 0.01f
@@ -3255,7 +3258,7 @@ namespace DND_App.Web.Migrations
                             Id = 2,
                             Description = "A gold coin.",
                             IsMagical = false,
-                            Name = "GoldCoin",
+                            Name = "Gold Coin",
                             Type = "Coins",
                             Value = 1f,
                             Weight = 0.01f
@@ -3265,7 +3268,7 @@ namespace DND_App.Web.Migrations
                             Id = 3,
                             Description = "A electrum coin.",
                             IsMagical = false,
-                            Name = "ElectrumCoin",
+                            Name = "Electrum Coin",
                             Type = "Coins",
                             Value = 0.5f,
                             Weight = 0.01f
@@ -3275,7 +3278,7 @@ namespace DND_App.Web.Migrations
                             Id = 4,
                             Description = "A silver coin.",
                             IsMagical = false,
-                            Name = "SilverCoin",
+                            Name = "Silver Coin",
                             Type = "Coins",
                             Value = 0.1f,
                             Weight = 0.01f
@@ -3285,7 +3288,7 @@ namespace DND_App.Web.Migrations
                             Id = 5,
                             Description = "A copper coin.",
                             IsMagical = false,
-                            Name = "CopperCoin",
+                            Name = "Copper Coin",
                             Type = "Coins",
                             Value = 0.01f,
                             Weight = 0.01f
@@ -3335,7 +3338,7 @@ namespace DND_App.Web.Migrations
                             Id = 10,
                             Description = "A beautiful bracelet with delicate ruby inlays.",
                             IsMagical = false,
-                            Name = "SilverBraceletWithRubyInlays",
+                            Name = "Silver Bracelet With Ruby Inlays",
                             Type = "Jewelry",
                             Value = 100f,
                             Weight = 1f
@@ -3345,7 +3348,7 @@ namespace DND_App.Web.Migrations
                             Id = 11,
                             Description = "A magical amulet that grants protection to its wearer.",
                             IsMagical = true,
-                            Name = "AmuletOfProtection",
+                            Name = "Amulet Of Protection",
                             Type = "Artifacts",
                             Value = 5000f,
                             Weight = 2f
@@ -3355,7 +3358,7 @@ namespace DND_App.Web.Migrations
                             Id = 12,
                             Description = "A magical sword infused with the essence of valor.",
                             IsMagical = true,
-                            Name = "SwordOfValor",
+                            Name = "Sword Of Valor",
                             Type = "Artifacts",
                             Value = 10000f,
                             Weight = 10f
