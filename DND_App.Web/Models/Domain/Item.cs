@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using DND_App.Web.StaticClasses;
 
 namespace DND_App.Web.Models.Domain
 {

@@ -39,9 +39,10 @@ namespace DND_App.Web.Controllers
                     EmailAddress = user.Email
                 });
             }
-
+            
             return View(usersViewModel);
         }
+
         [HttpPost]
         public async Task<IActionResult> List(UserViewModel request)
         {

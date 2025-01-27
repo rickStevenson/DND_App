@@ -98,6 +98,7 @@ namespace DND_App.Web.Controllers
                 ReturnUrl = ReturnUrl
             };
 
+            
             return View(model);
         }
         [HttpPost]
@@ -114,14 +115,33 @@ namespace DND_App.Web.Controllers
                 false,
                 false);
 
+            //var user = await signInManager.UserManager.FindByNameAsync(loginViewModel.Username);
+            //if (user != null)
+            //{
+            //    var roles = await signInManager.UserManager.GetRolesAsync(user);
+            //    Console.WriteLine($"Roles for user {user.UserName}: {string.Join(", ", roles)}");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("User not found.");
+            //}
+
             if (signInResult != null && signInResult.Succeeded)
             {
+                var user = await userManager.FindByNameAsync(loginViewModel.Username);
+                if (user != null)
+                {
+                    await signInManager.RefreshSignInAsync(user);
+                }
+
                 if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl))
                 {
                     return Redirect(loginViewModel.ReturnUrl);
                 }
                 return RedirectToAction("Index", "Home");
             }
+
+            
             //Show errors
             return View();
         }

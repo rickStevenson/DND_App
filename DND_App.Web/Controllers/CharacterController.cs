@@ -301,7 +301,7 @@ namespace DND_App.Web.Controllers
 
             //foreach (var item in character.CharacterItems)
             //{
-            //    Console.WriteLine($"ItemId: {item.ItemId}, Item is null: {item.Item == null}");
+            //    Console.WriteLine($"ItemId: {item.ItemId}, Items is null: {item.Items == null}");
             //}
 
             // Populate dropdown data for classes, races, skills, and spells
@@ -456,7 +456,7 @@ namespace DND_App.Web.Controllers
             
             if (editCharacterRequest.CharacterItems.Any(ci => ci.Quantity < 0))
             {
-                ModelState.AddModelError("", "Item quantity cannot be negative.");
+                ModelState.AddModelError("", "Items quantity cannot be negative.");
                 return View(editCharacterRequest);
             }
             #endregion
@@ -517,7 +517,7 @@ namespace DND_App.Web.Controllers
 
             // Reload CharacterItems from the database to reflect changes
             await dndDbContext.Entry(character).Collection(c => c.CharacterItems).Query()
-                .Include(ci => ci.Item) // Ensure related Items are loaded
+                .Include(ci => ci.Item) // Ensure related CharacterItems are loaded
                 .LoadAsync();
 
             // Recalculate Armor Class

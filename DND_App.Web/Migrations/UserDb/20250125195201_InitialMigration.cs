@@ -171,7 +171,7 @@ namespace DND_App.Web.Migrations.UserDb
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "59c21724-793c-4cb1-9438-dec6213c808b", 0, "5e55d75f-7ed2-46c2-ac60-35b7d5a01cc1", "dadsathome1@gmail.com", false, false, null, "DADSATHOME1@GMAIL.COM", "RICKTHESTICK", "AQAAAAIAAYagAAAAEMKwlk2QkpenhCWVUSqn/uK9iZPs3tr8RiIG98SPvjLWarQ4SypvMtYCEMzHZU6UPw==", null, false, "84449599-e41a-41ae-b182-f3a0c4c54d19", false, "rickthestick" });
+                values: new object[] { "59c21724-793c-4cb1-9438-dec6213c808b", 0, "6bc43b72-926d-4df7-b03f-92ea12e57116", "dadsathome1@gmail.com", false, false, null, "DADSATHOME1@GMAIL.COM", "RICKTHESTICK", "AQAAAAIAAYagAAAAEM7POi7+7gG7aR1Zr8MdCi6AhVNX4JFGmPQANXJsy6UZvgeURADQBMFf5/XkFaO2Bg==", null, false, "0fa8422c-3eab-4390-ac23-d7e88c7645ae", false, "rickthestick" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

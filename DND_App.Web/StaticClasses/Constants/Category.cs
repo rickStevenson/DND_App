@@ -6,6 +6,6 @@
         public const string Armor = "Armor";
         public const string Potion = "Potion";
         public const string Gear = "Gear";
-        public const string MagicItem = "Magic Item";
+        public const string MagicItem = "Magic Items";
     }
 }

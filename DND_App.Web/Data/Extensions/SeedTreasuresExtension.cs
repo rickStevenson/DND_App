@@ -1,6 +1,7 @@
 ﻿using DND_App.Web.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using DND_App.Web.StaticClasses.Constants;
 
 namespace DND_App.Web.Data.Extensions
 {
@@ -12,120 +13,120 @@ namespace DND_App.Web.Data.Extensions
                 new Treasure 
                 { 
                     Id = 1, 
-                    Name = "Platnum Coin", 
+                    Name = Items.PlatnumCoin, 
                     Description = "A platnum coin.", 
                     Value = 10, 
-                    Type = "Coins", 
+                    Type = Treasures.Coins, 
                     Weight = .01f, 
                     IsMagical = false 
                 },
                 new Treasure
                 {
                     Id = 2,
-                    Name = "Gold Coin",
+                    Name = Items.GoldCoin,
                     Description = "A gold coin.",
                     Value = 1,
-                    Type = "Coins",
+                    Type = Treasures.Coins,
                     Weight = .01f,
                     IsMagical = false
                 },
                 new Treasure
                 {
                     Id = 3,
-                    Name = "Electrum Coin",
+                    Name = Items.ElectrumCoin,
                     Description = "A electrum coin.",
                     Value = .5f,
-                    Type = "Coins",
+                    Type = Treasures.Coins,
                     Weight = .01f,
                     IsMagical = false
                 },
                 new Treasure
                 {
                     Id = 4,
-                    Name = "Silver Coin",
+                    Name = Items.SilverCoin,
                     Description = "A silver coin.",
                     Value = .1f,
-                    Type = "Coins",
+                    Type = Treasures.Coins,
                     Weight = .01f,
                     IsMagical = false
                 },
                 new Treasure
                 {
                     Id = 5,
-                    Name = "Copper Coin",
+                    Name = Items.CopperCoin,
                     Description = "A copper coin.",
                     Value = .01f,
-                    Type = "Coins",
+                    Type = Treasures.Coins,
                     Weight = .01f,
                     IsMagical = false
                 },
                 new Treasure 
                 { 
                     Id = 6, 
-                    Name = "Diamond", 
+                    Name = Items.Diamond, 
                     Description = "A precious clear gem.", 
                     Value = 1000, 
-                    Type = "Gems", 
+                    Type = Treasures.Gems, 
                     Weight = 0, 
                     IsMagical = false 
                 },
                 new Treasure
                 {
                     Id = 7,
-                    Name = "Sapphire",
+                    Name = Items.Sapphire,
                     Description = "A precious blue gem.",
                     Value = 500,
-                    Type = "Gems",
+                    Type = Treasures.Gems,
                     Weight = 0,
                     IsMagical = false
                 },
                 new Treasure
                 {
                     Id = 8,
-                    Name = "Emerald",
+                    Name = Items.Emerald,
                     Description = "A precious green gem.",
                     Value = 100,
-                    Type = "Gems",
+                    Type = Treasures.Gems,
                     Weight = 0,
                     IsMagical = false
                 },
                 new Treasure
                 {
                     Id = 9,
-                    Name = "Ruby",
+                    Name = Items.Ruby,
                     Description = "A precious red gem.",
                     Value = 50,
-                    Type = "Gems",
+                    Type = Treasures.Gems,
                     Weight = 0,
                     IsMagical = false
                 },
                 new Treasure 
                 { 
                     Id = 10, 
-                    Name = "Silver Bracelet with Ruby Inlays", 
+                    Name = Items.SilverBraceletWithRubyInlays, 
                     Description = "A beautiful bracelet with delicate ruby inlays.",
                     Value = 100, 
-                    Type = "Jewelry", 
+                    Type = Treasures.Jewelry, 
                     Weight = 1, 
                     IsMagical = false 
                 },
                 new Treasure 
                 { 
                     Id = 11, 
-                    Name = "Amulet of Protection", 
+                    Name = Items.AmuletOfProtection, 
                     Description = "A magical amulet that grants protection to its wearer.", 
                     Value = 5000, 
-                    Type = "Artifact", 
+                    Type = Treasures.Artifacts, 
                     Weight = 2, 
                     IsMagical = true 
                 },
                 new Treasure 
                 { 
                     Id = 12, 
-                    Name = "Sword of Valor", 
+                    Name = Items.SwordOfValor, 
                     Description = "A magical sword infused with the essence of valor.", 
                     Value = 10000, 
-                    Type = "Artifact", 
+                    Type = Treasures.Artifacts, 
                     Weight = 10, 
                     IsMagical = true 
                 }

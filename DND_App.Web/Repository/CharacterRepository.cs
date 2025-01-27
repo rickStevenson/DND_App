@@ -190,14 +190,14 @@ namespace DND_App.Web.Repository
                     }
                 }
 
-                // Add or update Item
+                // Add or update Items
                 foreach (var item in updatedItems)
                 {
                     var existingItem = existingItems
                         .FirstOrDefault(cs => cs.ItemId == item.ItemId);
                     if (existingItem == null)
                     {
-                        // Add new Item
+                        // Add new Items
                         existingCharacterFromDb.CharacterItems.Add(new CharacterItem
                         {
                             ItemId = item.ItemId,

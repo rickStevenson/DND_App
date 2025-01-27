@@ -3,6 +3,7 @@ using DND_App.Web.Data;
 using DND_App.Web.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,21 +18,18 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString
 ("DND_UserAuth_DbConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<UserDbContext>();
-
-
-
-builder.Services.Configure<IdentityOptions>(options =>
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
-    //Default Settings
+    options.ClaimsIdentity.RoleClaimType = ClaimTypes.Role; // Add RoleClaimType for proper role functionality
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
-});
+})
+.AddEntityFrameworkStores<UserDbContext>() // Ensure UserDbContext is used for identity
+.AddDefaultTokenProviders();
 
 builder.Services.AddScoped<ICharacterClassRepository, CharacterClassRepository>();
 builder.Services.AddScoped<ICharacterRaceRepository, CharacterRaceRepository>();

@@ -12,7 +12,6 @@
         public string Duration { get; set; } = string.Empty;
         public bool RequiresConcentration { get; set; }
         public string Description { get; set; } = string.Empty;
-
-        //public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
+        public List<string> Components { get; set; } = new List<string>();
     }
 }

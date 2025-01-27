@@ -65,20 +65,34 @@ namespace DND_App.Web.StaticClasses
             {
                 switch (equippedArmor.Item.Name)
                 {
-                    case Constants.Items.LeatherArmor:
-                        baseAC = 11 + dexterityModifier;
+                    case "Leather Armor":
+                        if (equippedArmor.Item.Name == Items.LeatherArmor)
+                        {
+                            baseAC = 11 + dexterityModifier;
+                        }
                         break;
 
-                    case Constants.Items.ChainShirt:
-                        baseAC = 13 + Math.Min(dexterityModifier, 2);
+                    case "Chain Shirt":
+                        if (equippedArmor.Item.Name == Items.ChainShirt)
+                        {
+                            baseAC = 13 + Math.Min(dexterityModifier, 2);
+                        }
                         break;
 
-                    case Constants.Items.Chainmail:
-                        baseAC = 16 + Math.Min(dexterityModifier, 2);
+                    case "Chainmail":
+                        if (equippedArmor.Item.Name == Items.Chainmail)
+                        {
+                            baseAC = 16 + Math.Min(dexterityModifier, 2);
+                        }
+
                         break;
 
-                    case Constants.Items.PlateArmor:
-                        baseAC = 18;
+                    case "Plate Armor":
+                        if (equippedArmor.Item.Name == Items.PlateArmor)
+                        {
+                            baseAC = 18;
+                        }
+
                         break;
 
                     default:
@@ -102,7 +116,7 @@ namespace DND_App.Web.StaticClasses
 
             // Check if a shield is equipped.
             var shieldEquipped = character.CharacterItems
-                .Any(item => item.Item != null && item.Item.Name == Constants.Items.Shield);
+                .Any(item => item.Item != null && item.Item.Name == Items.Shield);
             if (shieldEquipped)
             {
                 baseAC += 2;

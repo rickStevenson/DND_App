@@ -76,7 +76,7 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Item",
+                name: "Items",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -84,12 +84,22 @@ namespace DND_App.Web.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Weight = table.Column<float>(type: "real", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Value = table.Column<float>(type: "real", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ArmorClass = table.Column<int>(type: "int", nullable: true),
+                    Strength = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Stealth = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Damage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DamageType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rarity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HPRegained = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cost = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArmorClassBonus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Item", x => x.Id);
+                    table.PrimaryKey("PK_Items", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,11 +131,30 @@ namespace DND_App.Web.Migrations
                     SpellRange = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RequiresConcentration = table.Column<bool>(type: "bit", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Components = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Spells", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Treasures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Value = table.Column<float>(type: "real", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Weight = table.Column<float>(type: "real", nullable: false),
+                    IsMagical = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Treasures", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,13 +265,13 @@ namespace DND_App.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CharacterImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CharacterImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CharacterName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PlayerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CharacterClassId = table.Column<int>(type: "int", nullable: false),
                     CharacterRaceId = table.Column<int>(type: "int", nullable: false),
-                    Age = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Age = table.Column<int>(type: "int", nullable: false),
                     Level = table.Column<int>(type: "int", nullable: false),
                     ExperiencePoints = table.Column<int>(type: "int", nullable: false),
                     Alignment = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -298,28 +327,26 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CharacterItem",
+                name: "CharacterItems",
                 columns: table => new
                 {
                     CharacterId = table.Column<int>(type: "int", nullable: false),
                     ItemId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CharacterInventory", x => new { x.CharacterId, x.ItemId });
+                    table.PrimaryKey("PK_CharacterItems", x => new { x.CharacterId, x.ItemId });
                     table.ForeignKey(
-                        name: "FK_CharacterInventory_Characters_CharacterId",
+                        name: "FK_CharacterItems_Characters_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Characters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CharacterInventory_Item_ItemId",
+                        name: "FK_CharacterItems_Items_ItemId",
                         column: x => x.ItemId,
-                        principalTable: "Item",
+                        principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -375,6 +402,31 @@ namespace DND_App.Web.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CharacterTreasures",
+                columns: table => new
+                {
+                    CharacterId = table.Column<int>(type: "int", nullable: false),
+                    TreasureId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CharacterTreasures", x => new { x.CharacterId, x.TreasureId });
+                    table.ForeignKey(
+                        name: "FK_CharacterTreasures_Characters_CharacterId",
+                        column: x => x.CharacterId,
+                        principalTable: "Characters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterTreasures_Treasures_TreasureId",
+                        column: x => x.TreasureId,
+                        principalTable: "Treasures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "CharacterClasses",
                 columns: new[] { "Id", "Description", "HitDie", "Name" },
@@ -399,7 +451,7 @@ namespace DND_App.Web.Migrations
                 columns: new[] { "Id", "CharismaBonus", "ConstitutionBonus", "Description", "DexterityBonus", "FemaleImage", "IntelligenceBonus", "MaleImage", "Name", "StrengthBonus", "WisdomBonus" },
                 values: new object[,]
                 {
-                    { 1, 1, 0, "Aasimar are beings touched by the divine. They serve as celestial champions, guardians of justice and virtue, and often possess a celestial guide to aid them in their quests. Aasimar are marked by their radiant appearance—gleaming eyes, a faint golden or silver sheen to their skin, and an aura of grace. They are driven by a sense of purpose to protect the weak, fight evil, and uphold righteousness.", 0, "/images/races/Aasimar_Female.png", 2, "/images/races/Aasimar_Male.png", "Aasimar", 0, 0 },
+                    { 1, 1, 0, "Aasimar are beings touched by the divine. They serve as celestial champions, guardians of justice and virtue, and often possess a celestial guide to aid them in their quests. Aasimar are marked by their radiant appearance—gleaming eyes, a faint golden or silver sheen to their skin, and an aura of grace. They are driven by a sense of purpose to protect the weak, fight evil, and uphold righteousness.", 0, "/images/races/Aasimar_Female.png", 2, "/images/races/Aasimar_Male.png", "Air Genasi", 0, 0 },
                     { 2, 1, 0, "Dragonborn are proud, draconic humanoids with ancestry linked to the great dragons. Their scales shimmer in hues tied to their draconic lineage—red, blue, green, or even metallic tones. They exude strength and confidence and often bear a natural affinity for leadership. Dragonborn breathe an element of their dragon heritage, whether fire, lightning, or frost, making them fearsome warriors on the battlefield.", 0, "/images/races/Dragonborn_Female.png", 0, "/images/races/Dragonborn_Male.png", "Dragonborn", 2, 0 },
                     { 3, 0, 2, "Dwarves are sturdy, hearty, and known for their unparalleled craftsmanship. They are short and stocky with a build designed for endurance. Dwarves are fiercely loyal to their kin, and their stronghold cities are engineering marvels carved deep into mountains. Their culture revolves around tradition, respect for ancestry, and a relentless work ethic.", 0, "/images/races/Dwarf_Female.png", 0, "/images/races/Dwarf_Male.png", "Dwarf", 0, 0 },
                     { 4, 0, 0, "Elves are graceful and otherworldly beings closely tied to nature and the arcane. With sharp features, pointed ears, and a timeless beauty, elves are creatures of both mystery and elegance. They live much longer than humans and tend to focus on mastering arts, magic, or combat during their lifetimes. Their connection to the Feywild grants them agility and other supernatural abilities.", 2, "/images/races/Elf_Female.png", 0, "/images/races/Elf_Male.png", "Elf", 0, 0 },
@@ -419,6 +471,32 @@ namespace DND_App.Web.Migrations
                     { 18, 2, 0, "Tieflings are humanoids with infernal heritage, often descended from fiends or those who made pacts with devils. Their infernal bloodline is evident in their appearance—horns, tails, and glowing eyes mark them as different. Despite their fiendish origins, Tieflings are not inherently evil and often seek to rise above the stigma of their heritage, forging their own path in life.", 0, "/images/races/Tiefling_Female.png", 1, "/images/races/Tiefling_Male.png", "Tiefling", 0, 0 },
                     { 19, 0, 1, "Tortles are humanoid turtles, known for their calm demeanor and love of exploration. They carry their homes on their backs in the form of durable shells, making them self-reliant and capable of traveling wherever their curiosity takes them. Tortles are often wise and contemplative, with a deep connection to nature and a strong appreciation for life’s simple pleasures.", 0, "/images/races/Tortle_Female.png", 0, "/images/races/Tortle_Male.png", "Tortle", 2, 0 },
                     { 20, 2, 0, "Yuan-Ti Purebloods are snake-like humanoids descended from a once-great serpent empire. They are cold, calculating, and ambitious, often serving as spies, diplomats, or manipulators for their kind. Yuan-Ti Purebloods are the most human-looking of the Yuan-Ti, allowing them to infiltrate societies more easily, but their serpent features—such as scaled skin or slit-pupil eyes—betray their heritage.", 0, "/images/races/YuanTiPureblood_Female.png", 1, "/images/races/YuanTiPureblood_Male.png", "Yuan-Ti Pureblood", 0, 0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "Id", "ArmorClass", "ArmorClassBonus", "Category", "Cost", "Damage", "DamageType", "Description", "HPRegained", "Name", "Properties", "Rarity", "Stealth", "Strength", "Value", "Weight" },
+                values: new object[,]
+                {
+                    { 1, 0, 0, "Weapon", "15 gp", "1d8", "Slashing", "A versatile blade suitable for slashing and thrusting.", "", "Longsword", "Versatile (1d10)", "Common", "", "", 15f, 3f },
+                    { 2, 16, 0, "Armor", "75 gp", "", "", "A suit of interlocking metal rings providing solid protection.", "", "Chainmail", "", "Common", "Disadvantage", "Str 13", 75f, 55f },
+                    { 3, 0, 0, "Potion", "50 gp", "", "", "A small vial of red liquid that restores health when consumed.", "2d4+2", "HealingPotion", "Consumable", "Uncommon", "", "", 50f, 0.5f },
+                    { 4, 0, 0, "Gear", "2 gp", "", "", "A sturdy container to carry your belongings.", "", "Backpack", "Can hold up to 30 lbs of items", "Common", "", "", 2f, 5f },
+                    { 5, 0, 0, "Gear", "5 gp", "", "", "A hooded lantern that casts bright light in a 30-foot radius.", "", "Lantern", "Light source; bright light in a 30-foot radius and dim light for an additional 30 feet", "Common", "", "", 5f, 2f },
+                    { 6, 0, 0, "Weapon", "25 gp", "1d6", "Piercing", "A compact bow designed for quick, short-range shots.", "", "Shortbow", "Range (80/320), Ammunition", "Common", "", "", 25f, 2f },
+                    { 7, 0, 0, "Gear", "50 gp", "", "", "A leather-bound tome containing the wizard’s spells.", "", "Spellbook", "Holds prepared spells", "Common", "", "", 50f, 3f },
+                    { 8, 0, 0, "Gear", "5 sp", "", "", "A package of dried food sufficient for one day.", "", "Rations_1day", "Consumable", "Common", "", "", 0.5f, 2f },
+                    { 9, 0, 0, "Weapon", "2 gp", "1d4", "Piercing", "A small, sharp blade perfect for close combat or throwing.", "", "Dagger", "Finesse, Light, Thrown (range 20/60)", "Common", "", "", 2f, 1f },
+                    { 10, 0, 0, "Gear", "1 gp", "", "", "A hemp rope useful for climbing or securing items.", "", "Rope_50feet", "50 feet", "Common", "", "", 1f, 10f },
+                    { 11, 0, 0, "Weapon", "10 gp", "1d8", "Slashing", "A large axe designed for heavy combat.", "", "Battleaxe", "Versatile (1d10)", "Common", "", "", 10f, 4f },
+                    { 12, 0, 0, "Weapon", "5 gp", "1d6", "Slashing", "A small axe usable in melee or as a thrown weapon.", "", "Handaxe", "Light, Thrown (range 20/60)", "Common", "", "", 5f, 2f },
+                    { 13, 0, 0, "Weapon", "5 gp", "1d4", "Bludgeoning", "A hammer balanced for throwing.", "", "ThrowingHammer", "Light, Thrown (range 20/60)", "Common", "", "", 5f, 2f },
+                    { 14, 0, 0, "Weapon", "15 gp", "1d8", "Bludgeoning", "A versatile hammer used for powerful strikes.", "", "Warhammer", "Versatile (1d10)", "Common", "", "", 15f, 2f },
+                    { 15, 0, 0, "Weapon", "10 gp", "1d6", "Piercing", "A lightweight blade ideal for quick, precise strikes.", "", "Shortsword", "Finesse, Light", "Common", "", "", 10f, 2f },
+                    { 16, 0, 0, "Weapon", "50 gp", "1d8", "Piercing", "A long-range bow capable of powerful shots.", "", "Longbow", "Range (150/600), Ammunition, Heavy, Two-Handed", "Common", "", "", 50f, 2f },
+                    { 17, 2, 1, "Armor", "500 gp", "", "", "A magical shield that offers increased protection.", "", "ShieldPlusOne", "Magical Bonus (+1)", "Rare", "", "", 500f, 6f },
+                    { 18, 15, 2, "Armor", "2000 gp", "", "", "This armor grants superior magical protection.", "", "ArmorPlusTwo", "Magical Bonus (+2)", "Very Rare", "Disadvantage", "Str 13", 2000f, 50f },
+                    { 19, 0, 1, "Magic Items", "1500 gp", "", "", "This cloak increases the wearer's AC and saving throws.", "", "CloakOfProtection", "Provides +1 bonus to AC and saving throws.", "Uncommon", "", "", 1500f, 1f }
                 });
 
             migrationBuilder.InsertData(
@@ -448,19 +526,38 @@ namespace DND_App.Web.Migrations
 
             migrationBuilder.InsertData(
                 table: "Spells",
-                columns: new[] { "Id", "CastingTime", "Description", "Duration", "IsPrepared", "Level", "Name", "RequiresConcentration", "School", "SpellRange" },
+                columns: new[] { "Id", "CastingTime", "Components", "Description", "Duration", "IsPrepared", "Level", "Name", "RequiresConcentration", "School", "SpellRange" },
                 values: new object[,]
                 {
-                    { 1, "1 Action", "A creature you touch regains hit points equal to 1d8 + your spellcasting modifier.", "Instant", false, 1, "Cure Wounds", false, "Evocation", "Touch" },
-                    { 2, "1 Reaction", "You gain +5 to AC until the start of your next turn.", "1 Round", false, 1, "Shield", false, "Abjuration", "Self" },
-                    { 3, "1 Action", "Create three glowing darts of force, each dealing 1d4+1 damage to a target.", "Instant", false, 1, "MagicArmor Missle", false, "Evocation", "120 feet" },
-                    { 4, "1 Action", "Sense the presence of magic within 30 feet for up to 10 minutes.", "10 minutes", false, 1, "Detect MagicArmor", false, "Divination", "30 feet" },
-                    { 5, "1 Action", "Up to three creatures gain +1d4 to attack rolls and saving throws for 1 minute.", "1 Minute", false, 1, "Bless", false, "Enchantment", "30 feet" },
-                    { 6, "Bonus Action", "Teleport up to 30 feet to an unoccupied space you can see.", "Instant", false, 2, "Misty Step", false, "Conjuration", "30 feet" },
-                    { 7, "1 Action", "A creature you touch becomes invisible until they attack or cast a spell.", "Up to 1 Hour", false, 2, "Invisibility", false, "Illusion", "Touch" },
-                    { 8, "1 Action", "Paralyze a humanoid target for 1 minute, with repeated saves to escape.", "Up to 1 Minute", false, 2, "Hold Person", false, "Enchantment", "60 feet" },
-                    { 9, "1 Action", "Fire three rays of fire, each dealing 2d6 fire damage on a hit.", "Instant", false, 2, "Scorching Ray", false, "Evocation", "120 feet" },
-                    { 10, "1 Action", "Grant advantage on ability checks or other bonuses to the target.", "1 Hour", false, 2, "Enhance Ability", false, "Transmutation", "Touch" }
+                    { 1, "_1Action", "[]", "A creature you touch regains hit points equal to 1d8 + your spellcasting modifier.", "Instant", false, 1, "CureWounds", false, "Evocation", "Touch" },
+                    { 2, "_1Reaction", "[]", "You gain +5 to AC until the start of your next turn.", "_1Round", false, 1, "Shield", false, "Abjuration", "Self" },
+                    { 3, "_1Action", "[]", "Create three glowing darts of force, each dealing 1d4+1 damage to a target.", "Instant", false, 1, "MagicMissle", false, "Evocation", "_120feet" },
+                    { 4, "_1Action", "[]", "Sense the presence of magic within 30 feet for up to 10 minutes.", "_10minutes", false, 1, "DetectMagic", false, "Divination", "_30feet" },
+                    { 5, "_1Action", "[]", "Up to three creatures gain +1d4 to attack rolls and saving throws for 1 minute.", "_1Minute", false, 1, "Bless", false, "Enchantment", "_30feet" },
+                    { 6, "BonusAction", "[]", "Teleport up to 30 feet to an unoccupied space you can see.", "Instant", false, 2, "MistyStep", false, "Conjuration", "_30feet" },
+                    { 7, "_1Action", "[]", "A creature you touch becomes invisible until they attack or cast a spell.", "Upto1Hour", false, 2, "Invisibility", false, "Illusion", "Touch" },
+                    { 8, "_1Action", "[]", "Paralyze a humanoid target for 1 minute, with repeated saves to escape.", "Upto1Minute", false, 2, "HoldPerson", false, "Enchantment", "_60feet" },
+                    { 9, "_1Action", "[]", "Fire three rays of fire, each dealing 2d6 fire damage on a hit.", "Instant", false, 2, "ScorchingRay", false, "Evocation", "_120feet" },
+                    { 10, "_1Action", "[]", "Grant advantage on ability checks or other bonuses to the target.", "_1Hour", false, 2, "EnhanceAbility", false, "Transmutation", "Touch" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Treasures",
+                columns: new[] { "Id", "Description", "IsMagical", "Name", "Type", "Value", "Weight" },
+                values: new object[,]
+                {
+                    { 1, "A platnum coin.", false, "PlatnumCoin", "Coins", 10f, 0.01f },
+                    { 2, "A gold coin.", false, "GoldCoin", "Coins", 1f, 0.01f },
+                    { 3, "A electrum coin.", false, "ElectrumCoin", "Coins", 0.5f, 0.01f },
+                    { 4, "A silver coin.", false, "SilverCoin", "Coins", 0.1f, 0.01f },
+                    { 5, "A copper coin.", false, "CopperCoin", "Coins", 0.01f, 0.01f },
+                    { 6, "A precious clear gem.", false, "Diamond", "Gems", 1000f, 0f },
+                    { 7, "A precious blue gem.", false, "Sapphire", "Gems", 500f, 0f },
+                    { 8, "A precious green gem.", false, "Emerald", "Gems", 100f, 0f },
+                    { 9, "A precious red gem.", false, "Ruby", "Gems", 50f, 0f },
+                    { 10, "A beautiful bracelet with delicate ruby inlays.", false, "SilverBraceletWithRubyInlays", "Jewelry", 100f, 1f },
+                    { 11, "A magical amulet that grants protection to its wearer.", true, "AmuletOfProtection", "Artifacts", 5000f, 2f },
+                    { 12, "A magical sword infused with the essence of valor.", true, "SwordOfValor", "Artifacts", 10000f, 10f }
                 });
 
             migrationBuilder.InsertData(
@@ -617,104 +714,104 @@ namespace DND_App.Web.Migrations
                 columns: new[] { "Id", "CharacterRaceId", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, "Alchemist's Supplies" },
-                    { 2, 1, "Calligrapher's Supplies" },
-                    { 3, 1, "Herbalism Kit" },
-                    { 4, 1, "Musical Instrument" },
-                    { 5, 1, "Painter's Supplies" },
-                    { 6, 2, "Smith's Tools" },
-                    { 7, 2, "Brewer's Supplies" },
-                    { 8, 2, "Calligrapher's Supplies" },
-                    { 9, 2, "Mason's Tools" },
-                    { 10, 2, "Dragonchess Set" },
-                    { 11, 3, "Smith's Tools" },
-                    { 13, 3, "Brewer's Supplies" },
-                    { 14, 3, "Mason's Tools" },
-                    { 15, 4, "Herbalism Kit" },
-                    { 16, 4, "Calligrapher's Supplies" },
-                    { 17, 4, "Musical Instrument" },
-                    { 18, 4, "Painter's Supplies" },
-                    { 19, 4, "Alchemist's Supplies" },
-                    { 20, 5, "Herbalism Kit" },
-                    { 21, 5, "Carpenter's Tools" },
-                    { 22, 5, "Cook's Utensils" },
-                    { 23, 5, "Mason's Tools" },
-                    { 24, 5, "Painter's Supplies" },
-                    { 25, 6, "Navigator's Tools" },
-                    { 26, 6, "Cartographer's Tools" },
-                    { 27, 6, "Tinker's Tools" },
+                    { 1, 1, "AlchemistsSupplies" },
+                    { 2, 1, "CalligraphersSupplies" },
+                    { 3, 1, "HerbalismKit" },
+                    { 4, 1, "MusicalInstrument" },
+                    { 5, 1, "PaintersSupplies" },
+                    { 6, 2, "SmithsTools" },
+                    { 7, 2, "BrewersSupplies" },
+                    { 8, 2, "CalligraphersSupplies" },
+                    { 9, 2, "MasonsTools" },
+                    { 10, 2, "DragonchessSet" },
+                    { 11, 3, "SmithsTools" },
+                    { 13, 3, "BrewersSupplies" },
+                    { 14, 3, "MasonsTools" },
+                    { 15, 4, "HerbalismKit" },
+                    { 16, 4, "CalligraphersSupplies" },
+                    { 17, 4, "MusicalInstrument" },
+                    { 18, 4, "PaintersSupplies" },
+                    { 19, 4, "AlchemistsSupplies" },
+                    { 20, 5, "HerbalismKit" },
+                    { 21, 5, "CarpenterTools" },
+                    { 22, 5, "CooksUtensils" },
+                    { 23, 5, "MasonsTools" },
+                    { 24, 5, "PaintersSupplies" },
+                    { 25, 6, "NavigatorsTools" },
+                    { 26, 6, "CartographerTools" },
+                    { 27, 6, "TinkersTools" },
                     { 28, 6, "Flute" },
-                    { 29, 6, "Calligrapher's Supplies" },
-                    { 30, 7, "Smith's Tools" },
-                    { 31, 7, "Mason's Tools" },
-                    { 32, 7, "Miner's Tools" },
-                    { 33, 7, "Potter's Tools" },
-                    { 34, 7, "Cartographer's Tools" },
-                    { 35, 8, "Alchemist's Supplies" },
-                    { 36, 8, "Glassblower's Tools" },
-                    { 37, 8, "Smith's Tools" },
-                    { 38, 8, "Cook's Utensils" },
-                    { 39, 8, "Brewer's Supplies" },
-                    { 40, 9, "Navigator's Tools" },
-                    { 41, 9, "Fishing Tackle" },
-                    { 42, 9, "Cartographer's Tools" },
-                    { 43, 9, "Cook's Utensils" },
-                    { 44, 9, "Brewer's Supplies" },
-                    { 45, 10, "Tinker's Tools" },
-                    { 46, 10, "Alchemist's Supplies" },
-                    { 47, 10, "Artisan's Tools" },
-                    { 48, 10, "Cartographer's Tools" },
-                    { 49, 10, "Painter's Supplies" },
-                    { 50, 11, "Smith's Tools" },
-                    { 51, 11, "Mason's Tools" },
-                    { 52, 11, "Carpenter's Tools" },
-                    { 53, 11, "Cook's Utensils" },
-                    { 54, 11, "Brewer's Supplies" },
+                    { 29, 6, "CalligraphersSupplies" },
+                    { 30, 7, "SmithsTools" },
+                    { 31, 7, "MasonsTools" },
+                    { 32, 7, "MinersTools" },
+                    { 33, 7, "PottersTools" },
+                    { 34, 7, "CartographerTools" },
+                    { 35, 8, "AlchemistsSupplies" },
+                    { 36, 8, "GlassblowersTools" },
+                    { 37, 8, "SmithsTools" },
+                    { 38, 8, "CooksUtensils" },
+                    { 39, 8, "BrewersSupplies" },
+                    { 40, 9, "NavigatorsTools" },
+                    { 41, 9, "FishingTackle" },
+                    { 42, 9, "CartographerTools" },
+                    { 43, 9, "CooksUtensils" },
+                    { 44, 9, "BrewersSupplies" },
+                    { 45, 10, "TinkersTools" },
+                    { 46, 10, "AlchemistsSupplies" },
+                    { 47, 10, "ArtisansTools" },
+                    { 48, 10, "CartographerTools" },
+                    { 49, 10, "PaintersSupplies" },
+                    { 50, 11, "SmithsTools" },
+                    { 51, 11, "MasonsTools" },
+                    { 52, 11, "CarpenterTools" },
+                    { 53, 11, "CooksUtensils" },
+                    { 54, 11, "BrewersSupplies" },
                     { 55, 12, "Fiddle" },
-                    { 56, 12, "Calligrapher's Supplies" },
-                    { 57, 12, "Painter's Supplies" },
-                    { 58, 12, "Alchemist's Supplies" },
-                    { 59, 12, "Jeweler's Tools" },
-                    { 60, 13, "Cook's Utensils" },
-                    { 61, 13, "Brewer's Supplies" },
-                    { 62, 13, "Weaver's Tools" },
-                    { 63, 13, "Woodcarver's Tools" },
-                    { 64, 13, "Herbalism Kit" },
-                    { 65, 14, "Smith's Tools" },
-                    { 66, 14, "Leatherworker's Tools" },
-                    { 67, 14, "Carpenter's Tools" },
-                    { 68, 14, "Cook's Utensils" },
-                    { 69, 14, "Brewer's Supplies" },
-                    { 70, 15, "Smith's Tools" },
-                    { 71, 15, "Farmer's Tools" },
-                    { 72, 15, "Mason's Tools" },
-                    { 73, 15, "Brewer's Supplies" },
-                    { 74, 15, "Herbalism Kit" },
-                    { 75, 16, "Calligrapher's Supplies" },
-                    { 76, 16, "Disguise Kit" },
-                    { 77, 16, "Tinker's Tools" },
-                    { 78, 16, "Thieves' Tools" },
-                    { 79, 16, "Painter's Supplies" },
-                    { 80, 17, "Cartographer's Tools" },
-                    { 81, 17, "Calligrapher's Supplies" },
-                    { 82, 17, "Painter's Supplies" },
+                    { 56, 12, "CalligraphersSupplies" },
+                    { 57, 12, "PaintersSupplies" },
+                    { 58, 12, "AlchemistsSupplies" },
+                    { 59, 12, "JewelersTools" },
+                    { 60, 13, "CooksUtensils" },
+                    { 61, 13, "BrewersSupplies" },
+                    { 62, 13, "WeaversTools" },
+                    { 63, 13, "WoodcarversTools" },
+                    { 64, 13, "HerbalismKit" },
+                    { 65, 14, "SmithsTools" },
+                    { 66, 14, "LeatherworkerTools" },
+                    { 67, 14, "CarpenterTools" },
+                    { 68, 14, "CooksUtensils" },
+                    { 69, 14, "BrewersSupplies" },
+                    { 70, 15, "SmithsTools" },
+                    { 71, 15, "FarmersTools" },
+                    { 72, 15, "MasonsTools" },
+                    { 73, 15, "BrewersSupplies" },
+                    { 74, 15, "HerbalismKit" },
+                    { 75, 16, "CalligraphersSupplies" },
+                    { 76, 16, "DisguiseKit" },
+                    { 77, 16, "TinkersTools" },
+                    { 78, 16, "ThievesTools" },
+                    { 79, 16, "PaintersSupplies" },
+                    { 80, 17, "CartographerTools" },
+                    { 81, 17, "CalligraphersSupplies" },
+                    { 82, 17, "PaintersSupplies" },
                     { 83, 17, "Drums" },
-                    { 84, 17, "Thieves' Tools" },
-                    { 85, 18, "Alchemist's Supplies" },
-                    { 86, 18, "Calligrapher's Supplies" },
-                    { 87, 18, "Disguise Kit" },
+                    { 84, 17, "ThievesTools" },
+                    { 85, 18, "AlchemistsSupplies" },
+                    { 86, 18, "CalligraphersSupplies" },
+                    { 87, 18, "DisguiseKit" },
                     { 88, 18, "Lyre" },
-                    { 89, 18, "Forgery Kit" },
-                    { 90, 19, "Mason's Tools" },
-                    { 91, 19, "Carpenter's Tools" },
-                    { 92, 19, "Cook's Utensils" },
-                    { 93, 19, "Fishing Tackle" },
-                    { 94, 19, "Herbalism Kit" },
-                    { 95, 20, "Poisoner's Kit" },
-                    { 96, 20, "Alchemist's Supplies" },
-                    { 97, 20, "Disguise Kit" },
-                    { 98, 20, "Forgery Kit" },
-                    { 99, 20, "Calligrapher's Supplies" }
+                    { 89, 18, "ForgeryKit" },
+                    { 90, 19, "MasonsTools" },
+                    { 91, 19, "CarpenterTools" },
+                    { 92, 19, "CooksUtensils" },
+                    { 93, 19, "FishingTackle" },
+                    { 94, 19, "HerbalismKit" },
+                    { 95, 20, "PoisonersKit" },
+                    { 96, 20, "AlchemistsSupplies" },
+                    { 97, 20, "DisguiseKit" },
+                    { 98, 20, "ForgeryKit" },
+                    { 99, 20, "CalligraphersSupplies" }
                 });
 
             migrationBuilder.InsertData(
@@ -726,7 +823,7 @@ namespace DND_App.Web.Migrations
                     { 2, 2, "None" },
                     { 3, 3, "Battleaxe" },
                     { 4, 3, "Handaxe" },
-                    { 5, 3, "Throwing Hammer" },
+                    { 5, 3, "ThrowingHammer" },
                     { 6, 3, "Warhammer" },
                     { 7, 4, "Longsword" },
                     { 8, 4, "Shortsword" },
@@ -755,8 +852,8 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacterInventory_ItemId",
-                table: "CharacterItem",
+                name: "IX_CharacterItems_ItemId",
+                table: "CharacterItems",
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
@@ -783,6 +880,11 @@ namespace DND_App.Web.Migrations
                 name: "IX_CharacterSpells_SpellId",
                 table: "CharacterSpells",
                 column: "SpellId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterTreasures_TreasureId",
+                table: "CharacterTreasures",
+                column: "TreasureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClassAbilities_CharacterClassId",
@@ -814,13 +916,16 @@ namespace DND_App.Web.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CharacterItem");
+                name: "CharacterItems");
 
             migrationBuilder.DropTable(
                 name: "CharacterSkills");
 
             migrationBuilder.DropTable(
                 name: "CharacterSpells");
+
+            migrationBuilder.DropTable(
+                name: "CharacterTreasures");
 
             migrationBuilder.DropTable(
                 name: "ClassAbilities");
@@ -838,16 +943,19 @@ namespace DND_App.Web.Migrations
                 name: "RaceWeaponProficiency");
 
             migrationBuilder.DropTable(
-                name: "Item");
+                name: "Items");
 
             migrationBuilder.DropTable(
                 name: "Skills");
 
             migrationBuilder.DropTable(
+                name: "Spells");
+
+            migrationBuilder.DropTable(
                 name: "Characters");
 
             migrationBuilder.DropTable(
-                name: "Spells");
+                name: "Treasures");
 
             migrationBuilder.DropTable(
                 name: "CharacterClasses");
