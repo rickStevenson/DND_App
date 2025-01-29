@@ -11,14 +11,9 @@ namespace DND_App.Web.Data
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("UserAuthSchema");
+            
             base.OnModelCreating(modelBuilder);
 
             var adminRoleId = "785d5a0a-24a4-40ec-a98b-95e5b4bf43ad";

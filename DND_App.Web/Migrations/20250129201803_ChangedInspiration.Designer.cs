@@ -12,15 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    [Migration("20250127183751_InitialDnDDbContext")]
-    partial class InitialDnDDbContext
+    [Migration("20250129201803_ChangedInspiration")]
+    partial class ChangedInspiration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("DND_DbSchema")
                 .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -104,8 +103,9 @@ namespace DND_App.Web.Migrations
                     b.Property<int>("Initiative")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Inspiration")
-                        .HasColumnType("bit");
+                    b.Property<string>("Inspiration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Intelligence")
                         .HasColumnType("int");
@@ -155,7 +155,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Characters", "DND_DbSchema");
+                    b.ToTable("Characters");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterClass", b =>
@@ -179,7 +179,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CharacterClasses", "DND_DbSchema");
+                    b.ToTable("CharacterClasses");
 
                     b.HasData(
                         new
@@ -283,7 +283,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("CharacterItems", "DND_DbSchema");
+                    b.ToTable("CharacterItems");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterRace", b =>
@@ -330,7 +330,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CharacterRaces", "DND_DbSchema");
+                    b.ToTable("CharacterRaces");
 
                     b.HasData(
                         new
@@ -633,7 +633,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("CharacterSkills", "DND_DbSchema");
+                    b.ToTable("CharacterSkills");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterSpell", b =>
@@ -651,7 +651,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("SpellId");
 
-                    b.ToTable("CharacterSpells", "DND_DbSchema");
+                    b.ToTable("CharacterSpells");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.CharacterTreasure", b =>
@@ -669,7 +669,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("TreasureId");
 
-                    b.ToTable("CharacterTreasures", "DND_DbSchema");
+                    b.ToTable("CharacterTreasures");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.ClassAbility", b =>
@@ -695,7 +695,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("CharacterClassId");
 
-                    b.ToTable("ClassAbilities", "DND_DbSchema");
+                    b.ToTable("ClassAbilities");
 
                     b.HasData(
                         new
@@ -1041,7 +1041,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("CharacterClassId");
 
-                    b.ToTable("ClassSavingThrows", "DND_DbSchema");
+                    b.ToTable("ClassSavingThrows");
 
                     b.HasData(
                         new
@@ -1248,7 +1248,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items", "DND_DbSchema");
+                    b.ToTable("Items");
 
                     b.HasData(
                         new
@@ -1395,7 +1395,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A package of dried food sufficient for one day.",
                             HPRegained = "",
-                            Name = "Rations 1 day",
+                            Name = "Rations (1 day)",
                             Properties = "Consumable",
                             Rarity = "Common",
                             Stealth = "",
@@ -1433,7 +1433,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A hemp rope useful for climbing or securing items.",
                             HPRegained = "",
-                            Name = "Rope 50 feet",
+                            Name = "Rope (50 feet)",
                             Properties = "50 feet",
                             Rarity = "Common",
                             Stealth = "",
@@ -1509,7 +1509,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "Bludgeoning",
                             Description = "A versatile hammer used for powerful strikes.",
                             HPRegained = "",
-                            Name = "War hammer",
+                            Name = "Warhammer",
                             Properties = "Versatile (1d10)",
                             Rarity = "Common",
                             Stealth = "",
@@ -1566,7 +1566,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A magical shield that offers increased protection.",
                             HPRegained = "",
-                            Name = "Shield Plus One",
+                            Name = "Shield +1",
                             Properties = "Magical Bonus (+1)",
                             Rarity = "Rare",
                             Stealth = "",
@@ -1585,7 +1585,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "This armor grants superior magical protection.",
                             HPRegained = "",
-                            Name = "Armor Plus Two",
+                            Name = "Armor +2",
                             Properties = "Magical Bonus (+2)",
                             Rarity = "Very Rare",
                             Stealth = "Disadvantage",
@@ -1637,7 +1637,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("CharacterRaceId");
 
-                    b.ToTable("RaceAbility", "DND_DbSchema");
+                    b.ToTable("RaceAbility");
 
                     b.HasData(
                         new
@@ -1652,7 +1652,7 @@ namespace DND_App.Web.Migrations
                             Id = 2,
                             CharacterRaceId = 1,
                             Description = "Resistance to radiant and necrotic damage.",
-                            Name = "Celestial Resitance"
+                            Name = "Celestial Resistance"
                         },
                         new
                         {
@@ -1736,7 +1736,7 @@ namespace DND_App.Web.Migrations
                             Id = 14,
                             CharacterRaceId = 5,
                             Description = "Cast detect magic and disguise self without expending a spell slot.",
-                            Name = "Firbolg MagicArmor"
+                            Name = "Firbolg Magic"
                         },
                         new
                         {
@@ -1757,7 +1757,7 @@ namespace DND_App.Web.Migrations
                             Id = 17,
                             CharacterRaceId = 5,
                             Description = "Communicate with animals and plants (they understand you but cannot speak back).",
-                            Name = "Speach Of Beast And Leaf"
+                            Name = "Speech Of Beast And Leaf"
                         },
                         new
                         {
@@ -1848,7 +1848,7 @@ namespace DND_App.Web.Migrations
                             Id = 30,
                             CharacterRaceId = 11,
                             Description = "Proficiency in Athletics.",
-                            Name = "Natual Athlete"
+                            Name = "Natural Athlete"
                         },
                         new
                         {
@@ -2037,7 +2037,7 @@ namespace DND_App.Web.Migrations
                             Id = 57,
                             CharacterRaceId = 20,
                             Description = "Advantage on saving throws against spells and magical effects.",
-                            Name = "MagicArmor Resistance"
+                            Name = "Magic Resistance"
                         },
                         new
                         {
@@ -2067,20 +2067,20 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("CharacterRaceId");
 
-                    b.ToTable("RaceToolProficiency", "DND_DbSchema");
+                    b.ToTable("RaceToolProficiency");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CharacterRaceId = 1,
-                            Name = "Alchemists Supplies"
+                            Name = "Alchemist's Supplies"
                         },
                         new
                         {
                             Id = 2,
                             CharacterRaceId = 1,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         },
                         new
                         {
@@ -2098,31 +2098,31 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 5,
                             CharacterRaceId = 1,
-                            Name = "Painters Supplies"
+                            Name = "Painter's Supplies"
                         },
                         new
                         {
                             Id = 6,
                             CharacterRaceId = 2,
-                            Name = "Smiths Tools"
+                            Name = "Smith's Tools"
                         },
                         new
                         {
                             Id = 7,
                             CharacterRaceId = 2,
-                            Name = "Brewers Supplies"
+                            Name = "Brewer's Supplies"
                         },
                         new
                         {
                             Id = 8,
                             CharacterRaceId = 2,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         },
                         new
                         {
                             Id = 9,
                             CharacterRaceId = 2,
-                            Name = "Masons Tools"
+                            Name = "Mason's Tools"
                         },
                         new
                         {
@@ -2134,19 +2134,19 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 11,
                             CharacterRaceId = 3,
-                            Name = "Smiths Tools"
+                            Name = "Smith's Tools"
                         },
                         new
                         {
                             Id = 13,
                             CharacterRaceId = 3,
-                            Name = "Brewers Supplies"
+                            Name = "Brewer's Supplies"
                         },
                         new
                         {
                             Id = 14,
                             CharacterRaceId = 3,
-                            Name = "Masons Tools"
+                            Name = "Mason's Tools"
                         },
                         new
                         {
@@ -2158,7 +2158,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 16,
                             CharacterRaceId = 4,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         },
                         new
                         {
@@ -2170,13 +2170,13 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 18,
                             CharacterRaceId = 4,
-                            Name = "Painters Supplies"
+                            Name = "Painter's Supplies"
                         },
                         new
                         {
                             Id = 19,
                             CharacterRaceId = 4,
-                            Name = "Alchemists Supplies"
+                            Name = "Alchemist's Supplies"
                         },
                         new
                         {
@@ -2188,43 +2188,43 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 21,
                             CharacterRaceId = 5,
-                            Name = "Carpenter Tools"
+                            Name = "Carpenter's Tools"
                         },
                         new
                         {
                             Id = 22,
                             CharacterRaceId = 5,
-                            Name = "Cooks Utensils"
+                            Name = "Cook's Utensils"
                         },
                         new
                         {
                             Id = 23,
                             CharacterRaceId = 5,
-                            Name = "Masons Tools"
+                            Name = "Mason's Tools"
                         },
                         new
                         {
                             Id = 24,
                             CharacterRaceId = 5,
-                            Name = "Painters Supplies"
+                            Name = "Painter's Supplies"
                         },
                         new
                         {
                             Id = 25,
                             CharacterRaceId = 6,
-                            Name = "Navigators Tools"
+                            Name = "Navigator's Tools"
                         },
                         new
                         {
                             Id = 26,
                             CharacterRaceId = 6,
-                            Name = "Cartographer Tools"
+                            Name = "Cartographer's Tools"
                         },
                         new
                         {
                             Id = 27,
                             CharacterRaceId = 6,
-                            Name = "Tinkers Tools"
+                            Name = "Tinker's Tools"
                         },
                         new
                         {
@@ -2236,73 +2236,73 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 29,
                             CharacterRaceId = 6,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         },
                         new
                         {
                             Id = 30,
                             CharacterRaceId = 7,
-                            Name = "Smiths Tools"
+                            Name = "Smith's Tools"
                         },
                         new
                         {
                             Id = 31,
                             CharacterRaceId = 7,
-                            Name = "Masons Tools"
+                            Name = "Mason's Tools"
                         },
                         new
                         {
                             Id = 32,
                             CharacterRaceId = 7,
-                            Name = "Miners Tools"
+                            Name = "Miner's Tools"
                         },
                         new
                         {
                             Id = 33,
                             CharacterRaceId = 7,
-                            Name = "Potters Tools"
+                            Name = "Potter's Tools"
                         },
                         new
                         {
                             Id = 34,
                             CharacterRaceId = 7,
-                            Name = "Cartographer Tools"
+                            Name = "Cartographer's Tools"
                         },
                         new
                         {
                             Id = 35,
                             CharacterRaceId = 8,
-                            Name = "Alchemists Supplies"
+                            Name = "Alchemist's Supplies"
                         },
                         new
                         {
                             Id = 36,
                             CharacterRaceId = 8,
-                            Name = "Glassblowers Tools"
+                            Name = "Glassblower's Tools"
                         },
                         new
                         {
                             Id = 37,
                             CharacterRaceId = 8,
-                            Name = "Smiths Tools"
+                            Name = "Smith's Tools"
                         },
                         new
                         {
                             Id = 38,
                             CharacterRaceId = 8,
-                            Name = "Cooks Utensils"
+                            Name = "Cook's Utensils"
                         },
                         new
                         {
                             Id = 39,
                             CharacterRaceId = 8,
-                            Name = "Brewers Supplies"
+                            Name = "Brewer's Supplies"
                         },
                         new
                         {
                             Id = 40,
                             CharacterRaceId = 9,
-                            Name = "Navigators Tools"
+                            Name = "Navigator's Tools"
                         },
                         new
                         {
@@ -2314,79 +2314,79 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 42,
                             CharacterRaceId = 9,
-                            Name = "Cartographer Tools"
+                            Name = "Cartographer's Tools"
                         },
                         new
                         {
                             Id = 43,
                             CharacterRaceId = 9,
-                            Name = "Cooks Utensils"
+                            Name = "Cook's Utensils"
                         },
                         new
                         {
                             Id = 44,
                             CharacterRaceId = 9,
-                            Name = "Brewers Supplies"
+                            Name = "Brewer's Supplies"
                         },
                         new
                         {
                             Id = 45,
                             CharacterRaceId = 10,
-                            Name = "Tinkers Tools"
+                            Name = "Tinker's Tools"
                         },
                         new
                         {
                             Id = 46,
                             CharacterRaceId = 10,
-                            Name = "Alchemists Supplies"
+                            Name = "Alchemist's Supplies"
                         },
                         new
                         {
                             Id = 47,
                             CharacterRaceId = 10,
-                            Name = "Artisans Tools"
+                            Name = "Artisan's Tools"
                         },
                         new
                         {
                             Id = 48,
                             CharacterRaceId = 10,
-                            Name = "Cartographer Tools"
+                            Name = "Cartographer's Tools"
                         },
                         new
                         {
                             Id = 49,
                             CharacterRaceId = 10,
-                            Name = "Painters Supplies"
+                            Name = "Painter's Supplies"
                         },
                         new
                         {
                             Id = 50,
                             CharacterRaceId = 11,
-                            Name = "Smiths Tools"
+                            Name = "Smith's Tools"
                         },
                         new
                         {
                             Id = 51,
                             CharacterRaceId = 11,
-                            Name = "Masons Tools"
+                            Name = "Mason's Tools"
                         },
                         new
                         {
                             Id = 52,
                             CharacterRaceId = 11,
-                            Name = "Carpenter Tools"
+                            Name = "Carpenter's Tools"
                         },
                         new
                         {
                             Id = 53,
                             CharacterRaceId = 11,
-                            Name = "Cooks Utensils"
+                            Name = "Cook's Utensils"
                         },
                         new
                         {
                             Id = 54,
                             CharacterRaceId = 11,
-                            Name = "Brewers Supplies"
+                            Name = "Brewer's Supplies"
                         },
                         new
                         {
@@ -2398,49 +2398,49 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 56,
                             CharacterRaceId = 12,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         },
                         new
                         {
                             Id = 57,
                             CharacterRaceId = 12,
-                            Name = "Painters Supplies"
+                            Name = "Painter's Supplies"
                         },
                         new
                         {
                             Id = 58,
                             CharacterRaceId = 12,
-                            Name = "Alchemists Supplies"
+                            Name = "Alchemist's Supplies"
                         },
                         new
                         {
                             Id = 59,
                             CharacterRaceId = 12,
-                            Name = "Jewelers Tools"
+                            Name = "Jeweler's Tools"
                         },
                         new
                         {
                             Id = 60,
                             CharacterRaceId = 13,
-                            Name = "Cooks Utensils"
+                            Name = "Cook's Utensils"
                         },
                         new
                         {
                             Id = 61,
                             CharacterRaceId = 13,
-                            Name = "Brewers Supplies"
+                            Name = "Brewer's Supplies"
                         },
                         new
                         {
                             Id = 62,
                             CharacterRaceId = 13,
-                            Name = "Weavers Tools"
+                            Name = "Weaver's Tools"
                         },
                         new
                         {
                             Id = 63,
                             CharacterRaceId = 13,
-                            Name = "Woodcarvers Tools"
+                            Name = "Woodcarver's Tools"
                         },
                         new
                         {
@@ -2452,55 +2452,55 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 65,
                             CharacterRaceId = 14,
-                            Name = "Smiths Tools"
+                            Name = "Smith's Tools"
                         },
                         new
                         {
                             Id = 66,
                             CharacterRaceId = 14,
-                            Name = "Leatherworker Tools"
+                            Name = "Leatherworker's Tools"
                         },
                         new
                         {
                             Id = 67,
                             CharacterRaceId = 14,
-                            Name = "Carpenter Tools"
+                            Name = "Carpenter's Tools"
                         },
                         new
                         {
                             Id = 68,
                             CharacterRaceId = 14,
-                            Name = "Cooks Utensils"
+                            Name = "Cook's Utensils"
                         },
                         new
                         {
                             Id = 69,
                             CharacterRaceId = 14,
-                            Name = "Brewers Supplies"
+                            Name = "Brewer's Supplies"
                         },
                         new
                         {
                             Id = 70,
                             CharacterRaceId = 15,
-                            Name = "Smiths Tools"
+                            Name = "Smith's Tools"
                         },
                         new
                         {
                             Id = 71,
                             CharacterRaceId = 15,
-                            Name = "Farmers Tools"
+                            Name = "Farmer's Tools"
                         },
                         new
                         {
                             Id = 72,
                             CharacterRaceId = 15,
-                            Name = "Masons Tools"
+                            Name = "Mason's Tools"
                         },
                         new
                         {
                             Id = 73,
                             CharacterRaceId = 15,
-                            Name = "Brewers Supplies"
+                            Name = "Brewer's Supplies"
                         },
                         new
                         {
@@ -2512,7 +2512,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 75,
                             CharacterRaceId = 16,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         },
                         new
                         {
@@ -2524,37 +2524,37 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 77,
                             CharacterRaceId = 16,
-                            Name = "Tinkers Tools"
+                            Name = "Tinker's Tools"
                         },
                         new
                         {
                             Id = 78,
                             CharacterRaceId = 16,
-                            Name = "Thieves Tools"
+                            Name = "Thieves' Tools"
                         },
                         new
                         {
                             Id = 79,
                             CharacterRaceId = 16,
-                            Name = "Painters Supplies"
+                            Name = "Painter's Supplies"
                         },
                         new
                         {
                             Id = 80,
                             CharacterRaceId = 17,
-                            Name = "Cartographer Tools"
+                            Name = "Cartographer's Tools"
                         },
                         new
                         {
                             Id = 81,
                             CharacterRaceId = 17,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         },
                         new
                         {
                             Id = 82,
                             CharacterRaceId = 17,
-                            Name = "Painters Supplies"
+                            Name = "Painter's Supplies"
                         },
                         new
                         {
@@ -2566,19 +2566,19 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 84,
                             CharacterRaceId = 17,
-                            Name = "Thieves Tools"
+                            Name = "Thieves' Tools"
                         },
                         new
                         {
                             Id = 85,
                             CharacterRaceId = 18,
-                            Name = "Alchemists Supplies"
+                            Name = "Alchemist's Supplies"
                         },
                         new
                         {
                             Id = 86,
                             CharacterRaceId = 18,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         },
                         new
                         {
@@ -2602,19 +2602,19 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 90,
                             CharacterRaceId = 19,
-                            Name = "Masons Tools"
+                            Name = "Mason's Tools"
                         },
                         new
                         {
                             Id = 91,
                             CharacterRaceId = 19,
-                            Name = "Carpenter Tools"
+                            Name = "Carpenter's Tools"
                         },
                         new
                         {
                             Id = 92,
                             CharacterRaceId = 19,
-                            Name = "Cooks Utensils"
+                            Name = "Cook's Utensils"
                         },
                         new
                         {
@@ -2632,13 +2632,13 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 95,
                             CharacterRaceId = 20,
-                            Name = "Poisoners Kit"
+                            Name = "Poisoner's Kit"
                         },
                         new
                         {
                             Id = 96,
                             CharacterRaceId = 20,
-                            Name = "Alchemists Supplies"
+                            Name = "Alchemist's Supplies"
                         },
                         new
                         {
@@ -2656,7 +2656,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 99,
                             CharacterRaceId = 20,
-                            Name = "Calligraphers Supplies"
+                            Name = "Calligrapher's Supplies"
                         });
                 });
 
@@ -2679,7 +2679,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasIndex("CharacterRaceId");
 
-                    b.ToTable("RaceWeaponProficiency", "DND_DbSchema");
+                    b.ToTable("RaceWeaponProficiency");
 
                     b.HasData(
                         new
@@ -2716,7 +2716,7 @@ namespace DND_App.Web.Migrations
                         {
                             Id = 6,
                             CharacterRaceId = 3,
-                            Name = "War hammer"
+                            Name = "Warhammer"
                         },
                         new
                         {
@@ -2886,7 +2886,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Skills", "DND_DbSchema");
+                    b.ToTable("Skills");
 
                     b.HasData(
                         new
@@ -2908,7 +2908,7 @@ namespace DND_App.Web.Migrations
                             Id = 3,
                             AlignedAttribute = "Dexterity",
                             Description = "Covers manual trickery like pickpocketing.",
-                            Name = "Sleight Of Hand"
+                            Name = "SleightOfHand"
                         },
                         new
                         {
@@ -2957,7 +2957,7 @@ namespace DND_App.Web.Migrations
                             Id = 10,
                             AlignedAttribute = "Wisdom",
                             Description = "Covers calming, controlling, and training animals.",
-                            Name = "Animal Handling"
+                            Name = "AnimalHandling"
                         },
                         new
                         {
@@ -3064,13 +3064,13 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Spells", "DND_DbSchema");
+                    b.ToTable("Spells");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CastingTime = "One Action",
+                            CastingTime = "1 Action",
                             Components = "[]",
                             Description = "A creature you touch regains hit points equal to 1d8 + your spellcasting modifier.",
                             Duration = "Instant",
@@ -3084,10 +3084,10 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 2,
-                            CastingTime = "One Reaction",
+                            CastingTime = "1 Reaction",
                             Components = "[]",
                             Description = "You gain +5 to AC until the start of your next turn.",
-                            Duration = "One Round",
+                            Duration = "1 Round",
                             IsPrepared = false,
                             Level = 1,
                             Name = "Shield",
@@ -3098,7 +3098,7 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 3,
-                            CastingTime = "One Action",
+                            CastingTime = "1 Action",
                             Components = "[]",
                             Description = "Create three glowing darts of force, each dealing 1d4+1 damage to a target.",
                             Duration = "Instant",
@@ -3112,7 +3112,7 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 4,
-                            CastingTime = "One Action",
+                            CastingTime = "1 Action",
                             Components = "[]",
                             Description = "Sense the presence of magic within 30 feet for up to 10 minutes.",
                             Duration = "10 minutes",
@@ -3126,7 +3126,7 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 5,
-                            CastingTime = "One Action",
+                            CastingTime = "1 Action",
                             Components = "[]",
                             Description = "Up to three creatures gain +1d4 to attack rolls and saving throws for 1 minute.",
                             Duration = "1 Minute",
@@ -3154,7 +3154,7 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 7,
-                            CastingTime = "One Action",
+                            CastingTime = "1 Action",
                             Components = "[]",
                             Description = "A creature you touch becomes invisible until they attack or cast a spell.",
                             Duration = "Up to 1 Hour",
@@ -3168,7 +3168,7 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 8,
-                            CastingTime = "One Action",
+                            CastingTime = "1 Action",
                             Components = "[]",
                             Description = "Paralyze a humanoid target for 1 minute, with repeated saves to escape.",
                             Duration = "Up to 1 Minute",
@@ -3182,7 +3182,7 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 9,
-                            CastingTime = "One Action",
+                            CastingTime = "1 Action",
                             Components = "[]",
                             Description = "Fire three rays of fire, each dealing 2d6 fire damage on a hit.",
                             Duration = "Instant",
@@ -3196,10 +3196,10 @@ namespace DND_App.Web.Migrations
                         new
                         {
                             Id = 10,
-                            CastingTime = "One Action",
+                            CastingTime = "1 Action",
                             Components = "[]",
                             Description = "Grant advantage on ability checks or other bonuses to the target.",
-                            Duration = "One Hour",
+                            Duration = "1 Hour",
                             IsPrepared = false,
                             Level = 2,
                             Name = "Enhance Ability",
@@ -3240,7 +3240,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Treasures", "DND_DbSchema");
+                    b.ToTable("Treasures");
 
                     b.HasData(
                         new
@@ -3249,7 +3249,7 @@ namespace DND_App.Web.Migrations
                             Description = "A platnum coin.",
                             IsMagical = false,
                             Name = "Platnum Coin",
-                            Type = "Coins",
+                            Type = "Coin",
                             Value = 10f,
                             Weight = 0.01f
                         },
@@ -3259,7 +3259,7 @@ namespace DND_App.Web.Migrations
                             Description = "A gold coin.",
                             IsMagical = false,
                             Name = "Gold Coin",
-                            Type = "Coins",
+                            Type = "Coin",
                             Value = 1f,
                             Weight = 0.01f
                         },
@@ -3269,7 +3269,7 @@ namespace DND_App.Web.Migrations
                             Description = "A electrum coin.",
                             IsMagical = false,
                             Name = "Electrum Coin",
-                            Type = "Coins",
+                            Type = "Coin",
                             Value = 0.5f,
                             Weight = 0.01f
                         },
@@ -3279,7 +3279,7 @@ namespace DND_App.Web.Migrations
                             Description = "A silver coin.",
                             IsMagical = false,
                             Name = "Silver Coin",
-                            Type = "Coins",
+                            Type = "Coin",
                             Value = 0.1f,
                             Weight = 0.01f
                         },
@@ -3289,7 +3289,7 @@ namespace DND_App.Web.Migrations
                             Description = "A copper coin.",
                             IsMagical = false,
                             Name = "Copper Coin",
-                            Type = "Coins",
+                            Type = "Coin",
                             Value = 0.01f,
                             Weight = 0.01f
                         },
@@ -3338,7 +3338,7 @@ namespace DND_App.Web.Migrations
                             Id = 10,
                             Description = "A beautiful bracelet with delicate ruby inlays.",
                             IsMagical = false,
-                            Name = "Silver Bracelet With Ruby Inlays",
+                            Name = "Silver Bracelet with Ruby Inlays",
                             Type = "Jewelry",
                             Value = 100f,
                             Weight = 1f
@@ -3348,7 +3348,7 @@ namespace DND_App.Web.Migrations
                             Id = 11,
                             Description = "A magical amulet that grants protection to its wearer.",
                             IsMagical = true,
-                            Name = "Amulet Of Protection",
+                            Name = "Amulet of Protection",
                             Type = "Artifacts",
                             Value = 5000f,
                             Weight = 2f
@@ -3358,7 +3358,7 @@ namespace DND_App.Web.Migrations
                             Id = 12,
                             Description = "A magical sword infused with the essence of valor.",
                             IsMagical = true,
-                            Name = "Sword Of Valor",
+                            Name = "Sword of Valor",
                             Type = "Artifacts",
                             Value = 10000f,
                             Weight = 10f
@@ -3415,7 +3415,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentityUser<Guid>", "DND_DbSchema");
+                    b.ToTable("IdentityUser<Guid>");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.Character", b =>

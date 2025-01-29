@@ -111,19 +111,12 @@
                 <li class="list-group-item"><strong>Eyes:</strong> @Model.Eyes</li>
                 <li class="list-group-item"><strong>Skin:</strong> @Model.Skin</li>
                 <li class="list-group-item"><strong>Hair:</strong> @Model.Hair</li>
-
             </div>
             <div class="tab-pane fade" id="combat" role="tabpanel" aria-labelledby="combat-tab">
                 <h4>Combat</h4>
-                <li class="list-group-item"><strong>Passive Wisdom:</strong> @Model.PassiveWisdom</li>
-                <li class="list-group-item"><strong>Proficiency Bonus:</strong> @Model.ProficiencyBonus</li>
                 <li class="list-group-item"><strong>Armor Class:</strong> @Model.ArmorClass</li>
                 <li class="list-group-item"><strong>Speed:</strong> @Model.Speed</li>
-                <li class="list-group-item"><strong>Encumbrance Status:</strong> @Model.EncumbranceStatus</li>
                 <li class="list-group-item"><strong>Total Hit Points:</strong> @Model.HitPoints_Total</li>
-                <li class="list-group-item"><strong>Current Hit Point:</strong> @Model.HitPoints_Current</li>
-                <li class="list-group-item"><strong>Initiative:</strong> @Model.Initiative</li>
-                <li class="list-group-item"><strong>Tota lWeight:</strong> @Model.TotalWeight</li>
             </div>
             <div class="tab-pane fade" id="featuresAndTraits" role="tabpanel" aria-labelledby="featuresAndTraits-tab">
                 <h4>FeaturesAndTraits</h4>
@@ -131,6 +124,7 @@
                 <li class="list-group-item"><strong>Ideals:</strong> @Model.Ideals</li>
                 <li class="list-group-item"><strong>Bonds:</strong> @Model.Bonds</li>
                 <li class="list-group-item"><strong>Flaws:</strong> @Model.Flaws</li>
+                <li class="list-group-item"><strong>Inspiration:</strong> @Model.Inspiration</li>
             </div>
             <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
                 <h4>Skills</h4>
@@ -206,11 +200,7 @@
                 }
             </div>
 
-
-
-
             <div class="container">
-                <!-- Actions Section -->
                 <div class="row mt-4">
                     <div class="col-12">
                         <a asp-action="Edit"

@@ -14,7 +14,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 1,
-                    Name = Items.Longsword,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Longsword),
                     Description = "A versatile blade suitable for slashing and thrusting.",
                     Weight = 3.0f,
                     Value = 15,
@@ -33,7 +33,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 2,
-                    Name = Items.Chainmail,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Chainmail),
                     Description = "A suit of interlocking metal rings providing solid protection.",
                     Weight = 55.0f,
                     Value = 75,
@@ -52,7 +52,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 3,
-                    Name = Items.HealingPotion,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.HealingPotion),
                     Description = "A small vial of red liquid that restores health when consumed.",
                     Weight = 0.5f,
                     Value = 50,
@@ -71,7 +71,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 4,
-                    Name = Items.Backpack,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Backpack),
                     Description = "A sturdy container to carry your belongings.",
                     Weight = 5.0f,
                     Value = 2,
@@ -90,7 +90,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 5,
-                    Name = Items.Lantern,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Lantern),
                     Description = "A hooded lantern that casts bright light in a 30-foot radius.",
                     Weight = 2.0f,
                     Value = 5,
@@ -109,7 +109,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 6,
-                    Name = Items.Shortbow,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Shortbow),
                     Description = "A compact bow designed for quick, short-range shots.",
                     Weight = 2.0f,
                     Value = 25,
@@ -128,7 +128,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 7,
-                    Name = Items.Spellbook,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Spellbook),
                     Description = "A leather-bound tome containing the wizard’s spells.",
                     Weight = 3.0f,
                     Value = 50,
@@ -147,7 +147,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 8,
-                    Name = Items.Rations_1day,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Rations_1day),
                     Description = "A package of dried food sufficient for one day.",
                     Weight = 2.0f,
                     Value = 0.5f,
@@ -166,7 +166,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 9,
-                    Name = Items.Dagger,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Dagger),
                     Description = "A small, sharp blade perfect for close combat or throwing.",
                     Weight = 1.0f,
                     Value = 2,
@@ -185,7 +185,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 10,
-                    Name = Items.Rope_50feet,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Rope_50feet),
                     Description = "A hemp rope useful for climbing or securing items.",
                     Weight = 10.0f,
                     Value = 1,
@@ -204,7 +204,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 11,
-                    Name = Items.Battleaxe,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Battleaxe),
                     Description = "A large axe designed for heavy combat.",
                     Weight = 4.0f,
                     Value = 10,
@@ -223,7 +223,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 12,
-                    Name = Items.Handaxe,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Handaxe),
                     Description = "A small axe usable in melee or as a thrown weapon.",
                     Weight = 2.0f,
                     Value = 5,
@@ -242,7 +242,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 13,
-                    Name = Items.ThrowingHammer,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.ThrowingHammer),
                     Description = "A hammer balanced for throwing.",
                     Weight = 2.0f,
                     Value = 5,
@@ -261,7 +261,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 14,
-                    Name = Items.Warhammer,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Warhammer),
                     Description = "A versatile hammer used for powerful strikes.",
                     Weight = 2.0f,
                     Value = 15,
@@ -280,7 +280,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 15,
-                    Name = Items.Shortsword,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Shortsword),
                     Description = "A lightweight blade ideal for quick, precise strikes.",
                     Weight = 2.0f,
                     Value = 10,
@@ -299,7 +299,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 16,
-                    Name = Items.Longbow,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Longbow),
                     Description = "A long-range bow capable of powerful shots.",
                     Weight = 2.0f,
                     Value = 50,
@@ -318,7 +318,7 @@ namespace DND_App.Web.Data.Extensions
                 new Item
                 {
                     Id = 17,
-                    Name = Items.ShieldPlusOne,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.ShieldPlusOne),
                     Description = "A magical shield that offers increased protection.",
                     Weight = 6.0f,
                     Value = 500,
@@ -337,7 +337,7 @@ namespace DND_App.Web.Data.Extensions
             new Item
             {
                 Id = 18,
-                Name = Items.ArmorPlusTwo,
+                Name = ItemNameExtension.GetDisplayName(ItemName.ArmorPlusTwo),
                 Description = "This armor grants superior magical protection.",
                 Weight = 50.0f,
                 Value = 2000,
@@ -356,7 +356,7 @@ namespace DND_App.Web.Data.Extensions
             new Item
             {
                 Id = 19,
-                Name = Items.CloakOfProtection,
+                Name = ItemNameExtension.GetDisplayName(ItemName.CloakOfProtection),
                 Description = "This cloak increases the wearer's AC and saving throws.",
                 Weight = 1.0f,
                 Value = 1500,

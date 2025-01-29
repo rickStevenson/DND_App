@@ -1,7 +1,7 @@
 ﻿using DND_App.Web.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
-using DND_App.Web.StaticClasses.Constants;
+using DND_App.Web.StaticClasses;
 
 namespace DND_App.Web.Data.Extensions
 {
@@ -9,124 +9,124 @@ namespace DND_App.Web.Data.Extensions
     {
         public static void SeedTreasures(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Treasure>().HasData(
-                new Treasure 
+            modelBuilder.Entity<Models.Domain.Treasure>().HasData(
+                new Models.Domain.Treasure 
                 { 
                     Id = 1, 
-                    Name = Items.PlatnumCoin, 
+                    Name = ItemNameExtension.GetDisplayName(ItemName.PlatnumCoin), 
                     Description = "A platnum coin.", 
                     Value = 10, 
-                    Type = Treasures.Coins, 
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Coins), 
                     Weight = .01f, 
                     IsMagical = false 
                 },
-                new Treasure
+                new Models.Domain.Treasure
                 {
                     Id = 2,
-                    Name = Items.GoldCoin,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.GoldCoin),
                     Description = "A gold coin.",
                     Value = 1,
-                    Type = Treasures.Coins,
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Coins),
                     Weight = .01f,
                     IsMagical = false
                 },
-                new Treasure
+                new Models.Domain.Treasure
                 {
                     Id = 3,
-                    Name = Items.ElectrumCoin,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.ElectrumCoin),
                     Description = "A electrum coin.",
                     Value = .5f,
-                    Type = Treasures.Coins,
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Coins),
                     Weight = .01f,
                     IsMagical = false
                 },
-                new Treasure
+                new Models.Domain.Treasure
                 {
                     Id = 4,
-                    Name = Items.SilverCoin,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.SilverCoin),
                     Description = "A silver coin.",
                     Value = .1f,
-                    Type = Treasures.Coins,
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Coins),
                     Weight = .01f,
                     IsMagical = false
                 },
-                new Treasure
+                new Models.Domain.Treasure
                 {
                     Id = 5,
-                    Name = Items.CopperCoin,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.CopperCoin),
                     Description = "A copper coin.",
                     Value = .01f,
-                    Type = Treasures.Coins,
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Coins),
                     Weight = .01f,
                     IsMagical = false
                 },
-                new Treasure 
+                new Models.Domain.Treasure 
                 { 
                     Id = 6, 
-                    Name = Items.Diamond, 
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Diamond), 
                     Description = "A precious clear gem.", 
                     Value = 1000, 
-                    Type = Treasures.Gems, 
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Gems), 
                     Weight = 0, 
                     IsMagical = false 
                 },
-                new Treasure
+                new Models.Domain.Treasure
                 {
                     Id = 7,
-                    Name = Items.Sapphire,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Sapphire),
                     Description = "A precious blue gem.",
                     Value = 500,
-                    Type = Treasures.Gems,
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Gems),
                     Weight = 0,
                     IsMagical = false
                 },
-                new Treasure
+                new Models.Domain.Treasure
                 {
                     Id = 8,
-                    Name = Items.Emerald,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Emerald),
                     Description = "A precious green gem.",
                     Value = 100,
-                    Type = Treasures.Gems,
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Gems),
                     Weight = 0,
                     IsMagical = false
                 },
-                new Treasure
+                new Models.Domain.Treasure
                 {
                     Id = 9,
-                    Name = Items.Ruby,
+                    Name = ItemNameExtension.GetDisplayName(ItemName.Ruby),
                     Description = "A precious red gem.",
                     Value = 50,
-                    Type = Treasures.Gems,
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Gems),
                     Weight = 0,
                     IsMagical = false
                 },
-                new Treasure 
+                new Models.Domain.Treasure 
                 { 
                     Id = 10, 
-                    Name = Items.SilverBraceletWithRubyInlays, 
+                    Name = ItemNameExtension.GetDisplayName(ItemName.SilverBraceletWithRubyInlays), 
                     Description = "A beautiful bracelet with delicate ruby inlays.",
                     Value = 100, 
-                    Type = Treasures.Jewelry, 
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Jewelry), 
                     Weight = 1, 
                     IsMagical = false 
                 },
-                new Treasure 
+                new Models.Domain.Treasure 
                 { 
                     Id = 11, 
-                    Name = Items.AmuletOfProtection, 
+                    Name = ItemNameExtension.GetDisplayName(ItemName.AmuletOfProtection), 
                     Description = "A magical amulet that grants protection to its wearer.", 
                     Value = 5000, 
-                    Type = Treasures.Artifacts, 
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Artifacts), 
                     Weight = 2, 
                     IsMagical = true 
                 },
-                new Treasure 
+                new Models.Domain.Treasure 
                 { 
                     Id = 12, 
-                    Name = Items.SwordOfValor, 
+                    Name = ItemNameExtension.GetDisplayName(ItemName.SwordOfValor), 
                     Description = "A magical sword infused with the essence of valor.", 
                     Value = 10000, 
-                    Type = Treasures.Artifacts, 
+                    Type = TreasureExtension.GetDisplayName(TreasureType.Artifacts), 
                     Weight = 10, 
                     IsMagical = true 
                 }

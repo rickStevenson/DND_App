@@ -74,7 +74,7 @@ namespace DND_App.Web.Controllers
                     IsLearned = false 
                 }).ToList(),
 
-                // Initialize CharacterItems
+                // Initialize ItemName
                 CharacterItems = items.Select(ci => new CharacterItemRequest
                 {
                     ItemId = ci.Id,
@@ -205,7 +205,7 @@ namespace DND_App.Web.Controllers
                         IsLearned = cs.IsLearned
                     }).ToList(),
 
-                // Map CharacterItems from the request
+                // Map ItemName from the request
                 CharacterItems = createCharacterViewModel.CharacterItems
                     .Select(ci => new CharacterItem
                     {
@@ -286,9 +286,9 @@ namespace DND_App.Web.Controllers
                 .ThenInclude(cs => cs.Skill)
                 .Include(c => c.CharacterSpells) // Eagerly load CharacterSpells
                 .ThenInclude(cs => cs.Spell)
-                .Include(c => c.CharacterItems) // Eagerly load CharacterItems
+                .Include(c => c.CharacterItems) // Eagerly load ItemName
                 .ThenInclude(cs => cs.Item)
-                .Include(c => c.CharacterTreasures) // Eagerly load CharacterItems
+                .Include(c => c.CharacterTreasures) // Eagerly load ItemName
                 .ThenInclude(cs => cs.Treasure)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -299,7 +299,7 @@ namespace DND_App.Web.Controllers
                 return NotFound();//create another view that says "Character not found"
             }
 
-            //foreach (var item in character.CharacterItems)
+            //foreach (var item in character.ItemName)
             //{
             //    Console.WriteLine($"ItemId: {item.ItemId}, Items is null: {item.Items == null}");
             //}
@@ -334,7 +334,7 @@ namespace DND_App.Web.Controllers
                 IsLearned = character.CharacterSpells.Any(cs => cs.SpellId == spell.Id && cs.IsLearned) 
             }).ToList();
 
-            // Map CharacterItems
+            // Map ItemName
             var items = await dndDbContext.Items.ToListAsync();
             var itemRequests = items.Select(item => new CharacterItemRequest
             {
@@ -469,9 +469,9 @@ namespace DND_App.Web.Controllers
                 .ThenInclude(cs => cs.Skill)
                 .Include(c => c.CharacterSpells) // Eagerly load CharacterSpells
                 .ThenInclude(cs => cs.Spell)
-                .Include(c => c.CharacterItems) // Eagerly load CharacterItems
+                .Include(c => c.CharacterItems) // Eagerly load ItemName
                 .ThenInclude(cs => cs.Item)
-                .Include(c => c.CharacterTreasures) // Eagerly load CharacterItems
+                .Include(c => c.CharacterTreasures) // Eagerly load ItemName
                 .ThenInclude(cs => cs.Treasure)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -515,9 +515,9 @@ namespace DND_App.Web.Controllers
             await dndDbContext.SaveChangesAsync();
             //await characterRepository.UpdateAsync(character);
 
-            // Reload CharacterItems from the database to reflect changes
+            // Reload ItemName from the database to reflect changes
             await dndDbContext.Entry(character).Collection(c => c.CharacterItems).Query()
-                .Include(ci => ci.Item) // Ensure related CharacterItems are loaded
+                .Include(ci => ci.Item) // Ensure related ItemName are loaded
                 .LoadAsync();
 
             // Recalculate Armor Class

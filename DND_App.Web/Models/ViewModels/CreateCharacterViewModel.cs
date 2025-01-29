@@ -4,6 +4,8 @@ namespace DND_App.Web.Models.ViewModels
 {
     public class CreateCharacterViewModel
     {
+        #region General Info
+        public string? CharacterImage { get; set; }
         [Required]
         public string CharacterName { get; set; } = "Donger";
 
@@ -12,13 +14,14 @@ namespace DND_App.Web.Models.ViewModels
 
         [Required]
         public int CharacterRaceId { get; set; }
+        public int Level { get; set; } = 1;
+        public int ExperiencePoints { get; set; } = 0;
+        public string? Alignment { get; set; }
+        public int Age { get; set; } = 0;
+        public string Gender { get; set; } = "Male";
 
-        public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
-        public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
-        public List<CharacterItemRequest> CharacterItems { get; set; } = new List<CharacterItemRequest>();
-        public List<CharacterTreasureRequest> CharacterTreasures { get; set; } = new List<CharacterTreasureRequest>();
-
-        // Required Attributes
+        #endregion
+        #region Attributes
         [Required]
         public int Strength { get; set; } = 21;
 
@@ -37,34 +40,39 @@ namespace DND_App.Web.Models.ViewModels
         [Required]
         public int Charisma { get; set; } = 21;
 
-        // Character Mechanics
-        public int Level { get; set; } = 1;
-        public int ExperiencePoints { get; set; } = 0;
-        public int PassiveWisdom { get; set; } = 10;
-        public bool Inspiration { get; set; } = false;
-        public int ProficiencyBonus { get; set; }
-        public int ArmorClass { get; set; } = 10;
-        public int Speed { get; set; } = 30;
-
-        //Character Traits
-        public int Age { get; set; } = 0;
+        #endregion
+        #region Backstory
+        public string? CharacterBackstory { get; set; }
+        #endregion
+        #region Appearance
         public string? Height { get; set; }
         public string? Weight { get; set; }
         public string? Eyes { get; set; }
         public string? Skin { get; set; }
         public string? Hair { get; set; }
+        #endregion
+        #region Combat
+        public int PassiveWisdom { get; set; } = 10;
+        public int ProficiencyBonus { get; set; }
+        public int ArmorClass { get; set; } = 10;
+        public int Speed { get; set; } = 30;
+        public string? EncumbranceStatus { get; set; }
+        public int HitPoints_Total { get; set; } = 100;
+        public int Initiative { get; set; } = 0;
+        public float TotalWeight { get; set; } = 0;
+        #endregion
+        #region Features and Traits
         public string? PersonalityTraits { get; set; }
         public string? Ideals { get; set; }
         public string? Bonds { get; set; }
         public string? Flaws { get; set; }
-        public string? CharacterBackstory { get; set; }
-        public string? Alignment { get; set; } = "Good";
-        public string? EncumbranceStatus { get; set; }
-        public string? CharacterImage { get; set; }
+        public string? Inspiration { get; set; }
 
-        public string Gender { get; set; } = "Male";
-        public int HitPoints_Total { get; set; } = 100;
-        public int Initiative { get; set; } = 0;
-        public float TotalWeight { get; set; } = 0;
+        #endregion
+
+        public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
+        public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
+        public List<CharacterItemRequest> CharacterItems { get; set; } = new List<CharacterItemRequest>();
+        public List<CharacterTreasureRequest> CharacterTreasures { get; set; } = new List<CharacterTreasureRequest>();
     }
 }

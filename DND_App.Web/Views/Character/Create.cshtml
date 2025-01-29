@@ -29,23 +29,26 @@
                 <div id="collapseGeneralInformation" class="accordion-collapse collapse show" aria-labelledby="headingGeneralInformation" data-bs-parent="#characterAccordion">
                     <div class="accordion-body">
                         <div>
-                            <label class="form-label">Character Image</label>
-                            <input type="text" class="form-control" id="featuredImageUrl" asp-for="CharacterImage" />
-                            <span asp-validation-for="CharacterImage"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Featured Image Upload</label>
-                            <input type="file" id="featuredImageUpload" class="form-control" />
-                            <img id="featuredImageDisplay" class="img-fluid rounded mt-3" style="display: none; width: 25%; height: auto;" alt="Uploaded Character Image" />
-                        </div>
-                        <div>
                             <label class="form-label">Character Name</label>
-                            <input type="text" class="form-control" id="characterName" asp-for="CharacterName" />
+                            <input type="text" class="form-control" id="characterName"
+                                   style="display:block; width:15%"
+                                   asp-for="CharacterName" />
                             <span asp-validation-for="CharacterName"></span>
                         </div>
                         <div>
+                            <label class="form-label"></label>
+                            <input type="hidden" class="form-control" id="featuredImageUrl" asp-for="CharacterImage" />
+                            <span asp-validation-for="CharacterImage"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Upload Character Image</label>
+                            <input type="file" id="featuredImageUpload" class="form-control" />
+                            <img id="featuredImageDisplay" class="img-fluid rounded mt-3"
+                                 style="display: none; width: 25%; height: auto;" alt="Uploaded Character Image" />
+                        </div>
+                        <div>
                             <label style="display:block" class="py-3">Class</label>
-                            <select asp-for="CharacterClassId" style="display:block; width:100%">
+                            <select asp-for="CharacterClassId" style="display:block; width:15%">
                                 @foreach (var c in ViewBag.Classes)
                                 {
                                     <option value="@c.Id">@c.Name</option>
@@ -54,7 +57,7 @@
                         </div>
                         <div>
                             <label style="display: block" class="py-3">Race</label>
-                            <select asp-for="CharacterRaceId" style="display:block; width:100%">
+                            <select asp-for="CharacterRaceId" style="display:block; width:15%">
                                 @foreach (var r in ViewBag.Races)
                                 {
                                     <option value="@r.Id">@r.Name</option>
@@ -63,17 +66,24 @@
                         </div>
                         <div>
                             <label class="form-label mt-3">Level</label>
-                            <input type="number" class="form-control" id="level" asp-for="Level" step="1" min="0" />
+                            <input type="number" class="form-control" id="level"
+                                   style="display:block; width:15%"
+                                   asp-for="Level"
+                                   step="1" min="0" />
                             <span asp-validation-for="Level"></span>
                         </div>
                         <div>
                             <label class="form-label">Experience Points</label>
-                            <input type="text" class="form-control" id="experiencePoints" asp-for="ExperiencePoints" />
+                            <input type="text" class="form-control" id="experiencePoints"
+                                   style="display:block; width:15%"
+                                   asp-for="ExperiencePoints" />
                             <span asp-validation-for="ExperiencePoints"></span>
                         </div>
                         <div>
                             <label style="display: block" class="py-3">Alignment</label>
-                            <select class="form-control" id="alignment" style="display:block; width:100%" asp-for="Alignment">
+                            <select class="form-control" id="alignment"
+                                    style="display:block; width:15%"
+                                    asp-for="Alignment">
                                 @foreach (var alignment in ViewBag.Alignments)
                                 {
                                     <option value="@alignment">@alignment</option>
@@ -83,12 +93,17 @@
                         </div>
                         <div>
                             <label class="form-label">Age</label>
-                            <input type="number" class="form-control" id="age" asp-for="Age" step="1" min="0" />
+                            <input type="number" class="form-control" id="age"
+                                   style="display:block; width:15%"
+                                   asp-for="Age"
+                                   step="1" min="0" />
                             <span asp-validation-for="Age"></span>
                         </div>
                         <div>
                             <label style="display: block" class="py-3">Gender</label>
-                            <select class="form-control" id="gender" style="display:block; width:100%" asp-for="Gender">
+                            <select class="form-control" id="gender"
+                                    style="display:block; width:15%"
+                                    asp-for="Gender">
                                 @foreach (var gender in ViewBag.Gender)
                                 {
                                     <option value="@gender">@gender</option>
@@ -110,32 +125,45 @@
                     <div class="accordion-body">
                         <div>
                             <label class="form-label">Strength</label>
-                            <input type="number" class="form-control" id="strength" asp-for="Strength" step="1" min="0"/>
+                            <input type="number" class="form-control" id="strength"
+                                   style="display:block; width:15%" 
+                                   asp-for="Strength" 
+                                   step="1" min="0"/>
                             <span asp-validation-for="Strength"></span>
                         </div>
                         <div>
                             <label class="form-label">Dexterity</label>
-                            <input type="number" class="form-control" id="dexterity" asp-for="Dexterity" step="1" min="0"/>
+                            <input type="number" class="form-control" id="dexterity" 
+                                   style="display:block; width:15%"
+                                   asp-for="Dexterity" step="1" min="0"/>
                             <span asp-validation-for="Dexterity"></span>
                         </div>
                         <div>
                             <label class="form-label">Constitution</label>
-                            <input type="number" class="form-control" id="constitution" asp-for="Constitution" step="1" min="0"/>
+                            <input type="number" class="form-control" id="constitution"
+                                   style="display:block; width:15%"
+                                   asp-for="Constitution" step="1" min="0"/>
                             <span asp-validation-for="Constitution"></span>
                         </div>
                         <div>
                             <label class="form-label">Intelligence</label>
-                            <input type="number" class="form-control" id="intelligence" asp-for="Intelligence" step="1" min="0"/>
+                            <input type="number" class="form-control" id="intelligence" 
+                                   style="display:block; width:15%"
+                                   asp-for="Intelligence" step="1" min="0"/>
                             <span asp-validation-for="Intelligence"></span>
                         </div>
                         <div>
                             <label class="form-label">Wisdom</label>
-                            <input type="number" class="form-control" id="wisdom" asp-for="Wisdom" step="1" min="0"/>
+                            <input type="number" class="form-control" id="wisdom"
+                                   style="display:block; width:15%"
+                                   asp-for="Wisdom" step="1" min="0"/>
                             <span asp-validation-for="Wisdom"></span>
                         </div>
                         <div>
                             <label class="form-label">Charisma</label>
-                            <input type="number" class="form-control" id="charisma" asp-for="Charisma" step="1" min="0"/>
+                            <input type="number" class="form-control" id="charisma"
+                                   style="display:block; width:15%"
+                                   asp-for="Charisma" step="1" min="0"/>
                             <span asp-validation-for="Charisma"></span>
                         </div>
                     </div>
@@ -169,34 +197,42 @@
                     <div class="accordion-body">
                         <div>
                             <label class="form-label">Height</label>
-                            <input type="text" class="form-control" id="height" placeholder="Enter height (e.g., 6 2)" />
+                            <input type="text" class="form-control" id="height" 
+                                   style="display:block; width:15%"
+                                   placeholder="Enter height (e.g., 6 2)" />
                             <span asp-validation-for="Height"></span>
                         </div>
                         <p id="formattedHeight" class="mt-2"></p>
-                        <!-- Hidden input to store the formatted height -->
-                        <input type="hidden" id="formattedHeightInput" asp-for="Height" />
+                        <input type="hidden" id="formattedHeightInput" 
+                               asp-for="Height" />
                         <div>
                             <label class="form-label">Weight</label>
-                            <input type="text" class="form-control" id="weight" asp-for="Weight" placeholder="Enter weight (e.g., 150)" />
+                            <input type="text" class="form-control" id="weight"
+                                   style="display:block; width:15%"
+                                   asp-for="Weight" placeholder="Enter weight (e.g., 150)" />
                             <span asp-validation-for="Weight"></span>
                         </div>
                         <div>
                             <label class="form-label">Eyes</label>
-                            <input type="text" class="form-control" id="eyes" asp-for="Eyes" />
+                            <input type="text" class="form-control" id="eyes" 
+                                   style="display:block; width:15%"
+                                   asp-for="Eyes" />
                             <span asp-validation-for="Eyes"></span>
                         </div>
                         <div>
                             <label class="form-label">Skin</label>
-                            <input type="text" class="form-control" id="skin" asp-for="Skin" />
+                            <input type="text" class="form-control" id="skin"
+                                   style="display:block; width:15%"
+                                   asp-for="Skin" />
                             <span asp-validation-for="Skin"></span>
                         </div>
                         <div>
                             <label class="form-label">Hair</label>
-                            <input type="text" class="form-control" id="hair" asp-for="Hair" />
+                            <input type="text" class="form-control" id="hair" 
+                                   style="display:block; width:15%"
+                                   asp-for="Hair" />
                             <span asp-validation-for="Hair"></span>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -209,16 +245,7 @@
                 </h2>
                 <div id="collapseCombat" class="accordion-collapse collapse show" aria-labelledby="headingCombat" data-bs-parent="#characterAccordion">
                     <div class="accordion-body">
-                        <div>
-                            <label class="form-label">Passive Wisdom</label>
-                            <input type="text" class="form-control" id="passiveWisdom" asp-for="PassiveWisdom" />
-                            <span asp-validation-for="PassiveWisdom"></span>
-                        </div>
-                        <div>
-                            <label class="form-label">Proficiency Bonus</label>
-                            <input type="text" class="form-control" id="proficiencyBonus" asp-for="ProficiencyBonus" />
-                            <span asp-validation-for="ProficiencyBonus"></span>
-                        </div>
+                        
                         <div>
                             <label class="form-label">Armor Class</label>
                             <input type="text" class="form-control" id="armorClass" asp-for="ArmorClass" />
@@ -230,25 +257,11 @@
                             <span asp-validation-for="Speed"></span>
                         </div>
                         <div>
-                            <label class="form-label">Encumbrance Status</label>
-                            <input type="text" class="form-control" id="encumbranceStatus" asp-for="EncumbranceStatus" />
-                            <span asp-validation-for="EncumbranceStatus"></span>
-                        </div>
-                        <div>
-                            <label class="form-label">Total Hit Points</label>
+                            <label class="form-label">Hit Points</label>
                             <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
                             <span asp-validation-for="HitPoints_Total"></span>
                         </div>
-                        <div>
-                            <label class="form-label">Initiative</label>
-                            <input type="text" class="form-control" id="initiative" asp-for="Initiative" />
-                            <span asp-validation-for="Initiative"></span>
-                        </div>
-                        <div>
-                            <label class="form-label">TotalWeight</label>
-                            <input type="text" class="form-control" id="totalWeight" asp-for="TotalWeight" />
-                            <span asp-validation-for="TotalWeight"></span>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -263,27 +276,27 @@
                     <div class="accordion-body">
                         <div>
                             <label class="form-label">Personality Traits</label>
-                            <input class="form-control" id="personalityTraits" asp-for="PersonalityTraits" />
+                            <input type="text"  class="form-control" id="personalityTraits" asp-for="PersonalityTraits" />
                             <span asp-validation-for="PersonalityTraits"></span>
                         </div>
                         <div>
                             <label class="form-label">Ideals</label>
-                            <input class="form-control" id="ideals" asp-for="Ideals" />
+                            <input type="text"  class="form-control" id="ideals" asp-for="Ideals" />
                             <span asp-validation-for="Ideals"></span>
                         </div>
                         <div>
                             <label class="form-label">Bonds</label>
-                            <input class="form-control" id="bonds" asp-for="Bonds" />
+                            <input type="text"  class="form-control" id="bonds" asp-for="Bonds" />
                             <span asp-validation-for="Bonds"></span>
                         </div>
                         <div>
                             <label class="form-label">Flaws</label>
-                            <input class="form-control" id="flaws" asp-for="Flaws" />
+                            <input type="text"  class="form-control" id="flaws" asp-for="Flaws" />
                             <span asp-validation-for="Flaws"></span>
                         </div>
                         <div>
                             <label class="form-label">Inspiration</label>
-                            <input type="text" class="form-control" id="inspiration" asp-for="Inspiration" type="checkbox" />
+                            <input type="text" class="form-control" id="inspiration" asp-for="Inspiration"/>
                             <span asp-validation-for="Inspiration"></span>
                         </div>
                     </div>
@@ -388,6 +401,7 @@
                                     <label class="form-label">@item.Name</label>
                                     <input type="hidden" name="CharacterItems[@(i)].ItemId" value="@characterItem.ItemId" />
                                     <input type="number" class="form-control" id="CharacterItems_@(i)__Quantity"
+                                           style="display:block; width:15%"
                                            name="CharacterItems[@(i)].Quantity"
                                            value="@characterItem.Quantity"
                                            min="0" />
@@ -420,6 +434,7 @@
                                     <label class="form-label">@treasure.Name</label>
                                     <input type="hidden" name="CharacterTreasures[@(i)].TreasureId" value="@characterTreasure.TreasureId" />
                                     <input type="number" class="form-control" id="CharacterTreasures_@(i)__Quantity"
+                                           style="display:block; width:15%"
                                            name="CharacterTreasures[@(i)].Quantity"
                                            value="@characterTreasure.Quantity"
                                            min="0" />
@@ -430,7 +445,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 

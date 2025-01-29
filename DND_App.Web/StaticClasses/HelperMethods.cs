@@ -1,4 +1,5 @@
 ﻿using DND_App.Web.Models.Domain;
+using DND_App.Web.StaticClasses;
 using DND_App.Web.StaticClasses.Constants;
 using System.Text;
 
@@ -66,21 +67,21 @@ namespace DND_App.Web.StaticClasses
                 switch (equippedArmor.Item.Name)
                 {
                     case "Leather Armor":
-                        if (equippedArmor.Item.Name == Items.LeatherArmor)
+                        if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.LeatherArmor))
                         {
                             baseAC = 11 + dexterityModifier;
                         }
                         break;
 
                     case "Chain Shirt":
-                        if (equippedArmor.Item.Name == Items.ChainShirt)
+                        if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.ChainShirt))
                         {
                             baseAC = 13 + Math.Min(dexterityModifier, 2);
                         }
                         break;
 
                     case "Chainmail":
-                        if (equippedArmor.Item.Name == Items.Chainmail)
+                        if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.Chainmail))
                         {
                             baseAC = 16 + Math.Min(dexterityModifier, 2);
                         }
@@ -88,7 +89,7 @@ namespace DND_App.Web.StaticClasses
                         break;
 
                     case "Plate Armor":
-                        if (equippedArmor.Item.Name == Items.PlateArmor)
+                        if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.PlateArmor))
                         {
                             baseAC = 18;
                         }
@@ -116,7 +117,7 @@ namespace DND_App.Web.StaticClasses
 
             // Check if a shield is equipped.
             var shieldEquipped = character.CharacterItems
-                .Any(item => item.Item != null && item.Item.Name == Items.Shield);
+                .Any(item => item.Item != null && item.Item.Name == ItemNameExtension.GetDisplayName(ItemName.Shield));
             if (shieldEquipped)
             {
                 baseAC += 2;

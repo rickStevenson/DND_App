@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DND_App.Web.Migrations
 {
     [DbContext(typeof(DnDDbContext))]
-    [Migration("20250125194402_IntitialMigration")]
-    partial class IntitialMigration
+    [Migration("20250129170603_TestItem")]
+    partial class TestItem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1299,7 +1299,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A small vial of red liquid that restores health when consumed.",
                             HPRegained = "2d4+2",
-                            Name = "HealingPotion",
+                            Name = "Healing Potion",
                             Properties = "Consumable",
                             Rarity = "Uncommon",
                             Stealth = "",
@@ -1394,7 +1394,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A package of dried food sufficient for one day.",
                             HPRegained = "",
-                            Name = "Rations_1day",
+                            Name = "Rations (1 day)",
                             Properties = "Consumable",
                             Rarity = "Common",
                             Stealth = "",
@@ -1432,7 +1432,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A hemp rope useful for climbing or securing items.",
                             HPRegained = "",
-                            Name = "Rope_50feet",
+                            Name = "Rope (50 feet)",
                             Properties = "50 feet",
                             Rarity = "Common",
                             Stealth = "",
@@ -1489,7 +1489,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "Bludgeoning",
                             Description = "A hammer balanced for throwing.",
                             HPRegained = "",
-                            Name = "ThrowingHammer",
+                            Name = "Throwing Hammer",
                             Properties = "Light, Thrown (range 20/60)",
                             Rarity = "Common",
                             Stealth = "",
@@ -1565,7 +1565,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "A magical shield that offers increased protection.",
                             HPRegained = "",
-                            Name = "ShieldPlusOne",
+                            Name = "Shield +1",
                             Properties = "Magical Bonus (+1)",
                             Rarity = "Rare",
                             Stealth = "",
@@ -1584,7 +1584,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "This armor grants superior magical protection.",
                             HPRegained = "",
-                            Name = "ArmorPlusTwo",
+                            Name = "Armor +2",
                             Properties = "Magical Bonus (+2)",
                             Rarity = "Very Rare",
                             Stealth = "Disadvantage",
@@ -1603,7 +1603,7 @@ namespace DND_App.Web.Migrations
                             DamageType = "",
                             Description = "This cloak increases the wearer's AC and saving throws.",
                             HPRegained = "",
-                            Name = "CloakOfProtection",
+                            Name = "Cloak Of Protection",
                             Properties = "Provides +1 bonus to AC and saving throws.",
                             Rarity = "Uncommon",
                             Stealth = "",
@@ -3208,7 +3208,7 @@ namespace DND_App.Web.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DND_App.Web.Models.Domain.Treasure", b =>
+            modelBuilder.Entity("DND_App.Web.Models.Domain.TreasureType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3239,7 +3239,7 @@ namespace DND_App.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Treasures");
+                    b.ToTable("TreasureType");
 
                     b.HasData(
                         new
@@ -3511,7 +3511,7 @@ namespace DND_App.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DND_App.Web.Models.Domain.Treasure", "Treasure")
+                    b.HasOne("DND_App.Web.Models.Domain.TreasureType", "TreasureType")
                         .WithMany()
                         .HasForeignKey("TreasureId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3519,7 +3519,7 @@ namespace DND_App.Web.Migrations
 
                     b.Navigation("Character");
 
-                    b.Navigation("Treasure");
+                    b.Navigation("TreasureType");
                 });
 
             modelBuilder.Entity("DND_App.Web.Models.Domain.ClassAbility", b =>

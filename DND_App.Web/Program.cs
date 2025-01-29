@@ -9,21 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 builder.Services.AddDbContext<DnDDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
-        sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "DND_DbSchema")
-    ));
+options.UseSqlServer(builder.Configuration.GetConnectionString
+("DND_DbConnection")));
 
 builder.Services.AddDbContext<UserDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
-        sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory_UserAuth", "UserAuthSchema")
-    ));
+options.UseSqlServer(builder.Configuration.GetConnectionString
+("DND_UserAuth_DbConnection")));
 
-// Add Identity using UserDbContext for authentication
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<UserDbContext>();
-    //.AddDefaultTokenProviders(); // Optional: Add token providers if needed
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

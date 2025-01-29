@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DND_App.Web.Migrations
 {
     /// <inheritdoc />
-    public partial class IntitialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -140,7 +140,7 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Treasures",
+                name: "TreasureType",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -422,7 +422,7 @@ namespace DND_App.Web.Migrations
                     table.ForeignKey(
                         name: "FK_CharacterTreasures_Treasures_TreasureId",
                         column: x => x.TreasureId,
-                        principalTable: "Treasures",
+                        principalTable: "TreasureType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -542,7 +542,7 @@ namespace DND_App.Web.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Treasures",
+                table: "TreasureType",
                 columns: new[] { "Id", "Description", "IsMagical", "Name", "Type", "Value", "Weight" },
                 values: new object[,]
                 {
@@ -955,7 +955,7 @@ namespace DND_App.Web.Migrations
                 name: "Characters");
 
             migrationBuilder.DropTable(
-                name: "Treasures");
+                name: "TreasureType");
 
             migrationBuilder.DropTable(
                 name: "CharacterClasses");
