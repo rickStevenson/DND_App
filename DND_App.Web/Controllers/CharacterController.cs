@@ -700,7 +700,7 @@ namespace DND_App.Web.Controllers
 
             if (deletedCharacter != null)
             {
-                return RedirectToAction("ReadAll");
+                return RedirectToAction("UserCharacters");
             }
 
             return RedirectToAction("Edit", new {id = editCharacterViewModel?.Id});
@@ -730,11 +730,5 @@ namespace DND_App.Web.Controllers
 
             return View(userCharacters);
         }
-
-
-        //public static class HelperMethods
-        //{
-            
-        //}
     }
 }

@@ -7,7 +7,7 @@ namespace DND_App.Web.Models.ViewModels
         #region General Info
         public string? CharacterImage { get; set; }
         [Required]
-        public string CharacterName { get; set; } = "Donger";
+        public string CharacterName { get; set; }
 
         [Required]
         public int CharacterClassId { get; set; }
@@ -17,28 +17,28 @@ namespace DND_App.Web.Models.ViewModels
         public int Level { get; set; } = 1;
         public int ExperiencePoints { get; set; } = 0;
         public string? Alignment { get; set; }
-        public int Age { get; set; } = 0;
-        public string Gender { get; set; } = "Male";
+        public int Age { get; set; }
+        public string Gender { get; set; }
 
         #endregion
         #region Attributes
         [Required]
-        public int Strength { get; set; } = 21;
+        public int Strength { get; set; }
 
         [Required]
-        public int Dexterity { get; set; } = 12;
+        public int Dexterity { get; set; }
 
         [Required]
-        public int Constitution { get; set; } = 21;
+        public int Constitution { get; set; }
 
         [Required]
-        public int Intelligence { get; set; } = 12;
+        public int Intelligence { get; set; }
 
         [Required]
-        public int Wisdom { get; set; } = 12;
+        public int Wisdom { get; set; }
 
         [Required]
-        public int Charisma { get; set; } = 21;
+        public int Charisma { get; set; }
 
         #endregion
         #region Backstory
@@ -52,14 +52,14 @@ namespace DND_App.Web.Models.ViewModels
         public string? Hair { get; set; }
         #endregion
         #region Combat
-        public int PassiveWisdom { get; set; } = 10;
+        public int PassiveWisdom { get; set; }
         public int ProficiencyBonus { get; set; }
         public int ArmorClass { get; set; } = 10;
         public int Speed { get; set; } = 30;
         public string? EncumbranceStatus { get; set; }
-        public int HitPoints_Total { get; set; } = 100;
-        public int Initiative { get; set; } = 0;
-        public float TotalWeight { get; set; } = 0;
+        public int HitPoints_Total { get; set; }
+        public int Initiative { get; set; }
+        public float TotalWeight { get; set; }
         #endregion
         #region Features and Traits
         public string? PersonalityTraits { get; set; }

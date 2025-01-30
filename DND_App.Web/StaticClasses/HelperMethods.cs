@@ -143,7 +143,7 @@ namespace DND_App.Web.StaticClasses
             var stringBuilder = new StringBuilder();
 
             // Add Modifier
-            stringBuilder.AppendLine($"<p>Modifier: {abilityModifier}</p>");
+            stringBuilder.AppendLine($"<p>Saving Throw Modifier: {abilityModifier}</p>");
 
             // List proficient skills aligned with the specified attribute
             var proficientSkills = character.CharacterSkills

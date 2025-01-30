@@ -51,7 +51,7 @@ namespace DND_App.Web.Models.ViewModels
         public string? Ideals { get; set; }
         public string? Bonds { get; set; }
         public string? Flaws { get; set; }
-        public string Inspiration { get; set; }
+        public string? Inspiration { get; set; }
 
         #endregion
 

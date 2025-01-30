@@ -1,6 +1,7 @@
 ﻿@model DND_App.Web.Models.Domain.Character
+@using Microsoft.AspNetCore.Identity
 @using DND_App.Web.StaticClasses;
-
+@inject SignInManager<IdentityUser> signInManager
 
 
 <div class="container">
@@ -137,7 +138,6 @@
                                 <label class="form-label">
                                     Skill Name: @skill.Skill.Name <br />
                                     Proficiency Bonus: @Model.ProficiencyBonus
-                                    @*Bonus: @skill.Bonus*@
                                 </label>
                             </div>
                         }
@@ -208,10 +208,15 @@
                            class="btn btn-primary">
                             Edit
                         </a>
-                        <a asp-action="UserCharacters"
-                           class="btn btn-secondary">
-                            Back to List
-                        </a>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <a asp-controller="Character" 
+                               asp-action="UserCharacters"
+                               class="btn btn-secondary">
+                                Back to List
+                            </a>
+                        }
+
                     </div>
                 </div>
             </div>
