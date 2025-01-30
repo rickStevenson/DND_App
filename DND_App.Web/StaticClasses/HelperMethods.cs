@@ -83,7 +83,7 @@ namespace DND_App.Web.StaticClasses
                     case "Chainmail":
                         if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.Chainmail))
                         {
-                            baseAC = 16 + Math.Min(dexterityModifier, 2);
+                            baseAC = 16;
                         }
 
                         break;

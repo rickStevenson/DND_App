@@ -60,7 +60,7 @@ namespace DND_App.Web.Models.Domain
         public string? Ideals { get; set; }
         public string? Bonds { get; set; }
         public string? Flaws { get; set; }
-        public string Inspiration { get; set; }
+        public string? Inspiration { get; set; }
         #endregion
 
         public ICollection<CharacterSkill> CharacterSkills { get; set; } = new List<CharacterSkill>();
