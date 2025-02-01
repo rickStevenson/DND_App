@@ -14,6 +14,7 @@
 </div>
 <div class="container">
     <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" style="display:none;" />
         <div class="row align-items-center">
             <div class="col-md-8">
                 <h2>Character: @Model.CharacterName</h2>
@@ -35,20 +36,19 @@
         <div class="container">
             <div class="accordion" id="characterAccordion">
                 <!-- GeneralInformation Section -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingGeneralInformation">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneralInformation" aria-expanded="true" aria-controls="collapseGeneralInformation">
+                <div class="accordion-item" data-validation-error="GeneralInformation">
+                    <h2 class="accordion-header" id="headingGeneral">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">
                             General Information
                         </button>
                     </h2>
-                    <div id="collapseGeneralInformation" class="accordion-collapse collapse show" aria-labelledby="headingGeneralInformation" data-bs-parent="#characterAccordion">
+                    <div id="collapseGeneral" class="accordion-collapse collapse" aria-labelledby="headingGeneral" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
-                            <div>
-                                <label class="form-label">Character Name</label>
-                                <input type="text" class="form-control" id="characterName"
-                                       style="display:block; width:15%"
-                                       asp-for="CharacterName" />
-                                <span asp-validation-for="CharacterName"></span>
+                            <div class="form-group">
+                                <label asp-for="CharacterName" class="form-label"></label>
+                                <input asp-for="CharacterName" class="form-control"
+                                       style="display:block; width:15%" />
+                                <span asp-validation-for="CharacterName" class="text-danger"></span>
                             </div>
                             <div>
                                 <label class="form-label"></label>
@@ -56,13 +56,11 @@
                                 <span asp-validation-for="CharacterImage"></span>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Change Character Image</label>
-                                <input type="file" id="featuredImageUpload" class="form-control" />
+                                <label class="form-label">Change Character Image?</label>
+                                <input type="file" asp-for="CharacterImage" id="featuredImageUpload" class="form-control" />
+
                                 <img id="featuredImageDisplay" class="img-fluid rounded mt-3"
-                                     style="display: none;
-                                    width: 25%;
-                                    height: auto;"
-                                     alt="Uploaded Character Image" />
+                                     style="display: none; width: 25%; height: auto;" alt="Uploaded Character Image" />
                             </div>
                             <div>
                                 <label style="display:block" class="py-3">Class</label>
@@ -82,49 +80,61 @@
                                     }
                                 </select>
                             </div>
-                            <div>
-                                <label class="form-label mt-3">Level</label>
-                                <input type="number" class="form-control" id="level"
+                            <div class="form-group">
+                                <label asp-for="Level" class="form-label"></label>
+                                <input asp-for="Level" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="Level"
                                        step="1" min="0" />
-                                <span asp-validation-for="Level"></span>
+                                <span asp-validation-for="Level" class="text-danger"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Experience Points</label>
-                                <input type="text" class="form-control" id="experiencePoints"
+                            <div class="form-group">
+                                <label asp-for="ExperiencePoints" class="form-label"></label>
+                                <input asp-for="ExperiencePoints" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="ExperiencePoints" />
-                                <span asp-validation-for="ExperiencePoints"></span>
+                                       step="1" min="0" />
+                                <span asp-validation-for="ExperiencePoints" class="text-danger"></span>
                             </div>
                             <div>
                                 <label style="display: block" class="py-3">Alignment</label>
                                 <select class="form-control" id="alignment"
                                         style="display:block; width:15%"
                                         asp-for="Alignment">
-                                    @foreach (var alignment in ViewBag.Alignments)
+                                    @if (ViewBag.Alignments != null)
                                     {
-                                        <option value="@alignment">@alignment</option>
+                                        @foreach (var alignment in ViewBag.Alignments)
+                                        {
+                                            <option value="@alignment">@alignment</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option disabled>No alignments available</option>
                                     }
                                 </select>
                                 <span asp-validation-for="Alignment"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Age</label>
-                                <input type="number" class="form-control" id="age"
+                            <div class="form-group">
+                                <label asp-for="Age" class="form-label"></label>
+                                <input asp-for="Age" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="Age"
                                        step="1" min="0" />
-                                <span asp-validation-for="Age"></span>
+                                <span asp-validation-for="Age" class="text-danger"></span>
                             </div>
                             <div>
                                 <label style="display: block" class="py-3">Gender</label>
                                 <select class="form-control" id="gender"
                                         style="display:block; width:15%"
                                         asp-for="Gender">
-                                    @foreach (var gender in ViewBag.Gender)
+                                    @if (ViewBag.Gender != null)
                                     {
-                                        <option value="@gender">@gender</option>
+                                        @foreach (var gender in ViewBag.Gender)
+                                        {
+                                            <option value="@gender">@gender</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option disabled>No gender available</option>
                                     }
                                 </select>
                                 <span asp-validation-for="Gender"></span>
@@ -133,68 +143,67 @@
                     </div>
                 </div>
                 <!-- Attribute Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="Attributes">
                     <h2 class="accordion-header" id="headingAttributes">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttributes" aria-expanded="true" aria-controls="collapseAttributes">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttributes" aria-expanded="false" aria-controls="collapseAttributes">
                             Attributes
                         </button>
                     </h2>
-                    <div id="collapseAttributes" class="accordion-collapse collapse show" aria-labelledby="headingAttributes" data-bs-parent="#characterAccordion">
+                    <div id="collapseAttributes" class="accordion-collapse collapse" aria-labelledby="headingAttributes" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
-                            <div>
-                                <label class="form-label">Strength</label>
-                                <input type="number" class="form-control" id="strength"
+                            <div class="form-group">
+                                <label asp-for="Strength" class="form-label"></label>
+                                <input asp-for="Strength" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="Strength"
                                        step="1" min="0" />
-                                <span asp-validation-for="Strength"></span>
+                                <span asp-validation-for="Strength" class="text-danger"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Dexterity</label>
-                                <input type="number" class="form-control" id="dexterity"
+                            <div class="form-group">
+                                <label asp-for="Dexterity" class="form-label"></label>
+                                <input asp-for="Dexterity" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="Dexterity" step="1" min="0" />
-                                <span asp-validation-for="Dexterity"></span>
+                                       step="1" min="0" />
+                                <span asp-validation-for="Dexterity" class="text-danger"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Constitution</label>
-                                <input type="number" class="form-control" id="constitution"
+                            <div class="form-group">
+                                <label asp-for="Constitution" class="form-label"></label>
+                                <input asp-for="Constitution" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="Constitution" step="1" min="0" />
-                                <span asp-validation-for="Constitution"></span>
+                                       step="1" min="0" />
+                                <span asp-validation-for="Constitution" class="text-danger"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Intelligence</label>
-                                <input type="number" class="form-control" id="intelligence"
+                            <div class="form-group">
+                                <label asp-for="Intelligence" class="form-label"></label>
+                                <input asp-for="Intelligence" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="Intelligence" step="1" min="0" />
-                                <span asp-validation-for="Intelligence"></span>
+                                       step="1" min="0" />
+                                <span asp-validation-for="Intelligence" class="text-danger"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Wisdom</label>
-                                <input type="number" class="form-control" id="wisdom"
+                            <div class="form-group">
+                                <label asp-for="Wisdom" class="form-label"></label>
+                                <input asp-for="Wisdom" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="Wisdom" step="1" min="0" />
-                                <span asp-validation-for="Wisdom"></span>
+                                       step="1" min="0" />
+                                <span asp-validation-for="Wisdom" class="text-danger"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Charisma</label>
-                                <input type="number" class="form-control" id="charisma"
+                            <div class="form-group">
+                                <label asp-for="Charisma" class="form-label"></label>
+                                <input asp-for="Charisma" class="form-control"
                                        style="display:block; width:15%"
-                                       asp-for="Charisma" step="1" min="0" />
-                                <span asp-validation-for="Charisma"></span>
+                                       step="1" min="0" />
+                                <span asp-validation-for="Charisma" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Backstory Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="Backstory">
                     <h2 class="accordion-header" id="headingBackstory">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackstory" aria-expanded="true" aria-controls="collapseBackstory">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackstory" aria-expanded="false" aria-controls="collapseBackstory">
                             Backstory
                         </button>
                     </h2>
-                    <div id="collapseBackstory" class="accordion-collapse collapse show" aria-labelledby="headingBackstory" data-bs-parent="#characterAccordion">
+                    <div id="collapseBackstory" class="accordion-collapse collapse" aria-labelledby="headingBackstory" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
                             <div>
                                 <label class="form-label">Character Backstory</label>
@@ -205,13 +214,13 @@
                     </div>
                 </div>
                 <!-- Appearance Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="Appearance">
                     <h2 class="accordion-header" id="headingAppearance">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAppearance" aria-expanded="true" aria-controls="collapseAppearance">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAppearance" aria-expanded="false" aria-controls="collapseAppearance">
                             Appearance
                         </button>
                     </h2>
-                    <div id="collapseAppearance" class="accordion-collapse collapse show" aria-labelledby="headingAppearance" data-bs-parent="#characterAccordion">
+                    <div id="collapseAppearance" class="accordion-collapse collapse" aria-labelledby="headingAppearance" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
                             <div>
                                 <label class="form-label">Height</label>
@@ -255,42 +264,54 @@
                     </div>
                 </div>
                 <!-- Combat Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="Combat">
                     <h2 class="accordion-header" id="headingCombat">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCombat" aria-expanded="true" aria-controls="collapseCombat">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCombat" aria-expanded="false" aria-controls="collapseCombat">
                             Combat
                         </button>
                     </h2>
-                    <div id="collapseCombat" class="accordion-collapse collapse show" aria-labelledby="headingCombat" data-bs-parent="#characterAccordion">
+                    <div id="collapseCombat" class="accordion-collapse collapse" aria-labelledby="headingCombat" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
-
-                            <div>
-                                <label class="form-label">Armor Class</label>
-                                <input type="text" class="form-control" id="armorClass" asp-for="ArmorClass" />
-                                <span asp-validation-for="ArmorClass"></span>
+                            <div class="form-group">
+                                <label asp-for="ArmorClass" class="form-label"></label>
+                                <input asp-for="ArmorClass" class="form-control"
+                                       style="display:block; width:15%"
+                                       step="1" min="0" />
+                                <span asp-validation-for="ArmorClass" class="text-danger"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Speed</label>
-                                <input type="text" class="form-control" id="speed" asp-for="Speed" />
-                                <span asp-validation-for="Speed"></span>
+                            <div class="form-group">
+                                <label asp-for="Speed" class="form-label"></label>
+                                <input asp-for="Speed" class="form-control"
+                                       style="display:block; width:15%"
+                                       step="1" min="0" />
+                                <span asp-validation-for="Speed" class="text-danger"></span>
                             </div>
-                            <div>
-                                <label class="form-label">Hit Points</label>
-                                <input type="text" class="form-control" id="hitPoints_Total" asp-for="HitPoints_Total" />
-                                <span asp-validation-for="HitPoints_Total"></span>
+                            <div class="form-group">
+                                <label asp-for="HitPoints_Total" class="form-label"></label>
+                                <input asp-for="HitPoints_Total" class="form-control"
+                                       style="display:block; width:15%"
+                                       step="1" min="0" />
+                                <span asp-validation-for="HitPoints_Total" class="text-danger"></span>
                             </div>
-
+                            <div class="d-none">
+                                <input asp-for="HitPoints_Current" />
+                                <input asp-for="PassiveWisdom" />
+                                <input asp-for="ProficiencyBonus" />
+                                <input asp-for="EncumbranceStatus" />
+                                <input asp-for="Initiative" />
+                                <input asp-for="TotalWeight" />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- FeaturesAndTraits Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="FeaturesAndTraits">
                     <h2 class="accordion-header" id="headingFeaturesAndTraits">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFeaturesAndTraits" aria-expanded="true" aria-controls="collapseFeaturesAndTraits">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFeaturesAndTraits" aria-expanded="false" aria-controls="collapseFeaturesAndTraits">
                             Features And Traits
                         </button>
                     </h2>
-                    <div id="collapseFeaturesAndTraits" class="accordion-collapse collapse show" aria-labelledby="headingFeaturesAndTraits" data-bs-parent="#characterAccordion">
+                    <div id="collapseFeaturesAndTraits" class="accordion-collapse collapse" aria-labelledby="headingFeaturesAndTraits" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
                             <div>
                                 <label class="form-label">Personality Traits</label>
@@ -321,61 +342,59 @@
                     </div>
                 </div>
                 <!-- Skills Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="Skills">
                     <h2 class="accordion-header" id="headingSkills">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSkills" aria-expanded="true" aria-controls="collapseSkills">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSkills" aria-expanded="false" aria-controls="collapseSkills">
                             Skills
                         </button>
                     </h2>
-                    <div id="collapseSkills" class="accordion-collapse collapse show" aria-labelledby="headingSkills" data-bs-parent="#characterAccordion">
+                    <div id="collapseSkills" class="accordion-collapse collapse" aria-labelledby="headingSkills" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
                             <h4>Skills</h4>
                             @if (skills != null && skills.Count > 0)
                             {
                                 for (var i = 0; i < skills.Count; i++)
                                 {
-                                    var skill = skills[i];
-                                    var characterSkill = Model.CharacterSkills.FirstOrDefault(cs => cs.SkillId == skill.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSkillRequest();
-
-                                    <div class="mb-3">
-                                        <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
-
-                                        <!-- Hidden input for SkillId -->
-                                        <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
-
-                                        <!-- Checkbox for IsProficient -->
-                                        <div class="form-check">
-                                            <input class="form-check-input proficient-checkbox" type="checkbox"
-                                                   id="CharacterSkills_@(i)__IsProficient"
-                                                   name="CharacterSkills[@(i)].IsProficient"
-                                                   value="true"
-                                                   @(characterSkill.IsProficient ? "checked" : "")
-                                                   data-bonus-id="CharacterSkills_@(i)__Bonus" />
-                                            <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
+                                    var skill = skills.FirstOrDefault(s => s.Id == Model.CharacterSkills[i].SkillId);
+                                    @if (skill != null)
+                                    {
+                                        <div class="mb-3">
+                                            <label class="form-label">@skill.Name (@skill.AlignedAttribute)</label>
+                                            <input type="hidden" name="CharacterSkills[@(i)].SkillId" value="@skill.Id" />
+                                            <div class="form-check">
+                                                <input class="form-check-input proficient-checkbox" type="checkbox"
+                                                       id="CharacterSkills_@(i)__IsProficient"
+                                                       name="CharacterSkills[@(i)].IsProficient"
+                                                       value="true"
+                                                       @(Model.CharacterSkills[i]?.IsProficient ?? false ? "checked" : "")
+                                                       data-bonus-id="CharacterSkills_@(i)__Bonus" />
+                                                <label class="form-check-label" for="CharacterSkills_@(i)__IsProficient">Proficient</label>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+
                                 }
                             }
                         </div>
                     </div>
                 </div>
                 <!-- Spells Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="Spells">
                     <h2 class="accordion-header" id="headingSpells">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpells" aria-expanded="true" aria-controls="collapseSpells">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpells" aria-expanded="false" aria-controls="collapseSpells">
                             Spells
                         </button>
                     </h2>
-                    <div id="collapseSpells" class="accordion-collapse collapse show" aria-labelledby="headingSpells" data-bs-parent="#characterAccordion">
+                    <div id="collapseSpells" class="accordion-collapse collapse" aria-labelledby="headingSpells" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
                             <h4>Spells</h4>
                             @if (spells != null && spells.Count > 0)
                             {
                                 @for (int i = 0; i < Model.CharacterSpells.Count; i++)
                                 {
-                                    var spell = spells[i];
-                                    var characterSpell = Model.CharacterSpells.FirstOrDefault(cs => cs.SpellId == spell.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSpellRequest();
-
+                                    //var spell = spells[i];
+                                    //var characterSpell = Model.CharacterSpells.FirstOrDefault(cs => cs.SpellId == spell.Id) ?? new DND_App.Web.Models.ViewModels.CharacterSpellRequest();
+                                    var spell = spells.FirstOrDefault(s => s.Id == Model.CharacterSpells[i].SpellId);
                                     <div>
                                         <label>
                                             <input type="checkbox" name="CharacterSpells[@i].IsLearned" value="true" @(Model.CharacterSpells[i].IsLearned ? "checked" : "") />
@@ -392,13 +411,13 @@
                     </div>
                 </div>
                 <!-- Items Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="Items">
                     <h2 class="accordion-header" id="headingItems">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseItems" aria-expanded="true" aria-controls="collapseItems">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseItems" aria-expanded="false" aria-controls="collapseItems">
                             Items
                         </button>
                     </h2>
-                    <div id="collapseItems" class="accordion-collapse collapse show" aria-labelledby="headingItems" data-bs-parent="#characterAccordion">
+                    <div id="collapseItems" class="accordion-collapse collapse" aria-labelledby="headingItems" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
                             <h4>Items</h4>
                             @for (int i = 0; i < Model.CharacterItems.Count; i++)
@@ -425,13 +444,13 @@
                     </div>
                 </div>
                 <!-- Treasures Section -->
-                <div class="accordion-item">
+                <div class="accordion-item" data-validation-error="Treasures">
                     <h2 class="accordion-header" id="headingTreasures">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTreasures" aria-expanded="true" aria-controls="collapseTreasures">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTreasures" aria-expanded="false" aria-controls="collapseTreasures">
                             Treasures
                         </button>
                     </h2>
-                    <div id="collapseTreasures" class="accordion-collapse collapse show" aria-labelledby="headingTreasures" data-bs-parent="#characterAccordion">
+                    <div id="collapseTreasures" class="accordion-collapse collapse" aria-labelledby="headingTreasures" data-bs-parent="#characterAccordion">
                         <div class="accordion-body">
                             <h4>Treasures</h4>
                             @for (int i = 0; i < Model.CharacterTreasures.Count; i++)
@@ -481,32 +500,44 @@
 
         async function uploadFeaturedImage(e) {
             const file = e.target.files[0];
-            if (!file) return;
 
-            const data = new FormData();
+            if (!file) {
+                console.error("No file selected.");
+                return;
+            }
+
+            let data = new FormData();
             data.append('file', file);
 
             try {
                 const response = await fetch('/api/images', {
                     method: 'POST',
-                    body: data
+                    body: data,
                 });
 
-                if (!response.ok) throw new Error('Image upload failed');
+                if (!response.ok) {
+                    throw new Error(`Upload failed with status ${response.status}`);
+                }
 
                 const result = await response.json();
-                featuredImageUrlElement.value = result.link;
-                featuredImageDisplayElement.src = result.link;
-                featuredImageDisplayElement.style.display = 'block';
+
+                if (featuredImageUrlElement) {
+                    featuredImageUrlElement.value = result.link || result.secure_url;
+                }
+
+                if (featuredImageDisplayElement) {
+                    featuredImageDisplayElement.src = result.link || result.secure_url;
+                    featuredImageDisplayElement.style.display = 'block';
+                }
             } catch (error) {
-                console.error('Image upload error:', error);
+                console.error('Error during upload:', error);
             }
         }
 
         featuredUploadElement.addEventListener('change', uploadFeaturedImage);
+
     </script>
     <script>
-        // JavaScript to handle the checkbox change event
         document.addEventListener("DOMContentLoaded", function () {
             // Select all checkboxes with the 'proficient-checkbox' class
             document.querySelectorAll(".proficient-checkbox").forEach(function (checkbox) {
@@ -521,6 +552,16 @@
                         bonusInput.disabled = !this.checked; // Disable input when unchecked
                     }
                 });
+            });
+
+            // Initialize Bonus fields on page load
+            document.querySelectorAll(".proficient-checkbox").forEach(function (checkbox) {
+                const bonusInputId = checkbox.getAttribute("data-bonus-id");
+                const bonusInput = document.getElementById(bonusInputId);
+
+                if (bonusInput) {
+                    bonusInput.disabled = !checkbox.checked; // Disable input if checkbox is unchecked
+                }
             });
         });
     </script>
@@ -547,17 +588,39 @@
     </script>
     <script>
         document.getElementById('weight').addEventListener('input', function (event) {
-            let input = event.target.value;
+            let input = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters
 
-            // Remove any existing "lbs." or unwanted characters
-            input = input.replace(/[^0-9]/g, '').trim();
+            if (input.length === 0) {
+                event.target.value = ''; // Prevents 'lbs.' from reappearing when empty
+                return;
+            }
 
-            // Append "lbs." to the numeric input
-            if (input) {
-                event.target.value = `${input} lbs.`;
-            } else {
-                event.target.value = ''; // Clear input if it's empty
+            event.target.value = `${input} lbs.`;
+        });
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let firstError = document.querySelector(".text-danger:not(:empty)");
+
+            if (firstError) {
+                let accordionItem = firstError.closest(".accordion-item");
+
+                if (accordionItem) {
+                    let collapseDiv = accordionItem.querySelector(".accordion-collapse");
+                    let button = accordionItem.querySelector(".accordion-button");
+
+                    if (collapseDiv && !collapseDiv.classList.contains("show")) {
+                        collapseDiv.classList.add("show");
+                        if (button) button.classList.remove("collapsed");
+                    }
+                }
+
+                // Scroll to the first error smoothly
+                firstError.scrollIntoView({ behavior: "smooth", block: "center" });
             }
         });
+
     </script>
+
 }

@@ -98,63 +98,43 @@ namespace DND_App.Web.Controllers
             // Check if the form submission is valid
             if (!ModelState.IsValid)
             {
-                // Reload dropdown data in case of invalid submission
-                //If validation fails, the lists need to be reloaded so the form can display them.
-                ViewBag.Classes = dndDbContext.CharacterClasses.ToList();
-                ViewBag.Races = dndDbContext.CharacterRaces.ToList();
-                ViewBag.Skills = dndDbContext.Skills.ToList();
-                ViewBag.Spells = dndDbContext.Spells.ToList();
-                ViewBag.Items = dndDbContext.Items.ToList();
-                ViewBag.Treasure = dndDbContext.Treasures.ToList();
-                ViewBag.Alignment = HelperMethods.GetAlignments();
-                ViewBag.Gender = HelperMethods.GetGender();
+                foreach (var error in ModelState)
+                {
+                    Console.WriteLine($"Key: {error.Key}, Error: {string.Join(", ", error.Value.Errors.Select(e => e.ErrorMessage))}");
+                }
 
-                #region Debug to check model state
-                //var spells = dndDbContext.Spells.ToList();
-                //foreach (var spell in spells)
-                //{
-                //    Console.WriteLine($"Id: {spell.Id}, Name: {spell.Name}");
-                //} 
-
-                ////Keep this code to check for errors in ModelState!!
-                //foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-                //{
-                //    Console.WriteLine(error.ErrorMessage);
-                //}
-
-                //Console.WriteLine($"CharacterSpells Count: {characterViewModel.CharacterSpells.Count}");
-                //foreach (var spell in characterViewModel.CharacterSpells)
-                //{
-                //    Console.WriteLine($"Id: {spell.Id}, IsLearned: {spell.IsLearned}");
-                //}
-                //foreach (var key in Request.Form.Keys)
-                //{
-                //    Console.WriteLine($"{key}: {Request.Form[key]}");
-                //}
-                #endregion
-
-                // Return the form with validation errors
+                await LoadViewBagData();
                 return View(createCharacterViewModel);
             }
 
             // Get the currently logged-in loggedInUser
             var loggedInUser = await userManager.GetUserAsync(User);
 
-
-
             // Sanitize the CharacterBackstory to prevent malicious input
             var sanitizer = new HtmlSanitizer();
             createCharacterViewModel.CharacterBackstory = sanitizer.Sanitize(createCharacterViewModel.CharacterBackstory);
+
+            // Fetch the selected CharacterClass from the database
+            var characterClass = await dndDbContext.CharacterClasses
+                .FirstOrDefaultAsync(c => c.Id == createCharacterViewModel.CharacterClassId);
+
+            if (characterClass == null)
+            {
+                ModelState.AddModelError("", "Invalid character class selected.");
+                await LoadViewBagData();
+                return View(createCharacterViewModel);
+            }
 
             // Map the CreateCharacterViewModel to a new Character entity
             var characterDomainModel = new Character
             {
                 // User-related properties
-                UserId = Guid.Parse(loggedInUser.Id), // Associate the characterDomainModel with the logged-in loggedInUser
-                PlayerName = loggedInUser.UserName, // Use the loggedInUser's username as the player name
+                UserId = Guid.Parse(loggedInUser.Id), 
+                PlayerName = loggedInUser.UserName,
 
                 CharacterName = createCharacterViewModel.CharacterName,
                 CharacterClassId = createCharacterViewModel.CharacterClassId,
+                CharacterClass = characterClass,
                 CharacterRaceId = createCharacterViewModel.CharacterRaceId,
                 Strength = createCharacterViewModel.Strength,
                 Dexterity = createCharacterViewModel.Dexterity,
@@ -167,7 +147,6 @@ namespace DND_App.Web.Controllers
                 PassiveWisdom = createCharacterViewModel.PassiveWisdom,
                 Inspiration = createCharacterViewModel.Inspiration,
                 ProficiencyBonus = createCharacterViewModel.ProficiencyBonus,
-                ArmorClass = createCharacterViewModel.ArmorClass,
                 Speed = createCharacterViewModel.Speed,
                 Age = createCharacterViewModel.Age,
                 Height = createCharacterViewModel.Height,
@@ -222,8 +201,8 @@ namespace DND_App.Web.Controllers
                     }).ToList()
             };
 
-            // Calculate and set the Proficiency Bonus based on the character's level
             characterDomainModel.ProficiencyBonus = HelperMethods.CalculateProficiencyBonus(characterDomainModel.Level);
+            characterDomainModel.ArmorClass = HelperMethods.CalculateArmorClass(characterDomainModel);
 
             // Save the new characterDomainModel using the repository
             await characterRepository.CreateAsync(characterDomainModel);
@@ -280,15 +259,15 @@ namespace DND_App.Web.Controllers
         {
             // Fetch the characterDomainModel from the repository or database
             var character = await dndDbContext.Characters
-                .Include(c => c.CharacterClass) // Eagerly load CharacterClass
+                .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace) 
-                .Include(c => c.CharacterSkills) // Eagerly load CharacterSkills
+                .Include(c => c.CharacterSkills) 
                 .ThenInclude(cs => cs.Skill)
-                .Include(c => c.CharacterSpells) // Eagerly load CharacterSpells
+                .Include(c => c.CharacterSpells)
                 .ThenInclude(cs => cs.Spell)
-                .Include(c => c.CharacterItems) // Eagerly load ItemName
+                .Include(c => c.CharacterItems)
                 .ThenInclude(cs => cs.Item)
-                .Include(c => c.CharacterTreasures) // Eagerly load ItemName
+                .Include(c => c.CharacterTreasures)
                 .ThenInclude(cs => cs.Treasure)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -299,20 +278,7 @@ namespace DND_App.Web.Controllers
                 return NotFound();//create another view that says "Character not found"
             }
 
-            //foreach (var item in character.ItemName)
-            //{
-            //    Console.WriteLine($"ItemId: {item.ItemId}, Items is null: {item.Items == null}");
-            //}
-
-            // Populate dropdown data for classes, races, skills, and spells
-            ViewBag.Classes = await dndDbContext.CharacterClasses.ToListAsync();
-            ViewBag.Races = await dndDbContext.CharacterRaces.ToListAsync();
-            ViewBag.Skills = await dndDbContext.Skills.ToListAsync();
-            ViewBag.Spells = await dndDbContext.Spells.ToListAsync();
-            ViewBag.Items = await dndDbContext.Items.ToListAsync();
-            ViewBag.Treasures = await dndDbContext.Treasures.ToListAsync();
-            ViewBag.Alignments = HelperMethods.GetAlignments();
-            ViewBag.Gender = HelperMethods.GetGender();
+            await LoadViewBagData();
 
             // Sanitize the backstory to prevent malicious input
             var sanitizer = new HtmlSanitizer();
@@ -409,25 +375,6 @@ namespace DND_App.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditCharacterViewModel editCharacterRequest)
         {
-            #region Debug suggestions
-            //Console.WriteLine($"Character Name: {editCharacterViewModel.CharacterName}");
-            //Console.WriteLine($"Skills Count: {editCharacterViewModel.CharacterSkills.Count}");
-            //foreach (var skill in editCharacterViewModel.CharacterSkills)
-            //{
-            //    Console.WriteLine($"SkillId: {skill.SkillId}, IsProficient: {skill.IsProficient}, Bonus: {skill.Bonus}");
-            //}
-
-            //Console.WriteLine($"Spells Count: {editCharacterViewModel.CharacterSpells.Count}");
-            //foreach (var spell in editCharacterViewModel.CharacterSpells)
-            //{
-            //    Console.WriteLine($"SpellId: {spell.SpellId}, IsLearned: {spell.IsLearned}");
-            //}
-            //foreach (var key in Request.Form.Keys)
-            //{
-            //    Console.WriteLine($"{key}: {Request.Form[key]}");
-            //}
-            #endregion
-
             #region Check ModelState
             if (!ModelState.IsValid)
             {
@@ -435,22 +382,8 @@ namespace DND_App.Web.Controllers
                 {
                     Console.WriteLine($"Key: {error.Key}, Error: {string.Join(", ", error.Value.Errors.Select(e => e.ErrorMessage))}");
                 }
-                return View(editCharacterRequest);
 
-                ViewBag.Classes = await dndDbContext.CharacterClasses.ToListAsync();
-                ViewBag.Races = await dndDbContext.CharacterRaces.ToListAsync();
-                ViewBag.Skills = await dndDbContext.Skills.ToListAsync();
-                ViewBag.Spells = await dndDbContext.Spells.ToListAsync();
-                ViewBag.Items = await dndDbContext.Items.ToListAsync();
-                ViewBag.Treasures = await dndDbContext.Treasures.ToListAsync();
-                ViewBag.Alignments = HelperMethods.GetAlignments();
-                ViewBag.Gender = HelperMethods.GetGender();
-
-                foreach (var key in Request.Form.Keys)
-                {
-                    Console.WriteLine($"{key}: {Request.Form[key]}");
-                }
-
+                await LoadViewBagData();
                 return View(editCharacterRequest);
             }
             
@@ -463,15 +396,15 @@ namespace DND_App.Web.Controllers
 
             #region Fetch the character from the database or return not found
             var character = await dndDbContext.Characters
-                .Include(c => c.CharacterClass) // Eagerly load CharacterClass
+                .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
-                .Include(c => c.CharacterSkills) // Eagerly load CharacterSkills
+                .Include(c => c.CharacterSkills) 
                 .ThenInclude(cs => cs.Skill)
-                .Include(c => c.CharacterSpells) // Eagerly load CharacterSpells
+                .Include(c => c.CharacterSpells)
                 .ThenInclude(cs => cs.Spell)
-                .Include(c => c.CharacterItems) // Eagerly load ItemName
+                .Include(c => c.CharacterItems) 
                 .ThenInclude(cs => cs.Item)
-                .Include(c => c.CharacterTreasures) // Eagerly load ItemName
+                .Include(c => c.CharacterTreasures) 
                 .ThenInclude(cs => cs.Treasure)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -520,7 +453,15 @@ namespace DND_App.Web.Controllers
                 .Include(ci => ci.Item) // Ensure related ItemName are loaded
                 .LoadAsync();
 
-            // Recalculate Armor Class
+            // Fetch the updated CharacterClass from the database
+            var newCharacterClass = await dndDbContext.CharacterClasses
+                .FirstOrDefaultAsync(c => c.Id == editCharacterRequest.CharacterClassId);
+
+            if (newCharacterClass != null)
+            {
+                character.CharacterClass = newCharacterClass; // Update CharacterClass reference
+            }
+            // Now recalculate Armor Class with the updated class information
             character.ArmorClass = HelperMethods.CalculateArmorClass(character);
 
             // Calculate and update Proficiency Bonus
@@ -722,13 +663,32 @@ namespace DND_App.Web.Controllers
                 .Include(c => c.CharacterClass)
                 .Include(c => c.CharacterRace)
                 .Include(c => c.CharacterSkills)
-                    .ThenInclude(cs => cs.Skill)
+                .ThenInclude(cs => cs.Skill)
                 .Include(c => c.CharacterSpells)
-                    .ThenInclude(cs => cs.Spell)
+                .ThenInclude(cs => cs.Spell)
+                .Include(c => c.CharacterItems)
+                .ThenInclude(cs => cs.Item)
+                .Include(c => c.CharacterTreasures)
+                .ThenInclude(cs => cs.Treasure)
                 .Where(c => c.UserId == Guid.Parse(user.Id))
                 .ToListAsync();
 
             return View(userCharacters);
+        }
+
+        private async Task LoadViewBagData()
+        {
+            Console.WriteLine("🔹 Loading ViewBag Data...");
+
+            ViewBag.Classes = await dndDbContext.CharacterClasses.ToListAsync();
+            ViewBag.Races = await dndDbContext.CharacterRaces.ToListAsync();
+            ViewBag.Skills = await dndDbContext.Skills.ToListAsync();
+            ViewBag.Spells = await dndDbContext.Spells.ToListAsync();
+            ViewBag.Items = await dndDbContext.Items.ToListAsync();
+            ViewBag.Treasures = await dndDbContext.Treasures.ToListAsync();
+
+            ViewBag.Alignments = HelperMethods.GetAlignments();
+            ViewBag.Gender = HelperMethods.GetGender();
         }
     }
 }

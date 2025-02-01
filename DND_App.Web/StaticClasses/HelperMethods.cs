@@ -67,33 +67,19 @@ namespace DND_App.Web.StaticClasses
                 switch (equippedArmor.Item.Name)
                 {
                     case "Leather Armor":
-                        if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.LeatherArmor))
-                        {
-                            baseAC = 11 + dexterityModifier;
-                        }
+                        baseAC = 11 + dexterityModifier;
                         break;
 
                     case "Chain Shirt":
-                        if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.ChainShirt))
-                        {
-                            baseAC = 13 + Math.Min(dexterityModifier, 2);
-                        }
+                        baseAC = 13 + Math.Min(dexterityModifier, 2);
                         break;
 
                     case "Chainmail":
-                        if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.Chainmail))
-                        {
-                            baseAC = 16;
-                        }
-
+                        baseAC = 16;
                         break;
 
                     case "Plate Armor":
-                        if (equippedArmor.Item.Name == ItemNameExtension.GetDisplayName(ItemName.PlateArmor))
-                        {
-                            baseAC = 18;
-                        }
-
+                        baseAC = 18;
                         break;
 
                     default:
@@ -113,6 +99,11 @@ namespace DND_App.Web.StaticClasses
                     int wisdomModifier = (character.Wisdom - 10) / 2;
                     baseAC = 10 + dexterityModifier + wisdomModifier;
                 }
+                else
+                {
+                    // Ensure AC never drops below 10.
+                    baseAC = Math.Max(baseAC, 10);
+                }
             }
 
             // Check if a shield is equipped.
@@ -125,13 +116,15 @@ namespace DND_App.Web.StaticClasses
 
             // Add bonuses from magic items.
             int magicBonus = character.CharacterItems
-                .Where(item => item.Item.ArmorClassBonus > 0)
+                .Where(item => item.Item != null && item.Item.ArmorClassBonus > 0)
                 .Sum(item => item.Item.ArmorClassBonus);
 
             baseAC += magicBonus;
 
-            return baseAC;
+            // Ensure AC never drops below 10.
+            return Math.Max(baseAC, 10);
         }
+
         public static string RenderAttributeSkillsAndTotalModifier(Character character, string attributeName, int attributeValue)
         {
             if (character == null || character.CharacterSkills == null || string.IsNullOrWhiteSpace(attributeName))

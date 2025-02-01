@@ -7,23 +7,39 @@ namespace DND_App.Web.Models.ViewModels
         #region General Info
         public int Id { get; set; }
         public string? CharacterImage { get; set; }
+        [Required(ErrorMessage = "Character Name is required.")]
         public string CharacterName { get; set; }
+
+        [Required(ErrorMessage = "Character Class is required.")]
         public int CharacterClassId { get; set; }
+
+        [Required(ErrorMessage = "Character Race is required.")]
         public int CharacterRaceId { get; set; }
-        public int Level { get; set; }
-        public int ExperiencePoints { get; set; }
-        public string? Alignment { get; set; }
+        
+        [Range(1, 30, ErrorMessage = "Level must be between 1 and 30.")]
+        public int Level { get; set; } = 1;
+        public int ExperiencePoints { get; set; } = 0;
+
+        [Required(ErrorMessage = "Alignment is required.")]
+        public string Alignment { get; set; }
         public int Age { get; set; }
+
+        [Required(ErrorMessage = "Gender is required.")]
         public string Gender { get; set; }
         #endregion
-        #region Attribute
-        public int Strength { get; set; }
-        public int Dexterity { get; set; }
-        public int Constitution { get; set; }
-        public int Intelligence { get; set; }
-        public int Wisdom { get; set; }
-        public int Charisma { get; set; }
-
+        #region Attributes
+        [Range(1, 20, ErrorMessage = "Strength must be between 1 and 20.")]
+        public int Strength { get; set; } = 1;
+        [Range(1, 20, ErrorMessage = "Dexterity must be between 1 and 20.")]
+        public int Dexterity { get; set; } = 1;
+        [Range(1, 20, ErrorMessage = "Constitution must be between 1 and 20.")]
+        public int Constitution { get; set; } = 1;
+        [Range(1, 20, ErrorMessage = "Intelligence must be between 1 and 20.")]
+        public int Intelligence { get; set; } = 1;
+        [Range(1, 20, ErrorMessage = "Wisdom must be between 1 and 20.")]
+        public int Wisdom { get; set; } = 1;
+        [Range(1, 20, ErrorMessage = "Charisma must be between 1 and 20.")]
+        public int Charisma { get; set; } = 1;
         #endregion
         #region Backstory
         public string? CharacterBackstory { get; set; }
@@ -36,13 +52,15 @@ namespace DND_App.Web.Models.ViewModels
         public string? Hair { get; set; }
         #endregion
         #region Combat
+        [Range(10, 40, ErrorMessage = "Attributes must be between 10 and 40.")]
+        public int ArmorClass { get; set; } = 10;
+        public int Speed { get; set; } = 30;
+        public int HitPoints_Total { get; set; }
+
+        public int HitPoints_Current { get; set; }
         public int PassiveWisdom { get; set; }
         public int ProficiencyBonus { get; set; }
-        public int ArmorClass { get; set; }
-        public int Speed { get; set; }
         public string? EncumbranceStatus { get; set; }
-        public int HitPoints_Current { get; set; }
-        public int HitPoints_Total { get; set; }
         public int Initiative { get; set; }
         public float TotalWeight { get; set; }
         #endregion
