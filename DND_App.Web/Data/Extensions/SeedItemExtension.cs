@@ -132,7 +132,7 @@ namespace DND_App.Web.Data.Extensions
                     Description = "A leather-bound tome containing the wizard’s spells.",
                     Weight = 3.0f,
                     Value = 50,
-                    Category = Category.Gear,
+                    Category = Category.MagicItem,
                     ArmorClass = 0,
                     Strength = "",
                     Stealth = "",
@@ -371,9 +371,83 @@ namespace DND_App.Web.Data.Extensions
                 HPRegained = "",
                 Cost = "1500 gp",
                 ArmorClassBonus = 1
+            },
+            new Item
+            {
+                Id = 20,
+                Name = ItemNameExtension.GetDisplayName(ItemName.LeatherArmor),
+                Description = "Made of supple and tanned hide, leather armor is a light armor option.",
+                Weight = 10,
+                Value = 10, // Gold Pieces
+                Category = Category.Armor,
+                ArmorClass = 11,
+                Strength = "None",
+                Stealth = "None",
+                Properties = "Light Armor",
+                Damage = "None",
+                DamageType = "None",
+                Rarity = Rarity.Common,
+                HPRegained = "None",
+                Cost = "10 GP",
+                ArmorClassBonus = 0
+            },
+            new Item
+            {
+                Id = 21,
+                Name = ItemNameExtension.GetDisplayName(ItemName.ChainShirt),
+                Description = "A chain shirt is a flexible suit of interlocking metal rings, providing moderate protection.",
+                Weight = 20,
+                Value = 50, // Gold Pieces
+                Category = Category.Armor,
+                ArmorClass = 13,
+                Strength = "None",
+                Stealth = "None",
+                Properties = "Medium Armor",
+                Damage = "None",
+                DamageType = "None",
+                Rarity = Rarity.Common,
+                HPRegained = "None",
+                Cost = "50 GP",
+                ArmorClassBonus = 0
+            },
+            new Item
+            {
+                Id = 22,
+                Name = ItemNameExtension.GetDisplayName(ItemName.PlateArmor),
+                Description = "Plate consists of shaped, interlocking metal plates covering the entire body. It provides the best protection available.",
+                Weight = 65,
+                Value = 1500, // Gold Pieces
+                Category = Category.Armor,
+                ArmorClass = 18,
+                Strength = "15",
+                Stealth = "Disadvantage",
+                Properties = "Heavy Armor",
+                Damage = "None",
+                DamageType = "None",
+                Rarity = Rarity.Common,
+                HPRegained = "None",
+                Cost = "1500 GP",
+                ArmorClassBonus = 0
+            },
+            new Item
+            {
+                Id = 23,
+                Name = ItemNameExtension.GetDisplayName(ItemName.Shield),
+                Description = "A simple, sturdy shield that bolsters the wearer's defenses.",
+                Weight = 6,
+                Value = 10, // Gold Pieces
+                Category = Category.Armor,
+                ArmorClass = 0, // Shields do not have a base AC, they provide a bonus
+                Strength = "None",
+                Stealth = "None",
+                Properties = "Shield",
+                Damage = "None",
+                DamageType = "None",
+                Rarity = Rarity.Common,
+                HPRegained = "None",
+                Cost = "10 GP",
+                ArmorClassBonus = 2
             }
-
-
             );
         }
     }

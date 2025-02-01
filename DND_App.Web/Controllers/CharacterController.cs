@@ -204,15 +204,21 @@ namespace DND_App.Web.Controllers
             characterDomainModel.ProficiencyBonus = HelperMethods.CalculateProficiencyBonus(characterDomainModel.Level);
             characterDomainModel.ArmorClass = HelperMethods.CalculateArmorClass(characterDomainModel);
 
+
+            Console.WriteLine($"Character {characterDomainModel.Id} has {characterDomainModel.CharacterItems.Count} items.");
+            foreach (var item in characterDomainModel.CharacterItems)
+            {
+                Console.WriteLine($"ItemId: {item.ItemId}, Quantity: {item.Quantity}");
+            }
+
             // Save the new characterDomainModel using the repository
             await characterRepository.CreateAsync(characterDomainModel);
 
-            // Redirect to the details page for the newly created characterDomainModel
             return RedirectToAction("Details", new { id = characterDomainModel.Id });
         }
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             // Retrieve the characterDomainModel by ID, including related entities
             var character = dndDbContext.Characters
@@ -232,16 +238,11 @@ namespace DND_App.Web.Controllers
             if (character == null)
                 return NotFound();
 
-            // Fetch all skills and spells to display in the details view
-            ViewBag.Skills = dndDbContext.Skills.ToList();
-            ViewBag.Spells = dndDbContext.Spells.ToList();
-            ViewBag.Items = dndDbContext.Items.ToList();
-            ViewBag.Treasure = dndDbContext.Treasures.ToList();
-            ViewBag.Alignments = HelperMethods.GetAlignments();
-            ViewBag.Gender = HelperMethods.GetGender();
+            await LoadViewBagData();
 
+            character.ArmorClass = HelperMethods.CalculateArmorClass(character);
+            await dndDbContext.SaveChangesAsync();
 
-            // Pass the characterDomainModel entity to the view for display
             return View(character);
         }
 
@@ -442,6 +443,11 @@ namespace DND_App.Web.Controllers
                         Quantity = selectedItem.Quantity
                     });
                 }
+            }
+            Console.WriteLine($"Received {editCharacterRequest.CharacterItems.Count} items in edit request.");
+            foreach (var item in editCharacterRequest.CharacterItems)
+            {
+                Console.WriteLine($"ItemId: {item.ItemId}, Quantity: {item.Quantity}");
             }
 
             // Save changes to the database
