@@ -3,6 +3,7 @@ using Moq;
 using Microsoft.AspNetCore.Mvc;
 using DND_App.Web.Controllers;
 using DND_App.Web.Repository;
+using DND_App.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using DND_App.Web.Models.Domain;
 using Microsoft.AspNetCore.Http;
@@ -12,16 +13,17 @@ public class CharacterControllerTests
 {
     private readonly CharacterController _controller;
     private readonly Mock<ICharacterRepository> _mockRepo;
+    private readonly Mock<ICharacterService> _mockService;
     private readonly Mock<UserManager<IdentityUser>> _mockUserManager;
 
     public CharacterControllerTests()
     {
-        _mockRepo = new Mock<ICharacterRepository>();
+        _mockService = new Mock<ICharacterService>(); // Mock ICharacterService
         _mockUserManager = new Mock<UserManager<IdentityUser>>(
             new Mock<IUserStore<IdentityUser>>().Object, null, null, null, null, null, null, null, null
         );
 
-        _controller = new CharacterController(_mockRepo.Object, _mockUserManager.Object, null);
+        _controller = new CharacterController(_mockService.Object, _mockUserManager.Object, null);
     }
 
     [Fact]

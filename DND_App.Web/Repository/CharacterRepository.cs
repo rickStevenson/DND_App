@@ -1,6 +1,5 @@
 ﻿using DND_App.Web.Data;
 using DND_App.Web.Models.Domain;
-using DND_App.Web.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace DND_App.Web.Repository

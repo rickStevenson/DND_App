@@ -1,6 +1,7 @@
 using Bloggie.Web.Repositories;
 using DND_App.Web.Data;
 using DND_App.Web.Repository;
+using DND_App.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -37,6 +38,7 @@ builder.Services.AddScoped<ICharacterRaceRepository, CharacterRaceRepository>();
 builder.Services.AddScoped<ICharacterRepository, CharacterRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
+builder.Services.AddScoped<ICharacterService, CharacterService>();
 
 var app = builder.Build();
 

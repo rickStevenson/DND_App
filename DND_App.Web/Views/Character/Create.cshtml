@@ -1,10 +1,15 @@
 ﻿@model DND_App.Web.Models.ViewModels.CreateCharacterViewModel
+@using DND_App.Web.Models.ViewModels
 
 @{
-    var skills = ViewBag.Skills as List<DND_App.Web.Models.Domain.Skill>;
-    var spells = ViewBag.Spells as List<DND_App.Web.Models.Domain.Spell>;
-    var items = ViewBag.Items as List<DND_App.Web.Models.Domain.Item>;
-    var treasures = ViewBag.Treasures as List<DND_App.Web.Models.Domain.Treasure>;
+    var characterClasses = ViewData["Classes"] as List<DND_App.Web.Models.Domain.CharacterClass>;
+    var characterRaces = ViewData["Races"] as List<DND_App.Web.Models.Domain.CharacterRace>;
+    var skills = ViewData["Skills"] as List<DND_App.Web.Models.Domain.Skill>;
+    var spells = ViewData["Spells"] as List<DND_App.Web.Models.Domain.Spell>;
+    var items = ViewData["Items"] as List<DND_App.Web.Models.Domain.Item>;
+    var availableTreasures = ViewData["Treasures"] as List<DND_App.Web.Models.Domain.Treasure>;
+
+
 }
 
 @{
@@ -47,18 +52,31 @@
                         <div>
                             <label style="display:block" class="py-3">Class</label>
                             <select asp-for="CharacterClassId" style="display:block; width:15%">
-                                @foreach (var c in ViewBag.Classes)
+                                @if (characterClasses != null && characterClasses.Any())
                                 {
-                                    <option value="@c.Id">@c.Name</option>
+                                    @foreach (var c in characterClasses)
+                                    {
+                                        <option value="@c.Id">@c.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option disabled>No classes available</option>
                                 }
                             </select>
                         </div>
                         <div>
                             <label style="display: block" class="py-3">Race</label>
                             <select asp-for="CharacterRaceId" style="display:block; width:15%">
-                                @foreach (var r in ViewBag.Races)
+                                @if (characterRaces != null && characterRaces.Any())
+                                    @foreach (var c in characterRaces)
+                                    {
+                                        <option value="@c.Id">@c.Name</option>
+                                    }
+                                }
+                                else
                                 {
-                                    <option value="@r.Id">@r.Name</option>
+                                <option disabled>No races available</option>
                                 }
                             </select>
                         </div>
@@ -81,9 +99,9 @@
                             <select class="form-control" id="alignment"
                                     style="display:block; width:15%"
                                     asp-for="Alignment">
-                                @if (ViewBag.Alignments != null)
+                                @if (ViewData["Alignments"] is List<string> alignments)
                                 {
-                                    @foreach (var alignment in ViewBag.Alignments)
+                                    @foreach (var alignment in alignments)
                                     {
                                         <option value="@alignment">@alignment</option>
                                     }
@@ -92,6 +110,7 @@
                                 {
                                     <option disabled>No alignments available</option>
                                 }
+
                             </select>
                             <span asp-validation-for="Alignment"></span>
                         </div>
@@ -107,17 +126,18 @@
                             <select class="form-control" id="gender"
                                     style="display:block; width:15%"
                                     asp-for="Gender">
-                                @if (ViewBag.Gender != null)
+                                @if (ViewData["Gender"] is List<string> genders)
                                 {
-                                    @foreach (var gender in ViewBag.Gender)
+                                    @foreach (var gender in genders)
                                     {
                                         <option value="@gender">@gender</option>
                                     }
                                 }
                                 else
                                 {
-                                    <option disabled>No gender available</option>
+                                    <option disabled>No gender options available</option>
                                 }
+
                             </select>
                             <span asp-validation-for="Gender"></span>
                         </div>
@@ -460,7 +480,7 @@
                         <h4>Treasures</h4>
                         @for (int i = 0; i < Model.CharacterTreasures.Count; i++)
                         {
-                            var treasure = treasures.FirstOrDefault(ct => ct.Id == Model.CharacterTreasures[i].TreasureId);
+                            var treasure = availableTreasures?.FirstOrDefault(t => t.Id == Model.CharacterTreasures[i].TreasureId);
                             var characterTreasure = Model.CharacterTreasures[i];
 
                             if (treasure != null)

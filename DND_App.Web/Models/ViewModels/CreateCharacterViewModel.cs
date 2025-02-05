@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DND_App.Web.Models.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace DND_App.Web.Models.ViewModels
 {
@@ -78,6 +79,8 @@ namespace DND_App.Web.Models.ViewModels
 
         #endregion
 
+        public List<CharacterClass> Classes { get; set; } = new();
+        public List<CharacterRace> Races { get; set; } = new();
         public List<CharacterSkillRequest> CharacterSkills { get; set; } = new List<CharacterSkillRequest>();
         public List<CharacterSpellRequest> CharacterSpells { get; set; } = new List<CharacterSpellRequest>();
         public List<CharacterItemRequest> CharacterItems { get; set; } = new List<CharacterItemRequest>();
